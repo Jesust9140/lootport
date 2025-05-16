@@ -1,0 +1,41 @@
+.HeaderMenu-more {
+  position: relative;
+  cursor: pointer;
+}
+
+.HeaderMenu-moreBtn {
+  padding: 0.5rem 1rem;
+  background-color: #374151;
+  border-radius: 6px;
+  color: #f3f4f6;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.HeaderMenu-moreBtn:hover {
+  background-color: #4b5563;
+}
+
+.HeaderMenu-moreDropDown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  padding: 0.5rem;
+  z-index: 100;
+  width: 180px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.HeaderMenu-item--dropdown {
+  padding: 0.5rem;
+  color: #e5e7eb;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.HeaderMenu-item--dropdown:hover {
+  background-color: #374151;
+}
