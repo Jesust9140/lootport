@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <title>Lootdrop</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
   <nav>
+    <script>
+  function toggleDropdown() {
+    const menu = document.getElementById('dropdownMenu');
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
     <a href="/" class="logo">
       <img src="concept2.png" alt="Lootdrop Logo" class="logo-image" />
     </a>
@@ -15,6 +21,32 @@
       <a href="/register">Create Account</a>
     </div>
   </nav>
+<!-- Add this to your HTML -->
+<div class="HeaderMenu-more" id="dropdown">
+  <div role="presentation" class="HeaderMenu-moreBtn" onclick="toggleDropdown()">
+    More
+  </div>
+  <div class="HeaderMenu-moreDropDown" id="dropdownMenu" style="display: none;">
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Knife</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Gloves</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Pistol</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Rifle</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">SMG</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Heavy</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Agent</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Charm</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Sticker</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Container</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Key</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Patch</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Graffiti</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Collectible</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Pass</div>
+    <div class="HeaderMenu-item HeaderMenu-item--dropdown">Music Kit</div>
+  </div>
+</div>
+
+
 
   <main>
     <h1>Welcome to Lootdrop</h1>
