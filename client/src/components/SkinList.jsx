@@ -1,18 +1,16 @@
 import React from "react";
 
-const SkinList = ({ skins }) => {
+export default function SkinList({ skins }) {
+  if (!skins || skins.length === 0) return <div>No skins found.</div>;
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
       {skins.map((skin) => (
         <div key={skin._id} style={{ border: "1px solid #ccc", padding: "10px" }}>
-          <img src={skin.imageUrl} alt={skin.name} width="100" />
-          <h4>{skin.name}</h4>
-          <p>Price: ${skin.price}</p>
-          <p>Float: {skin.float}</p>
+          <img src={skin.imageUrl} alt={skin.name} style={{ width: 100 }} />
+          <div>{skin.name}</div>
+          <div>${skin.price}</div>
         </div>
       ))}
     </div>
   );
-};
-
-export default SkinList;
+}
