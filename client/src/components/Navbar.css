@@ -1,0 +1,123 @@
+/* Topbar styles */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0f172a;
+  padding: 0.75rem 1rem;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #1e293b;
+  width: 100%; /* Ensure it stretches across the full width */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Left section (logo and brand) */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #38bdf8;
+}
+
+/* Search bar */
+.search-bar {
+  flex-grow: 1;
+  margin: 0 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #94a3b8;
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+.search-bar::placeholder {
+  color: #94a3b8;
+}
+
+/* Right section (buttons) */
+.right {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  background: #e2e8f0;
+  color: #0f172a;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-btn.primary {
+  background-color: #38bdf8;
+  color: #0f172a;
+}
+
+/* Category bar */
+.categorybar {
+  display: flex;
+  justify-content: space-evenly; /* Distribute links evenly across the bar */
+  align-items: center; /* Align the links vertically */
+  background-color: #1e293b;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  white-space: nowrap;
+  width: 100%; /* Ensure it spans the full width */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.cat-link {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem; /* Add padding for better spacing */
+  border-radius: 4px;
+  transition: background 0.2s ease-in-out;
+}
+
+.cat-link:hover {
+  background-color: #334155;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start;
+  }
+
+  .search-bar {
+    width: 100%; /* Make the search bar take full width */
+    margin: 0.5rem 0;
+  }
+
+  .right {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 0.5rem;
+  }
+
+  .categorybar {
+    overflow-x: auto; /* Allow horizontal scrolling */
+    justify-content: flex-start; /* Align links to the left */
+    gap: 0.5rem; /* Reduce gap for smaller screens */
+  }
+
+  .cat-link {
+    padding: 0.3rem 0.5rem; /* Adjust padding for smaller screens */
+  }
+}

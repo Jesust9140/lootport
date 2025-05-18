@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchSkins } from "../api/skinAPI";
 import SkinList from "../components/SkinList";
-import MoreDropdown from '../components/MoreDropdown';
+import "../style.css"; // Ensure your CSS is correctly imported
 
 export default function Home() {
   const [skins, setSkins] = useState([]);
@@ -16,14 +16,28 @@ export default function Home() {
 
   return (
     <div>
-      <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem' }}>
-        <h1 style={{ color: '#22d3ee' }}>Lootdrop</h1>
-        <MoreDropdown />
-      </nav>
-      <main style={{ textAlign: 'center', marginTop: '5rem' }}>
-        <h2>Available Skins</h2>
-        <SkinList skins={skins} />
+      <main style={{ textAlign: "center", padding: "2rem" }}>
+        <h1>Welcome to Lootdrop</h1>
+        <p>Buy and sell your CS2 skins with confidence.</p>
+        <button
+          onClick={() => (window.location.href = "/api/skins")}
+          style={{
+            padding: "0.5rem 1rem",
+            backgroundColor: "#22d3ee",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginTop: "1rem",
+          }}
+        >
+          View Listings
+        </button>
       </main>
+
+      <footer style={{ textAlign: "center", padding: "1rem", backgroundColor: "#1f2937", color: "#fff" }}>
+        <p>&copy; Jesus Tabora</p>
+      </footer>
     </div>
   );
 }

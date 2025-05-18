@@ -1,15 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
+import logo from '../concept2.png'; // Ensure the logo path is correct
 
-const Navbar = () => {
+const categories = [
+  'Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy',
+  'Agent', 'Charm', 'Sticker', 'Container', 'Key', 'Patch',
+  'Graffiti', 'Collectible', 'Pass', 'Music Kit',
+];
+
+export default function Navbar() {
   return (
-    <nav style={{ padding: '1rem', background: '#1f2937', color: '#fff' }}>
-      <Link to="/" style={{ marginRight: '1rem', color: '#fff' }}>Landing</Link>
-      <Link to="/home" style={{ marginRight: '1rem', color: '#fff' }}>Home</Link>
-      <Link to="/login" style={{ marginRight: '1rem', color: '#fff' }}>Login</Link>
-      <Link to="/register" style={{ color: '#fff' }}>Register</Link>
-    </nav>
-  );
-};
+    <>
+      <div className="topbar">
+        <div className="left">
+          <img src={logo} alt="Lootdrop Logo" className="logo" />
+          <span className="brand">Lootdrop</span>
+        </div>
 
-export default Navbar;
+        <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
+
+        <div className="right">
+          <Link to="/login" className="nav-btn">Login</Link>
+          <Link to="/register" className="nav-btn primary">Create Account</Link>
+        </div>
+      </div>
+
+      <div className="categorybar">
+        {categories.map((cat) => (
+          <Link key={cat} to={`/category/${cat.toLowerCase()}`} className="cat-link">
+            {cat}
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+}
