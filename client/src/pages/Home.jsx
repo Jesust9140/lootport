@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fetchSkins } from "../api/skinAPI";
 import SkinList from "../components/SkinList";
 import "../style.css"; // Ensure your CSS is correctly imported
-
+import FeaturedSlide from "../components/FeaturedSlide";
+<FeaturedSlide />
 export default function Home() {
   const [skins, setSkins] = useState([]);
 

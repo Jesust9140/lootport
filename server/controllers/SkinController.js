@@ -1,19 +1,16 @@
 const Skin = require("../models/Skin");
 
-const getSkins = async (req, res) => {
-  try {
-    const skins = await Skin.find();
-    res.status(200).json(skins);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+const getSkins = (req, res) => {
+  res.json([
+    { name: "Example Skin 1", price: 10, imageUrl: "example1.jpg" },
+    { name: "Example Skin 2", price: 20, imageUrl: "example2.jpg" },
+  ]);
 };
 
 const addSkin = async (req, res) => {
   try {
-    const newSkin = new Skin(req.body);
-    const savedSkin = await newSkin.save();
-    res.status(201).json(savedSkin);
+    const newSkin = req.body; // Mock saving to database
+    res.status(201).json(newSkin);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
