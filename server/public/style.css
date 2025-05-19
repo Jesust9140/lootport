@@ -283,3 +283,61 @@ img {
 .cat-link:hover {
   background-color: #334155;
 }
+
+.promo-section {
+  padding: 3rem 2rem;
+  background-color: #0f172a;
+  color: #f3f4f6;
+  text-align: center;
+}
+
+.promo-section h2 {
+  font-size: 2.5rem;
+  color: #22d3ee;
+  margin-bottom: 1rem;
+}
+
+.promo-section p {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.highlights div {
+  background-color: #1e293b;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.blog-preview h3 {
+  margin-top: 2rem;
+  color: #22d3ee;
+}
+
+.blog-preview ul {
+  list-style: none;
+  padding: 0;
+}
+
+.blog-preview li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-preview a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.blog-preview a:hover {
+  text-decoration: underline;
+}
