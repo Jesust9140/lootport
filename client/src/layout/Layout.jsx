@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 const Layout = () => {
   return (
     <>
-      <Navbar />
       <main style={{ padding: '1rem' }}>
         <Outlet />
       </main>
