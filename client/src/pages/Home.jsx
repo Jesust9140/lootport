@@ -93,7 +93,7 @@ export default function Home() {
           color: "#fff",
         }}
       >
-        <p>&copy; Jesus Tabora</p>
+        <p class="headerfooter">&copy; Jesus Tabora</p>
       </footer>
     </div>
   );

@@ -12,6 +12,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  background-color: #000000;
 }
 
 /* === GLOBAL === */
@@ -61,13 +62,14 @@ nav {
   transition: background 0.2s ease-in-out;
 }
 .nav-links a:hover {
-  background-color: #4b5563;
+  background-color: #222427;
 }
 
 /* === MAIN === */
 main {
   margin-top: 0;
   text-align: center;
+  background-color: #0c0c0c
 }
 
 h1 {
@@ -273,7 +275,7 @@ img {
   color: #0f172a;
 }
 .page-content {
-  padding-top: 112px; /* 64px (top-nav) + 48px (category-bar) */
+  padding-top: 140px; /* Height of nav + category bar */
 }
 
 .categorybar {
@@ -420,7 +422,7 @@ img {
 }
 
 .nav-left {
-  flex: 0 0 auto; /* Prevent the logo from stretching */
+  flex: 0 0 auto; /* Keep the logo fixed in size */
   display: flex;
   align-items: center;
 }
@@ -447,7 +449,7 @@ img {
 }
 
 .nav-right {
-  flex: 0 0 auto; /* Prevent the buttons from stretching */
+  flex: 0 0 auto; /* Keep the buttons fixed in size */
   display: flex;
   gap: 1rem; /* Add spacing between buttons */
 }
@@ -594,13 +596,19 @@ img {
 @media (max-width: 768px) {
   .top-nav {
     flex-direction: column;
-    height: auto; /* Allow height to adjust for stacked layout */
     gap: 1rem;
     align-items: flex-start;
   }
 
+  .nav-left,
+  .nav-right,
   .nav-search {
     width: 100%;
+    justify-content: space-between;
+    background: none;
+  }
+
+  .nav-search {
     justify-content: center;
   }
 

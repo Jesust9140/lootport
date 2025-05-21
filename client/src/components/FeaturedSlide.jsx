@@ -1,5 +1,5 @@
 import React from "react";
-import "../style.css"; // Assuming global styles are here
+import "../style.css";
 
 export default function FeaturedSlide() {
   return (
