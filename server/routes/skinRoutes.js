@@ -1,12 +1,14 @@
 const express = require("express");
-const { getSkins, addSkin } = require("../controllers/SkinController");
-
 const router = express.Router();
 
-// GET /api/skins
-router.get("/", getSkins);
-
-// POST /api/skins
-router.post("/", addSkin);
+// Example route to fetch skins
+router.get("/", (req, res) => {
+  console.log("GET /api/skins hit");
+  res.json([
+    { id: 1, name: "AK-47 | Redline", price: 25.0 },
+    { id: 2, name: "AWP | Dragon Lore", price: 1500.0 },
+  ]);
+});
+console.log("GET /api/skins route defined");
 
 module.exports = router;
