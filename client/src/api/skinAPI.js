@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/skins"; // Ensure this matches your backend URL
+const API_URL = "/api/skins";
 
 export const fetchSkins = async () => {
   const res = await axios.get(API_URL);

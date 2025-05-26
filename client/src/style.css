@@ -15,6 +15,20 @@ html, body {
   background-color: #000000;
 }
 
+/* Ensure the page takes up the full viewport height */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content should take up available space */
+main {
+  flex: 1;
+}
+
 /* === GLOBAL === */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -159,7 +173,7 @@ button[type="submit"]:hover {
   background-color: #06b6d4;
 }
 
-footer {
+/* footer {
     margin: 2rem 0;
     text-align: center;
     color: #cbd5e1;
@@ -177,7 +191,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-}
+} */
 /* Group input with icon */
 .input-group {
   position: relative;
@@ -276,8 +290,50 @@ img {
 }
 .page-content {
   padding-top: 140px; /* Height of nav + category bar */
+  flex: 1;
 }
 
+/* Root container to take full height */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container takes up the full viewport height */
+}
+
+/* Main content grows to fill available space */
+.page-content {
+  flex: 1; /* Makes the main content grow to fill the available space */
+}
+
+/* === CORE LAYOUT FIX === */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+.page-content {
+  flex: 1; /* Take up all available space */
+  padding-top: 140px; /* Adjust if needed to match header height */
+}
+
+/* Footer styling */
+.footer {
+  background-color: #0f172a;
+  color: #f3f4f6;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-top: 1px solid #1e293b;
+  margin: 0;        /* 🔧 No extra margin */
+  flex-shrink: 0;   /* 🔧 Prevent from shrinking */
+}
 .categorybar {
   display: flex;
   overflow-x: auto;

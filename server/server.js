@@ -14,9 +14,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 // Register API routes
 const skinsRoutes = require("./routes/skinRoutes");
 app.use("/api/skins", skinsRoutes);
+
+// Serve static files
+app.use(express.static(path.join(__dirname, "public")));
 
 // Serve static files only in production
 if (process.env.NODE_ENV === "production") {
@@ -26,14 +34,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Handle invalid API routes
-app.get("/api/:id", (req, res) => {
-  res.send(`ID: ${req.params.id}`);
-});
-
-// Basic test route
-app.get("/test", (req, res) => {
-  res.send("Test route works!");
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).send("Route not found");
 });
 
 // Start the server

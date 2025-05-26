@@ -149,7 +149,7 @@ button[type="submit"]:hover {
 }
 
 
-footer a {
+/* footer a {
   color: #22d3ee;
   text-decoration: none;
   margin: 0 0.5rem;
@@ -157,9 +157,9 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
-}
+} */
 
-footer {
+/* footer { */
     /* margin: 2rem 0;
     text-align: center;
     color: #cbd5e1;
@@ -177,7 +177,7 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 0.5rem; */
-}
+
 /* Group input with icon */
 .input-group {
   position: relative;
