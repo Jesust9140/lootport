@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
-import CategoryNav from "../components/CategoryNav";
 import ImageCarousel from "../components/ImageCarousel";
 import SkinList from "../components/SkinList";
 import { fetchSkins } from "../api/skinAPI";
 
 export default function Home() {
   const [skins, setSkins] = useState([]);
+  const [dropdowns, setDropdowns] = useState({
+    rifles: false,
+    pistols: false,
+    smgs: false,
+    heavy: false,
+    agent: false,
+    sticker: false,
+    container: false,
+    key: false,
+    patch: false,
+    collectibles: false,
+    pass: false,
+    musicKit: false,
+  });
 
   useEffect(() => {
     const load = async () => {
@@ -19,10 +32,83 @@ export default function Home() {
     load();
   }, []);
 
+  const toggleDropdown = (category) => {
+    setDropdowns((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
+  };
+
   return (
     <div className="app-container">
-      {/* Fixed Navigation */}
-      <CategoryNav />
+      {/* Top Navigation */}
+      <div className="top-nav">
+        <div className="nav-left">
+      
+          <img src="/concept2.png" alt="Logit go" className="logo-image" />
+          <span className="brand">Lootdrop</span>
+        </div>
+        <div className="nav-search">
+          <input type="text" className="search-input" placeholder="Search for skins..." />
+        </div>
+        <div className="nav-right">
+          <a href="/login" className="auth-link">Login</a>
+          <a href="/register" className="auth-link">Register</a>
+        </div>
+      </div>
+
+      {/* Category Bar */}
+      <div className="category-bar">
+        {[
+          { name: "Rifles", key: "rifles" },
+          { name: "Pistols", key: "pistols" },
+          { name: "SMGs", key: "smgs" },
+          { name: "Heavy", key: "heavy" },
+          { name: "Agent", key: "agent" },
+          { name: "Sticker", key: "sticker" },
+          { name: "Container", key: "container" },
+          { name: "Key", key: "key" },
+          { name: "Patch", key: "patch" },
+          { name: "Collectibles", key: "collectibles" },
+          { name: "Pass", key: "pass" },
+          { name: "Music Kit", key: "musicKit" },
+        ].map((category) => (
+          <div key={category.key} className="cat-dropdown">
+            <a
+              href={`/${category.key}`}
+              className="cat-link"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleDropdown(category.key);
+              }}
+            >
+              {category.name}
+            </a>
+            {dropdowns[category.key] && (
+              <div className="dropdown-menu">
+                {skins
+                  .filter((skin) => skin.category?.toLowerCase() === category.key)
+                  .slice(0, 3) // Show only 3 preview items
+                  .map((skin) => (
+                    <a href={`/skins/${skin._id}`} className="dropdown-item" key={skin._id}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <img
+                          src={skin.imageUrl}
+                          alt={skin.name}
+                          style={{ width: "32px", height: "32px", borderRadius: "4px" }}
+                        />
+                        <span>{skin.name}</span>
+                      </div>
+                    </a>
+                  ))}
+                {skins.filter((skin) => skin.category?.toLowerCase() === category.key).length === 0 && (
+                  <div className="dropdown-item">No items found</div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
       {/* Content Wrapper */}
       <div className="page-content">
@@ -83,7 +169,6 @@ export default function Home() {
           <SkinList skins={skins} />
         </main>
       </div>
-
     </div>
   );
 }
