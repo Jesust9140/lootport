@@ -27,8 +27,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Handle invalid API routes
-app.get("/api/*", (req, res) => {
-  res.status(404).send("Invalid route");
+app.get("/api/:id", (req, res) => {
+  res.send(`ID: ${req.params.id}`);
 });
 
 // Basic test route
