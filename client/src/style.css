@@ -1,10 +1,137 @@
+/* === Variables === */
+:root {
+  --color-primary: #22d3ee;
+  --color-primary-hover: #06b6d4;
+  --color-secondary: #2d3748;
+  --color-secondary-hover: #374151;
+  --color-background: #1f2937;
+  --color-text: #e2e8f0;
+  --color-border: #374151;
+  --color-error: #f87171;
+
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+
+  --border-radius: 6px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* === Utility Classes === */
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.mt-medium {
+  margin-top: var(--spacing-medium);
+}
+
+.mb-medium {
+  margin-bottom: var(--spacing-medium);
+}
+
+.p-medium {
+  padding: var(--spacing-medium);
+}
+
+.rounded {
+  border-radius: var(--border-radius);
+}
+
+.shadow {
+  box-shadow: var(--box-shadow);
+}
+
+/* === Global Styles === */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family);
+}
+
+/* === Components === */
+/* Login and Register Forms */
+.form-container {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  padding: var(--spacing-large);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.form-container h2 {
+  margin-bottom: var(--spacing-medium);
+  color: var(--color-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+}
+
+.form input {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: var(--spacing-small);
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--color-secondary-hover);
+  color: var(--color-text);
+}
+
+.form input:focus {
+  outline: none;
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5);
+}
+
+.form button {
+  padding: var(--spacing-small);
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--border-radius);
+  color: #111827;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.form button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* === Responsive Design === */
 @media (max-width: 768px) {
-  .carousel-container {
-    height: 260px;
+  .form-container {
+    padding: var(--spacing-medium);
   }
 
-  .carousel-arrow {
-    font-size: 1.8rem;
+  .form input {
+    max-width: 100%;
   }
 }
 
@@ -12,7 +139,83 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #000000;
+  height: 100%;
+}
+
+/* Set a consistent background color for the entire app */
+html, body {
+  background-color: #1f2937; /* Match the app's theme */
+  color: #e2e8f0; /* Match text color */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Ensure the login container matches the app's theme */
+.login-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #2d3748; /* Match the app's card background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #e2e8f0;
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+}
+
+/* Register container styling */
+.register-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #2d3748; /* Match the app's card background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #e2e8f0;
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+}
+
+/* Register form styling */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.register-form input {
+  width: 100%; /* Default to full width within the container */
+  max-width: 300px; /* Set a maximum width */
+  margin: 0 auto; /* Center the input boxes */
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #374151;
+  color: #f9fafb;
+}
+
+.register-form input:focus {
+  outline: none;
+  background-color: #4b5563;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5); /* Add a focus effect */
+}
+
+.register-form button {
+  padding: 0.75rem;
+  background-color: #22d3ee;
+  border: none;
+  border-radius: 6px;
+  color: #111827;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.register-form button:hover {
+  background-color: #06b6d4;
 }
 
 /* Ensure the page takes up the full viewport height */
@@ -325,14 +528,14 @@ html, body {
 
 /* Footer styling */
 .footer {
-  background-color: #0f172a;
-  color: #f3f4f6;
+  background-color: #0f172a; /* Match the app's footer background */
+  color: #f3f4f6; /* Match the app's footer text color */
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
   border-top: 1px solid #1e293b;
-  margin: 0;        /* 🔧 No extra margin */
-  flex-shrink: 0;   /* 🔧 Prevent from shrinking */
+  margin: 0;
+  flex-shrink: 0;
 }
 .categorybar {
   display: flex;

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Skin from "../models/Skin.js";
 
 const skinSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -41,8 +40,8 @@ const seedSkins = async () => {
   }
 };
 
-seedSkins();
+const Skin = mongoose.model("Skin", skinSchema); // Ensure this is declared only once
 
-const Skin = mongoose.model("Skin", skinSchema);
+seedSkins();
 
 export default Skin;

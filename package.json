@@ -11,15 +11,17 @@
     "start:server": "npm --prefix server start",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "npm --prefix client start",
-    "dev:server": "npm --prefix server run dev"
+    "dev:server": "npm --prefix server run dev",
+    "lint": "eslint ."
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.27.1",
     "@eslint/js": "^9.27.0",
     "concurrently": "^7.6.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.1.0"
+    "globals": "^16.2.0"
   },
   "dependencies": {
     "express": "^5.1.0",

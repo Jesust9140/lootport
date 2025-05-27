@@ -23,12 +23,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Debugging middleware
-app.use((req, res, next) => {
-  console.log(`Incoming request: ${req.method} ${req.url}`);
-  next();
-});
-
 // Routes
 app.use("/api/skins", skinsRoutes);
 
