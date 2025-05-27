@@ -1,6 +1,0 @@
-# Local changes
-node_modules/
-dist/
-
-# Remote changes
-.env

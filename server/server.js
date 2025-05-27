@@ -1,11 +1,20 @@
-const express = require("express");
-const path = require("path");
-require("dotenv").config();
+import express from "express";
+import path from "path";
+import connectDB from "./config/db.js"; 
+// import skinsRoutes from "./routes/skinRoutes.js";
+import dotenv from "dotenv";
+import cors from 'cors';
+import mongoose from 'mongoose';
+
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware to parse JSON
+// Connect to the database
+connectDB();
+
+// Middleware
 app.use(express.json());
 
 // Debugging middleware
@@ -14,9 +23,17 @@ app.use((req, res, next) => {
   next();
 });
 
-// Register API routes
-const skinsRoutes = require("./routes/skinRoutes");
+// Debugging middleware
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
+
+// Routes
 app.use("/api/skins", skinsRoutes);
+
+// Serve static files
+app.use(express.static(path.join(__dirname, "public")));
 
 // Serve static files only in production
 if (process.env.NODE_ENV === "production") {
@@ -26,17 +43,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-// Handle invalid API routes
-app.get("/api/*", (req, res) => {
-  res.status(404).send("Invalid route");
-});
-
-// Basic test route
-app.get("/test", (req, res) => {
-  res.send("Test route works!");
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).send("Route not found");
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
