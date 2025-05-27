@@ -24,6 +24,18 @@ import { fetchSkins } from "../api/skinAPI";
 // The component uses a section element to group the promotional content
 // The component uses a main element to group the main content of the page
 // The component uses a div element to wrap the entire content of the page
+// The component uses the useEffect hook to fetch data when the component mounts
+// The component uses the useState hook to manage the state of the skins array
+// The component uses the fetchSkins function from the skinAPI module to fetch skin data
+// The component uses the CategoryNav component to display a navigation bar
+// The component uses the ImageCarousel component to display a carousel of images
+// The component uses the SkinList component to display a list of available skins
+// The component uses inline styles to set the padding and text alignment of various sections
+// The component uses a button to redirect the user to the API endpoint for viewing listings
+// The component uses a footer to display my name
+// The component uses a section element to group the promotional content
+// The component uses a main element to group the main content of the page
+// The component uses a div element to wrap the entire content of the page
 export default function Home() {
   const [skins, setSkins] = useState([]);
   const [dropdowns, setDropdowns] = useState({
@@ -61,7 +73,7 @@ export default function Home() {
   };
 
   return (
-    <div className="app-container">
+    <div className="home-container">
       {/* Top Navigation */}
       <div className="top-nav">
         <div className="nav-left">
@@ -157,6 +169,40 @@ export default function Home() {
           <p>Buy and sell your CS2 skins with trust.</p>
           <SkinList skins={skins} />
         </main>
+
+        {/* Sticky Item Box */}
+        <div className="sticky-item-box">
+          <div className="item-card">
+            <img
+              className="item-image"
+              src="https://community.cloudflare.steamstatic.com/economy/image/class/730/520114340/256x128"
+              alt="Butterfly Knife | Slaughter"
+            />
+            <div className="item-info">
+              <div className="item-title">★ Butterfly Knife | Slaughter</div>
+              <div className="item-subtitle">Minimal Wear ★ Covert Knife</div>
+              <div className="item-price">
+                <span className="current-price">$2,566.87</span>
+                <span className="old-price">Suggested price $3,009.48</span>
+              </div>
+            </div>
+          </div>
+          <div className="item-card">
+            <img
+              className="item-image"
+              src="https://community.cloudflare.steamstatic.com/economy/image/class/730/520114341/256x128"
+              alt="AK-47 | Redline"
+            />
+            <div className="item-info">
+              <div className="item-title">AK-47 | Redline</div>
+              <div className="item-subtitle">Field-Tested ★ Classified Rifle</div>
+              <div className="item-price">
+                <span className="current-price">$42.50</span>
+                <span className="old-price">Suggested price $55.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
