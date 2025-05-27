@@ -44,8 +44,7 @@ export default function Home() {
       {/* Top Navigation */}
       <div className="top-nav">
         <div className="nav-left">
-      
-          <img src="/concept2.png" alt="Logit go" className="logo-image" />
+          <img src="/concept2.png" alt="Logo" className="logo-image" />
           <span className="brand">Lootdrop</span>
         </div>
         <div className="nav-search">
@@ -90,16 +89,24 @@ export default function Home() {
                   .filter((skin) => skin.category?.toLowerCase() === category.key)
                   .slice(0, 3) // Show only 3 preview items
                   .map((skin) => (
-                    <a href={`/skins/${skin._id}`} className="dropdown-item" key={skin._id}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        <img
-                          src={skin.imageUrl}
-                          alt={skin.name}
-                          style={{ width: "32px", height: "32px", borderRadius: "4px" }}
-                        />
-                        <span>{skin.name}</span>
+                    <div className="preview-card" key={skin._id}>
+                      <img src={skin.imageUrl} alt={skin.name} className="preview-img" />
+                      <div className="preview-info">
+                        <div className="preview-title">{skin.name}</div>
+                        <div className="preview-meta">
+                          <span className="preview-price">${skin.price.toFixed(2)}</span>
+                          {skin.suggestedPrice && (
+                            <span className="preview-suggested">
+                              Suggested: ${skin.suggestedPrice.toFixed(2)}
+                            </span>
+                          )}
+                        </div>
+                        <div className="preview-tags">
+                          <span className={`rarity-tag ${skin.rarity?.toLowerCase()}`}>{skin.rarity}</span>
+                          <span className="wear-tag">{skin.wear}</span>
+                        </div>
                       </div>
-                    </a>
+                    </div>
                   ))}
                 {skins.filter((skin) => skin.category?.toLowerCase() === category.key).length === 0 && (
                   <div className="dropdown-item">No items found</div>
@@ -121,51 +128,12 @@ export default function Home() {
           <p>
             Lootdrop is your trusted space to buy, sell, and explore premium Counter-Strike 2 skins. Built with gamers in mind, our platform puts speed, security, and great prices first — without the noise.
           </p>
-
-          <div className="highlights" style={{ display: "flex", justifyContent: "space-around", marginTop: "2rem" }}>
-            <div>
-              <strong>Zero Buyer Fees</strong>
-              <p>What you see is what you pay. No extra costs, no surprises.</p>
-            </div>
-            <div>
-              <strong>Fast Transactions</strong>
-              <p>Instant delivery through automated trade bots, 24/7.</p>
-            </div>
-            <div>
-              <strong>Verified Reviews</strong>
-              <p>Rated excellent by real users. We earn trust with transparency.</p>
-            </div>
-          </div>
-
-          <div className="blog-preview" style={{ marginTop: "2rem" }}>
-            <h3>Latest from the Blog</h3>
-            <ul style={{ listStyle: "none", padding: 0 }}>
-              <li><a href="/blog/m0nesy-settings">m0NESY Settings - Crosshair, Resolution, Hardware</a></li>
-              <li><a href="/blog/case-hardened-guide">Five-SeveN Case Hardened Pattern Guide</a></li>
-              <li><a href="/blog/gloves-budget">Top Gloves for CS2 on a Budget</a></li>
-            </ul>
-          </div>
         </section>
 
         {/* Main Content */}
         <main style={{ textAlign: "center", padding: "2rem" }}>
-          <h1>Welcome to Lootdrop</h1>
-          <p>Buy and sell your CS2 skins with confidence.</p>
-          <button
-            onClick={() => (window.location.href = "/api/skins")}
-            style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: "#22d3ee",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              marginTop: "1rem",
-            }}
-          >
-            View Listings
-          </button>
-          <h2>Available Skins</h2>
+          <h1>Find Skins Here!</h1>
+          <p>Buy and sell your CS2 skins with trust.</p>
           <SkinList skins={skins} />
         </main>
       </div>

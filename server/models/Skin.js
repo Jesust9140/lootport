@@ -1,10 +1,48 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import Skin from "../models/Skin.js";
 
-const SkinSchema = new mongoose.Schema({
-  name: String,
-  price: Number,
-  imageUrl: String,
-  category: String, // e.g., "rifles", "pistols"
+const skinSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  price: { type: Number, required: true },
+  suggestedPrice: { type: Number },
+  imageUrl: { type: String, required: true },
+  rarity: { type: String, required: true },
+  wear: { type: String, required: true },
+  category: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Skin", SkinSchema);
+const seedSkins = async () => {
+  const skins = [
+    {
+      name: "AK-47 | Redline",
+      price: 42.5,
+      suggestedPrice: 55.0,
+      imageUrl: "https://example.com/ak47-redline.png",
+      rarity: "Classified",
+      wear: "Field-Tested",
+      category: "rifles",
+    },
+    {
+      name: "AWP | Dragon Lore",
+      price: 1500.0,
+      suggestedPrice: 1800.0,
+      imageUrl: "https://example.com/awp-dragon-lore.png",
+      rarity: "Covert",
+      wear: "Minimal Wear",
+      category: "rifles",
+    },
+  ];
+
+  try {
+    await Skin.insertMany(skins);
+    console.log("Skins seeded successfully!");
+  } catch (error) {
+    console.error("Error seeding skins:", error);
+  }
+};
+
+seedSkins();
+
+const Skin = mongoose.model("Skin", skinSchema);
+
+export default Skin;

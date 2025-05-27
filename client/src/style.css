@@ -398,12 +398,13 @@ html, body {
 }
 .carousel-container {
   position: relative;
-  width: 100vw;
+  margin-top: -10px; /* Pull it up slightly */
+  padding: 0; /* Remove any padding */
+  width: 100%;
   max-width: 100%;
   height: 480px; /* Adjust height as needed */
-  margin: 2rem auto;
   overflow: hidden;
-  border-radius: 0; /* Use 12px if you want rounded corners */
+  border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -598,9 +599,9 @@ html, body {
   padding: 0.5rem 1rem;
   gap: 1rem;
   position: sticky;
-  top: 64px; /* Offset below the top-nav */
+  top: 64px; 
   z-index: 998;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .category-item {
@@ -616,7 +617,7 @@ html, body {
 }
 
 .dropdown-menu {
-  display: block;
+   display: block;
   background-color: #1f2937;
   border: 1px solid #374151;
   padding: 0.5rem;
@@ -625,10 +626,11 @@ html, body {
   top: 100%;
   left: 0;
   z-index: 1001;
-  min-width: 200px;
+  min-width: 220px;
+  max-height: 300px;
+  overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-
 .dropdown-item {
   padding: 0.5rem;
   color: #cbd5e1;
@@ -713,3 +715,87 @@ html, body {
     justify-content: flex-start;
   }
 }
+
+.preview-card {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.preview-card:hover {
+  transform: scale(1.02);
+}
+
+.preview-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.preview-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.preview-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #22d3ee;
+}
+
+.preview-meta {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.preview-price {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.preview-suggested {
+  color: #f87171;
+  margin-left: 0.5rem;
+  text-decoration: line-through;
+}
+
+.preview-tags {
+  margin-top: 0.25rem;
+  display: flex;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+}
+
+.rarity-tag {
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: #374151;
+}
+
+.rarity-tag.covert {
+  color: #f43f5e;
+}
+.rarity-tag.classified {
+  color: #ec4899;
+}
+.rarity-tag.restricted {
+  color: #a78bfa;
+}
+
+.wear-tag {
+  background-color: #4b5563;
+  color: #f3f4f6;
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+}
+

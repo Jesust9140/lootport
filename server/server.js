@@ -1,11 +1,20 @@
-const express = require("express");
-const path = require("path");
-require("dotenv").config();
+import express from "express";
+import path from "path";
+import connectDB from "./config/db.js"; 
+// import skinsRoutes from "./routes/skinRoutes.js";
+import dotenv from "dotenv";
+import cors from 'cors';
+import mongoose from 'mongoose';
+
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-// Middleware to parse JSON
+// Connect to the database
+connectDB();
+
+// Middleware
 app.use(express.json());
 
 // Debugging middleware
@@ -14,13 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Root route
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
-
-// Register API routes
-const skinsRoutes = require("./routes/skinRoutes");
+// Routes
 app.use("/api/skins", skinsRoutes);
 
 // Serve static files
@@ -40,6 +43,5 @@ app.use((req, res, next) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
