@@ -1,1 +1,6 @@
-node_modules
+# Local changes
+node_modules/
+dist/
+
+# Remote changes
+.env
