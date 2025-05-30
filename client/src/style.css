@@ -803,10 +803,11 @@ html, body {
   padding: 0.5rem 1rem;
   gap: 1rem;
   position: sticky;
-  top: 64px; 
+  top: 64px;
   z-index: 998;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
 
 .category-item {
   position: relative;
