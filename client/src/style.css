@@ -1006,8 +1006,8 @@ html, body {
 
 /* Sticky container for items */
 .sticky-item-box {
-  position: sticky;
-  bottom: 0;
+  position: relative;
+  bottom: unset;
   left: 0;
   width: 100%;
   background-color: #696f7c; /* Light grey background */
