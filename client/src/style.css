@@ -456,7 +456,7 @@ img {
 .brand {
   font-weight: bold;
   font-size: 1.2rem;
-  color: #38bdf8;
+  color: #55539a;
 }
 
 .search-bar {
@@ -752,12 +752,12 @@ html, body {
 .logo-image {
   height: 40px; /* Adjust logo size */
 }
-
+/* 
 .brand {
   font-weight: bold;
   font-size: 1.2rem;
   color: #38bdf8;
-}
+} */
 
 .nav-search {
   flex: 1; /* Allow the search bar to take up available space */

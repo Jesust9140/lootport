@@ -15,9 +15,9 @@ export default [
         ...globals.browser,
         ...globals.node,
       },
-      parser: require.resolve("@babel/eslint-parser"), // Use require.resolve to locate the parser
+      parser: "@babel/eslint-parser", 
       parserOptions: {
-        requireConfigFile: false, // Allow parsing without a Babel config file
+        requireConfigFile: false,
         ecmaFeatures: {
           jsx: true,
         },
