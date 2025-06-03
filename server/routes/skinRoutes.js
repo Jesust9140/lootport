@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 // Example route to fetch all skins
 router.get("/", (req, res) => {
-  console.log("GET /api/skins hit");
+  console.log("GET /api/skins works!");
   res.json([
     { id: 1, name: "AK-47 | Redline", price: 25.0 },
     { id: 2, name: "AWP | Dragon Lore", price: 1500.0 },
@@ -29,4 +29,4 @@ router.get("/:id", (req, res) => {
 
 console.log("GET /api/skins route defined");
 
-module.exports = router;
+export default router;

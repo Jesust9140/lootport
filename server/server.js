@@ -1,15 +1,17 @@
 import express from "express";
 import path from "path";
+import { fileURLToPath } from 'url';
 import connectDB from "./config/db.js"; 
-// import skinsRoutes from "./routes/skinRoutes.js";
+import skinsRoutes from "./routes/skinRoutes.js";
 import dotenv from "dotenv";
 import cors from 'cors';
 import mongoose from 'mongoose';
 
-
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+dotenv.config();
 
 // Connect to the database
 connectDB();
@@ -23,24 +25,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+// API routes
 app.use("/api/skins", skinsRoutes);
 
-// Serve static files
-app.use(express.static(path.join(__dirname, "public")));
+// Catch-all: send back React's index.html for any route not handled above
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+// });
 
-// Serve static files only in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-  });
-}
-
-// 404 handler
-app.use((req, res, next) => {
-  res.status(404).send("Route not found");
-});
+// 404 handler -- come back to this error for Idea to write it.
+// app.use((req, res, next) => {
+//   res.status(404).send("Route not found");
+// });
 
 // Start the server
 const PORT = process.env.PORT || 5000;
