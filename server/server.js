@@ -4,8 +4,6 @@ import { fileURLToPath } from 'url';
 import connectDB from "./config/db.js"; 
 import skinsRoutes from "./routes/skinRoutes.js";
 import dotenv from "dotenv";
-import cors from 'cors';
-import mongoose from 'mongoose';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
