@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../concept2.png'; // Ensure the logo path is correct
+import MoreDropdown from './MoreDropdown'; // Import the MoreDropdown component
 
 const categories = [
   'Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy',
@@ -32,6 +33,8 @@ export default function Navbar() {
             {cat}
           </Link>
         ))}
+        {/* More Dropdown Menu*/}
+          <MoreDropdown />
       </div>
     </>
   );

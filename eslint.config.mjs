@@ -1,13 +1,14 @@
+// Import ESLint recommended config, global vars, and React plugin
 import js from "@eslint/js";
 import globals from "globals";
 import react from "eslint-plugin-react";
 
 
 export default [
-  js.configs.recommended,
+  js.configs.recommended, 
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
-    ignores: ["client/build/**"], // Exclude build directory
+    files: ["**/*.{js,mjs,cjs,jsx}"], 
+    ignores: ["client/build/**"], 
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -24,10 +25,10 @@ export default [
       },
     },
     plugins: {
-      react,
+      react, 
     },
     rules: {
-      "react/react-in-jsx-scope": "off",
+      "react/react-in-jsx-scope": "off", 
     },
   },
 ];
