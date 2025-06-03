@@ -29,7 +29,7 @@ jobs:
 
       # Run linting
       - name: Run Lint
-        run: npx eslint . --ext .js,.jsx
+        run: npx eslint .
 
       # Build the React app
       - name: Build React App
