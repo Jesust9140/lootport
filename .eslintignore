@@ -1,0 +1,9 @@
+# Ignore build files
+client/build/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore other generated files
+coverage/
+dist/

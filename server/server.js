@@ -29,6 +29,10 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 // API routes
 app.use("/api/skins", skinsRoutes);
 
+import skinRoutes from "./routes/skin.js";
+app.use("/api/skins", skinRoutes);
+
+
 // Catch-all: send back React's index.html for any route not handled above
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
