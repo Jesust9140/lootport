@@ -286,7 +286,14 @@ nav {
   z-index: 1000;
   border-bottom: 1px solid #1e293b;
 }
-
+.categorybar {
+  display: flex;
+  overflow-x: auto;
+  background-color: #1e293b;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  white-space: nowrap;
+}
 /* Left section (logo and brand) */
 .logo-image {
   width: 48px;
@@ -432,33 +439,128 @@ button[type="submit"]:hover {
   background-color: #06b6d4;}
 
 
-  /* Image Courasel */
-  .input-group {
-  position: relative;
+/* Image Courasel */
+  .cat-link {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
 }
 
-.input-icon {
-  width: 20px;
-  height: 20px;
+.cat-link:hover {
+  background-color: #334155;
+}
+
+/* Image Carousel */
+.carousel-container {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Arrows */
+.carousel-arrow {
   position: absolute;
   top: 50%;
-  left: 12px;
   transform: translateY(-50%);
-  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
 }
 
-.input-group input {
-  width: 100%;
-  padding-left: 2.5rem;
+.carousel-arrow.left {
+  left: 10px;
 }
 
+.carousel-arrow.right {
+  right: 10px;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: white;
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Slide Content */
+.Slide-content {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  padding: 2rem;
+  border-radius: 16px;
+  color: #f3f4f6;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.Slide-title {
+  font-size: 2.5rem;
+  color: #22d3ee;
+  margin-bottom: 0.5rem;
+}
+
+.Slide-title span {
+  color: #facc15;
+  font-weight: bold;
+}
+
+.Slide-description {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #cbd5e1;
+}
+
+/* Utility Classes */
 img {
   max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
 }
-
 
 .right {
   display: flex;
@@ -477,7 +579,7 @@ img {
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid #94a3b8;
-  background-color: #1e293b;
+  background-color: #278f2c;
   color: #e2e8f0;
 }
 .search-bar::placeholder {
@@ -497,3 +599,93 @@ img {
   background-color: #38bdf8;
   color: #0f172a;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+.categorybar {
+  display: flex;
+  overflow-x: auto;
+  background-color: #1e293b;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  white-space: nowrap;
+}
+
+
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  padding: 0.5rem;
+  border-radius: 6px;
+  z-index: 1001;
+  min-width: 220px; 
+  max-height: 300px; 
+  overflow-y: auto; /* Add vertical scrolling */
+  scrollbar-width: thin; /* Optional: Thin scrollbar for Firefox */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.dropdown-item {
+  padding: 0.5rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  display: block;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #334155;
+}
+
+.cat-link::after {
+  content: " ▼";
+  font-size: 0.6rem;
+  color: #94a3b8;
+}
+.dropdown-menu::-webkit-scrollbar {
+  width: 6px; /* Optional: Thin scrollbar for Chrome */
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: #374151;
+  border-radius: 4px;
+}
+
+.category-item:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-link {
+  padding: 0.25rem 0.5rem;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.dropdown-link:hover {
+  background-color: #374151;
+  border-radius: 4px;
+}
+
+/* Need to understand how to add style to my backend in CSS. */
+
+/* Need to design preview tags */
+/* Rarity*/
+/* type of skin, red, blue etc*/
+/* Price*/
+/* Title */
+/* Description */
+/* Image */
+
+
+
+
