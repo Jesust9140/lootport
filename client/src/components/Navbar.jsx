@@ -1,8 +1,8 @@
 // import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../concept2.png'; // Ensure the logo path is correct
-import MoreDropdown from './MoreDropdown'; // Import the MoreDropdown component
+import logo from '../concept2.png';
+import MoreDropdown from './MoreDropdown';
 
 const categories = [
   'Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy',
@@ -15,8 +15,10 @@ export default function Navbar() {
     <>
       <div className="topbar">
         <div className="left">
-          <img src={logo} alt="Lootdrop Logo" className="logo" />
-          <span className="brand">Lootdrop</span>
+          <Link to="/" className="brand-link">
+            <img src={logo} alt="Lootdrop Logo" className="logo" />
+            <span className="brand">Lootdrop</span>
+          </Link>
         </div>
 
         <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
@@ -33,8 +35,7 @@ export default function Navbar() {
             {cat}
           </Link>
         ))}
-        {/* More Dropdown Menu*/}
-          <MoreDropdown />
+        <MoreDropdown />
       </div>
     </>
   );
