@@ -18,14 +18,19 @@ const images = [
 		alt: "Secure and fast",
 	},
 	{
-		src: "https://via.placeholder.com/800x400?text=Example+Image+4",
-		srcSet: "https://via.placeholder.com/1600x800?text=Example+Image+4+2x",
-		alt: "Example Image 4",
+		src: "https://images.ctfassets.net/nua5jmq7o9f6/3lJbNI9ejAErd360ouIMt4/36d05cade16e3e875ab16c365d5e6fb8/Thumbnail__19_.png?fm=webp&q=85&w=250",
+		srcSet: "https://images.ctfassets.net/nua5jmq7o9f6/3lJbNI9ejAErd360ouIMt4/36d05cade16e3e875ab16c365d5e6fb8/Thumbnail__19_.png?fm=webp&q=85&w=500 2x",
+		alt: "New Thumbnail 1",
 	},
 	{
-		src: "https://via.placeholder.com/800x400?text=Example+Image+5",
-		srcSet: "https://via.placeholder.com/1600x800?text=Example+Image+5+2x",
-		alt: "Example Image 5",
+		src: "https://images.ctfassets.net/nua5jmq7o9f6/5WsvGIJFEtu15gEbaxkIqX/6057cc408c88b74cfe351938f6616c32/Thumbnail__20_.png?fm=webp&q=85&w=250",
+		srcSet: "https://images.ctfassets.net/nua5jmq7o9f6/5WsvGIJFEtu15gEbaxkIqX/6057cc408c88b74cfe351938f6616c32/Thumbnail__20_.png?fm=webp&q=85&w=500 2x",
+		alt: "New Thumbnail 2",
+	},
+	{
+		src: "https://images.ctfassets.net/nua5jmq7o9f6/7xp0HUN3zn7E3GvEEvveON/88eb5c667e7ddbc68258fc5a1e395b53/Thumbnail_1__43_.png?fm=webp&q=85&w=250",
+		srcSet: "https://images.ctfassets.net/nua5jmq7o9f6/7xp0HUN3zn7E3GvEEvveON/88eb5c667e7ddbc68258fc5a1e395b53/Thumbnail_1__43_.png?fm=webp&q=85&w=500 2x",
+		alt: "New Thumbnail 3",
 	},
 ];
 
