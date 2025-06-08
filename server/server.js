@@ -5,8 +5,19 @@ import connectDB from "./config/db.js";
 import skinsRoutes from "./routes/skinRoutes.js";
 import dotenv from "dotenv";
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// come back to this "cors" have no idea what this means.
+const cors = require("cors");
+const corsOptions = {
+  origin: "http://localhost:3000", // Adjust this to your React app's URL
+  credemtols: true, // Allow credentials if needed
+  methods: "GET,POST,PUT,DELETE,OPTIONS", // Allowed HTTP methods
+}
+app.use(cors(corsOptions));
+// End of "cors" middleware
 
 const app = express();
 dotenv.config();
