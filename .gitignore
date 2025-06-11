@@ -1,1 +1,14 @@
 client/src/style.css
+.env 
+# Ignore node_modules
+node_modules/
+# Ignore build output
+build/
+# Ignore logs
+logs/
+# Ignore temporary files
+tmp/
+# Ignore coverage reports
+coverage/
+# Ignore environment variables
+thingsnotinuse/
