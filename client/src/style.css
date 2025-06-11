@@ -5,7 +5,7 @@
   --color-secondary: #2d3748;
   --color-secondary-hover: #374151;
   /* Color background for the whole body besides nav color*/
-  --color-background: rgb(238,72,111);
+  --color-background: rgb(0, 0, 0);
   --color-text: #e2e8f0;
   --color-border: #374151;
   --color-error: #f87171;
@@ -48,16 +48,6 @@ html, body {
   font-family: var(--font-family);
  
 }
-
-/* body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0; 
-  background: linear-gradient(to right, #313235, #2f3236);
-  color: #f3f4f6;
-  min-height: 100vh;
-  padding-bottom: 70px; 
-} */
 
 
 /* Utility class */
@@ -284,7 +274,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #363333;
+  background-color: rgba(15, 23, 42, 0.9); /* Darker background */
   padding: 0.75rem 2rem;
   color: white;
   position: sticky;
@@ -461,7 +451,7 @@ button[type="submit"]:hover {
 /* Image Carousel */
 .carousel-container {
   position: relative;
-  max-width: 800px;
+  max-width: 1500px;
   margin: 2rem auto;
   overflow: hidden;
   border-radius: 16px;
@@ -582,7 +572,7 @@ img {
   gap: 0.5rem;
 }
 
-.search-bar {
+/* .search-bar {
   width: 300px; 
   height: 42px; 
   padding: 0.5rem 1rem; 
@@ -608,7 +598,7 @@ img {
   justify-content: center; 
   align-items: center;
   margin: 1rem auto; 
-}
+} */
 
 .nav-btn {
   padding: 0.5rem 1rem;
@@ -643,7 +633,7 @@ img {
 }
 
 
-
+/* 
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -656,9 +646,14 @@ img {
   z-index: 1001;
   min-width: 220px; 
   max-height: 300px; 
-  overflow-y: auto; /* Add vertical scrolling */
-  scrollbar-width: thin; /* Optional: Thin scrollbar for Firefox */
+  overflow-y: auto; 
+  scrollbar-width: thin; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+.drowndown-menu.show{
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .dropdown-item {
@@ -680,8 +675,7 @@ img {
   color: #94a3b8;
 }
 .dropdown-menu::-webkit-scrollbar {
-  width: 6px; /* Optional: Thin scrollbar for Chrome */
-}
+  width: 6px; }
 
 .dropdown-menu::-webkit-scrollbar-thumb {
   background-color: #374151;
@@ -701,7 +695,7 @@ img {
 .dropdown-link:hover {
   background-color: #374151;
   border-radius: 4px;
-}
+} */
 
 
 /* Disable scrolling for static pages */

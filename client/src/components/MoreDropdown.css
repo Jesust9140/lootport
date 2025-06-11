@@ -1,3 +1,4 @@
+/* MoreDropdown.css */
 .HeaderMenu-more {
   position: relative;
   cursor: pointer;
@@ -39,3 +40,4 @@
 .HeaderMenu-item--dropdown:hover {
   background-color: #374151;
 }
+
