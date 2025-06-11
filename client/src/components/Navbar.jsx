@@ -24,8 +24,8 @@ export default function Navbar() {
         <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
 
         <div className="right">
-          <Link to="/login" className="nav-btn">Login</Link>
-          <Link to="/register" className="nav-btn primary">Create Account</Link>
+          <Link to="/login" className="nav-btn">Log In</Link>
+          <Link to="/register" className="nav-btn primary">Sign Up</Link>
         </div>
       </div>
 
