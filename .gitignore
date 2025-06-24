@@ -1,17 +1,24 @@
-client/src/style.css
-<<<<<<< HEAD
-.env 
-# Ignore node_modules
-node_modules/
-# Ignore build output
-build/
-# Ignore logs
-logs/
-# Ignore temporary files
-tmp/
-# Ignore coverage reports
-coverage/
-# Ignore environment variables
-thingsnotinuse/
-=======
->>>>>>> d29f7e76c9ed0bd9eca1fbcb5512b858bc09647b
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django stuff
+*.log
+db.sqlite3
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Frontend stuff
+client/node_modules/
+client/build/
+client/.pnp
+client/.pnp.js
+
+# IDE settings
+.vscode/
+.idea/
