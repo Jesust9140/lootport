@@ -1,4 +1,5 @@
 client/src/style.css
+<<<<<<< HEAD
 .env 
 # Ignore node_modules
 node_modules/
@@ -12,3 +13,5 @@ tmp/
 coverage/
 # Ignore environment variables
 thingsnotinuse/
+=======
+>>>>>>> d29f7e76c9ed0bd9eca1fbcb5512b858bc09647b
