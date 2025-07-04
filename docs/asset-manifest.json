@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/lootport/static/css/main.7b7f6765.css",
+    "main.js": "/lootport/static/js/main.ee1a5e8d.js",
+    "static/js/453.e0d5e1d6.chunk.js": "/lootport/static/js/453.e0d5e1d6.chunk.js",
+    "static/media/concept2.png": "/lootport/static/media/concept2.0740411f1ed316936b76.png",
+    "index.html": "/lootport/index.html",
+    "main.7b7f6765.css.map": "/lootport/static/css/main.7b7f6765.css.map",
+    "main.ee1a5e8d.js.map": "/lootport/static/js/main.ee1a5e8d.js.map",
+    "453.e0d5e1d6.chunk.js.map": "/lootport/static/js/453.e0d5e1d6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7b7f6765.css",
+    "static/js/main.ee1a5e8d.js"
+  ]
+}

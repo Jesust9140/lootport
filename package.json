@@ -27,5 +27,6 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "path-to-regexp": "^8.2.0"
-  }
+  },
+  "homepage": "https://jesust9140.github.io/lootport/"
 }

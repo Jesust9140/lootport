@@ -6,15 +6,21 @@ import { fetchSkins } from "../api/skinAPI";
 
 export default function Home() {
   const [skins, setSkins] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Load skins from backend
   useEffect(() => {
     const loadSkins = async () => {
       try {
+        setIsLoading(true);
         const data = await fetchSkins();
         setSkins(data);
       } catch (error) {
         console.error("Error fetching skins:", error);
+        setError("Could not fetch skins. Please try again later.");
+      } finally {
+        setIsLoading(false);
       }
     };
     loadSkins();
@@ -41,7 +47,9 @@ export default function Home() {
       <main style={{ textAlign: "center", padding: "2rem" }}>
         <h1>Find Skins Here!</h1>
         <p>Buy and sell your CS2 skins with trust.</p>
-        <SkinList skins={skins} />
+        {isLoading && <p>Loading skins...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {!isLoading && !error && <SkinList skins={skins} />}
       </main>
 
       {/* Sticky Item Box */}
