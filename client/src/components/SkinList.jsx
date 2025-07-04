@@ -1,8 +1,5 @@
 import "./SkinList.css";
 
-
-
-
 const SkinList = ({ skins }) => (
   <div className="skin-list">
     {skins.map((skin) => (

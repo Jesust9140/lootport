@@ -1,29 +1,28 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from 'url';
+import cors from "cors";
 import connectDB from "./config/db.js"; 
 import skinsRoutes from "./routes/skinRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import dotenv from "dotenv";
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// come back to this "cors" have no idea what this means.
-const cors = require("cors");
-const corsOptions = {
-  origin: "http://localhost:3000", // Adjust this to your React app's URL
-  credemtols: true, // Allow credentials if needed
-  methods: "GET,POST,PUT,DELETE,OPTIONS", // Allowed HTTP methods
-}
-app.use(cors(corsOptions));
-// End of "cors" middleware
 
 const app = express();
 dotenv.config();
 
 // Connect to the database
 connectDB();
+
+// CORS middleware
+const corsOptions = {
+  origin: "http://localhost:3000", // Adjust this to your React app's URL
+  credentials: true, // Allow credentials if needed
+  methods: "GET,POST,PUT,DELETE,OPTIONS", // Allowed HTTP methods
+}
+app.use(cors(corsOptions));
 
 // Middleware
 app.use(express.json());
@@ -39,9 +38,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 // API routes
 app.use("/api/skins", skinsRoutes);
-
-import skinRoutes from "./routes/skin.js";
-app.use("/api/skins", skinRoutes);
+app.use("/api/auth", authRoutes);
 
 
 // Catch-all: send back React's index.html for any route not handled above

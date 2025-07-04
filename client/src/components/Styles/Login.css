@@ -13,6 +13,20 @@
   margin: auto;
 }
 
+.button-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.button-wrapper button {
+  pointer-events: auto;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -49,39 +63,45 @@
   transition: background 0.2s ease-in-out;
 }
 
-.lootdrop-button1 {
+.lootdrop-button {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: -13rem;
+  left: -13rem;
+  
   background: none;
   border: none;
   color: rgb(246, 246, 246);
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+  padding: 0.25rem 0.5rem;
 }
 
-.lootdrop-button1:hover {
+.lootdrop-button:hover {
   color: var(--color-primary-hover);
   transform: scale(1.1);
 }
 
-.close-button1 {
+.close-button {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top:-13rem;
+  right: -13rem;
   background: none;
   border: none;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+  padding: 0.25rem;
+  line-height: 1;
 }
 
-.close-button1:hover {
+.close-button:hover {
   color: var(--color-primary-hover);
   transform: scale(1.1);
 }

@@ -10,6 +10,7 @@
   max-width: 400px;
   width: 100%;
   margin: auto;
+  position: relative;
 }
 
 .register-form {
@@ -48,39 +49,18 @@
   transition: background 0.2s ease-in-out;
 }
 
-.lootdrop-button1 {
+/* Button styles are imported from Login.css to avoid duplication */
+
+.button-wrapper {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: none;
-  border: none;
-  color: rgb(246, 246, 246);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  pointer-events: none;
+  z-index: 10;
 }
 
-.lootdrop-button1:hover {
-  color: var(--color-primary-hover);
-  transform: scale(1.1);
-}
-
-.close-button1 {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.close-button1:hover {
-  color: var(--color-primary-hover);
-  transform: scale(1.1);
+.button-wrapper button {
+  pointer-events: auto;
 }

@@ -22,7 +22,10 @@
     "globals": "^16.2.0"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "path-to-regexp": "^8.2.0"
   }
 }

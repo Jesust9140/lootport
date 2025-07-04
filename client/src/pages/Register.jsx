@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "../components/Styles/Register.css";
+import "../components/Styles/Login.css"; // Import for shared button styles
 
 export default function Register() {
   const navigate = useNavigate();
