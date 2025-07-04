@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './MoreDropdown.css';
 
-const MoreDropdown = () => {
+const MoreDropdown = ({ categories = [] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
   return (
-    <div className="HeaderMenu-more">
-      <div role="presentation" className="HeaderMenu-moreBtn" onClick={toggleDropdown}>
+    <div 
+      className="more-wrapper"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <div className="HeaderMenu-moreBtn">
         More
       </div>
       {isOpen && (
         <div className="HeaderMenu-moreDropDown">
-          {['Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy', 'Agent', 'Charm', 'Sticker', 'Container', 'Key', 'Patch', 'Graffiti', 'Collectible', 'Pass', 'Music Kit'].map((item) => (
-            <div key={item} role="presentation" className="HeaderMenu-item HeaderMenu-item--dropdown">
+          {categories.map((item) => (
+            <Link 
+              key={item} 
+              to={`/category/${item.toLowerCase()}`}
+              className="HeaderMenu-item HeaderMenu-item--dropdown"
+            >
               {item}
-            </div>
+            </Link>
           ))}
         </div>
       )}

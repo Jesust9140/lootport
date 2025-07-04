@@ -16,41 +16,21 @@ export default function Login() {
     setError("");
     
     try {
-      // Simple fallback authentication for demo purposes
-      if (email === "admin@lootdrop.com" && password === "admin123") {
-        // Create mock user data
-        const mockUser = {
-          id: "1",
-          username: "Admin", 
-          email: "admin@lootdrop.com",
-          joinDate: new Date().toISOString()
-        };
-        
-        // Store auth data in localStorage
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("authToken", "mock-token-123");
-        localStorage.setItem("user", JSON.stringify(mockUser));
-        
-        // Redirect to dashboard
-        navigate("/dashboard");
-        return;
-      }
+      const result = await loginUser(email, password);
       
-      // Try backend authentication
-      try {
-        await loginUser(email, password);
-        localStorage.setItem("isLoggedIn", "true");
+      // Store auth data in localStorage
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("authToken", result.token);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      
+      // Redirect based on user role
+      if (result.user.role === 'admin') {
         navigate("/dashboard");
-      } catch (backendError) {
-        // If backend fails, show helpful error
-        if (email && password) {
-          setError("Backend server not running. Try: admin@lootdrop.com / admin123 for demo mode.");
-        } else {
-          setError("Please enter email and password");
-        }
+      } else {
+        navigate("/profile");
       }
     } catch (error) {
-      setError(error.message || "Login failed. Please try again.");
+      setError(error.message || "Login failed. Please check your credentials.");
     } finally {
       setLoading(false);
     }
@@ -103,12 +83,38 @@ export default function Login() {
             </button>
           </form>
           
-          <p style={{ marginTop: "1rem", fontSize: "0.9rem", color: "#9ca3af" }}>
-            <strong>Demo credentials:</strong> admin@lootdrop.com / admin123
-          </p>
+          <div className="auth-links">
+            <div className="link-row">
+              <button 
+                type="button" 
+                className="link-button forgot-link"
+                onClick={() => alert("Password reset feature coming soon! Contact support at jesust9140@gmail.com")}
+              >
+                Forgot Password?
+              </button>
+              <button 
+                type="button" 
+                className="link-button forgot-link"
+                onClick={() => alert("Username recovery feature coming soon! Contact support at jesust9140@gmail.com")}
+              >
+                Forgot Username?
+              </button>
+            </div>
+            
+            <div className="signup-section">
+              <p>Don't have an account?</p>
+              <button 
+                type="button" 
+                className="signup-button"
+                onClick={() => navigate("/register")}
+              >
+                Sign Up
+              </button>
+            </div>
+          </div>
           
-          <p style={{ marginTop: "0.5rem", fontSize: "0.8rem", color: "#6b7280" }}>
-            💡 If backend is not running, demo mode will be used automatically
+          <p style={{ marginTop: "1rem", fontSize: "0.9rem", color: "#9ca3af" }}>
+            <strong>Note:</strong> Admin access is restricted to jesust9140@gmail.com
           </p>
         </div>
       </main>

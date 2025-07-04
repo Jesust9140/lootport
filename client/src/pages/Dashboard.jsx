@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchSkins } from "../api/skinAPI";
 import { getStoredUser } from "../api/authAPI";
+import { getUserNotifications } from "../api/notificationAPI";
 import "../components/Styles/Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [userSkins, setUserSkins] = useState([]);
-  const [recentActivity] = useState([
-    { id: 1, action: "Bought", item: "AK-47 Redline", price: 45.99, date: "2 hours ago" },
-    { id: 2, action: "Sold", item: "M4A4 Howl", price: 1299.99, date: "1 day ago" },
-    { id: 3, action: "Listed", item: "AWP Dragon Lore", price: 2499.99, date: "3 days ago" }
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const [recentActivity] = useState([]);
   const [stats] = useState({
-    totalValue: 3847.52,
-    itemsOwned: 23,
-    totalSales: 12,
-    totalPurchases: 35
+    totalValue: 0,
+    itemsOwned: 0,
+    totalSales: 0,
+    totalPurchases: 0
   });
 
   useEffect(() => {
@@ -36,14 +33,25 @@ export default function Dashboard() {
 
     const loadUserSkins = async () => {
       try {
-        const data = await fetchSkins();
-        // Simulate user's skins (first 6 items)
-        setUserSkins(data.slice(0, 6));
+        // Start with empty skins - admin can add real data later
+        setUserSkins([]);
       } catch (error) {
-        console.error("Error fetching user skins:", error);
+        console.error("Error loading user skins:", error);
       }
     };
+    
+    const loadNotifications = async () => {
+      try {
+        const notificationData = await getUserNotifications();
+        setNotifications(notificationData.slice(0, 3)); // Show only first 3 in dashboard
+      } catch (error) {
+        console.error("Error loading notifications:", error);
+        setNotifications([]);
+      }
+    };
+    
     loadUserSkins();
+    loadNotifications();
   }, []);
 
   return (
@@ -113,16 +121,24 @@ export default function Dashboard() {
         <div className="dashboard-card inventory-card">
           <h2>My Inventory</h2>
           <div className="inventory-grid">
-            {userSkins.map((skin) => (
-              <div key={skin._id} className="inventory-item">
-                <img src={skin.imageUrl} alt={skin.name} />
-                <div className="item-details">
-                  <h4>{skin.name}</h4>
-                  <p className="item-wear">{skin.wear}</p>
-                  <span className="item-price">${skin.price.toFixed(2)}</span>
-                </div>
+            {userSkins.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-icon">🎒</div>
+                <p>No items in inventory</p>
+                <span>Your skins will appear here when you add them</span>
               </div>
-            ))}
+            ) : (
+              userSkins.map((skin) => (
+                <div key={skin._id} className="inventory-item">
+                  <img src={skin.imageUrl} alt={skin.name} />
+                  <div className="item-details">
+                    <h4>{skin.name}</h4>
+                    <p className="item-wear">{skin.wear}</p>
+                    <span className="item-price">${skin.price.toFixed(2)}</span>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
           <button className="btn-view-all">View All Items</button>
         </div>
@@ -131,20 +147,28 @@ export default function Dashboard() {
         <div className="dashboard-card activity-card">
           <h2>Recent Activity</h2>
           <div className="activity-list">
-            {recentActivity.map((activity) => (
-              <div key={activity.id} className="activity-item">
-                <div className="activity-info">
-                  <span className={`activity-action ${activity.action.toLowerCase()}`}>
-                    {activity.action}
-                  </span>
-                  <span className="activity-item-name">{activity.item}</span>
-                </div>
-                <div className="activity-details">
-                  <span className="activity-price">${activity.price.toFixed(2)}</span>
-                  <span className="activity-date">{activity.date}</span>
-                </div>
+            {recentActivity.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-icon">📊</div>
+                <p>No recent activity yet</p>
+                <span>Your transactions will appear here</span>
               </div>
-            ))}
+            ) : (
+              recentActivity.map((activity) => (
+                <div key={activity.id} className="activity-item">
+                  <div className="activity-info">
+                    <span className={`activity-action ${activity.action.toLowerCase()}`}>
+                      {activity.action}
+                    </span>
+                    <span className="activity-item-name">{activity.item}</span>
+                  </div>
+                  <div className="activity-details">
+                    <span className="activity-price">${activity.price.toFixed(2)}</span>
+                    <span className="activity-date">{activity.date}</span>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
           <button className="btn-view-all">View All Activity</button>
         </div>
@@ -176,34 +200,31 @@ export default function Dashboard() {
         <div className="dashboard-card notifications-card">
           <h2>Recent Notifications</h2>
           <div className="dashboard-notifications">
-            <div className="dashboard-notification-item sale">
-              <div className="notification-icon">💰</div>
-              <div className="notification-content">
-                <h4>Item Sold!</h4>
-                <p>Your AK-47 Redline has been sold for $45.99</p>
-                <span className="notification-time">5 minutes ago</span>
+            {notifications.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-icon">🔔</div>
+                <p>No notifications yet</p>
+                <span>Notifications will appear here</span>
               </div>
-              <div className="notification-status unread"></div>
-            </div>
-            
-            <div className="dashboard-notification-item news">
-              <div className="notification-icon">🆕</div>
-              <div className="notification-content">
-                <h4>New Website Feature</h4>
-                <p>Price tracking is now available for your favorite skins</p>
-                <span className="notification-time">2 hours ago</span>
-              </div>
-              <div className="notification-status unread"></div>
-            </div>
-            
-            <div className="dashboard-notification-item purchase read">
-              <div className="notification-icon">🛒</div>
-              <div className="notification-content">
-                <h4>Purchase Confirmed</h4>
-                <p>M4A4 Howl successfully purchased for $1,299.99</p>
-                <span className="notification-time">1 day ago</span>
-              </div>
-            </div>
+            ) : (
+              notifications.map((notification) => (
+                <div key={notification._id} className={`dashboard-notification-item ${notification.read ? 'read' : 'unread'}`}>
+                  <div className="notification-icon">
+                    {notification.type === 'sale' ? '💰' : 
+                     notification.type === 'purchase' ? '🛒' : 
+                     notification.type === 'system' ? '🆕' : '📢'}
+                  </div>
+                  <div className="notification-content">
+                    <h4>{notification.title}</h4>
+                    <p>{notification.message}</p>
+                    <span className="notification-time">
+                      {new Date(notification.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                  {!notification.read && <div className="notification-status unread"></div>}
+                </div>
+              ))
+            )}
           </div>
           <button className="btn-view-all">View All Notifications</button>
         </div>

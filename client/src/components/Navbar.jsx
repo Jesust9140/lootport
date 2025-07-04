@@ -1,39 +1,65 @@
-// import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { isAuthenticated, logoutUser } from '../api/authAPI';
 import NotificationDropdown from './NotificationDropdown';
+import ProfileDropdown from './ProfileDropdown';
+import CategoryDropdown from './CategoryDropdown';
 import './Navbar.css';
 import MoreDropdown from './MoreDropdown';
 
 const categories = [
-  'Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy',
-  'Agent', 'Charm', 'Sticker', 'Container', 'Key', 'Patch',
-  'Graffiti', 'Collectible', 'Pass', 'Music Kit',
+  'Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy', 'Agent', 'Charm', 'Sticker', 'Container', 'Key', 'Patch', 'Graffiti', 'Collectible', 'Pass', 'Music Kit'
 ];
+
+const moreCategories = [];
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    // Check if user is authenticated using multiple methods
-    const token = localStorage.getItem("authToken");
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const user = localStorage.getItem("user");
-    
-    setIsLoggedIn(!!(token && user) || isLoggedIn);
-  }, []);
+    const checkAuthState = () => {
+      const token = localStorage.getItem("authToken");
+      const isLoggedInStorage = localStorage.getItem("isLoggedIn") === "true";
+      const userStr = localStorage.getItem("user");
+      
+      if (token && userStr) {
+        try {
+          const user = JSON.parse(userStr);
+          setIsLoggedIn(true);
+          setUserRole(user.role);
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+          setIsLoggedIn(isLoggedInStorage);
+        }
+      } else {
+        setIsLoggedIn(isLoggedInStorage);
+      }
+    };
 
-  const handleLogout = () => {
-    // Clear all authentication data
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-    localStorage.removeItem("userEmail");
-    
-    setIsLoggedIn(false);
-    window.location.href = "/"; // Redirect to home
-  };
+    // Check auth state on mount
+    checkAuthState();
+
+    // Listen for storage changes (when user logs in from another tab or component)
+    const handleStorageChange = (e) => {
+      if (e.key === 'authToken' || e.key === 'user' || e.key === 'isLoggedIn') {
+        checkAuthState();
+      }
+    };
+
+    // Listen for custom auth events
+    const handleAuthChange = () => {
+      checkAuthState();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('authStateChanged', handleAuthChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('authStateChanged', handleAuthChange);
+    };
+  }, []);
 
   return (
     <>
@@ -51,13 +77,18 @@ export default function Navbar() {
           {isLoggedIn ? (
             <>
               <NotificationDropdown />
-              <Link to="/dashboard" className="nav-btn dashboard">Dashboard</Link>
-              <button onClick={handleLogout} className="nav-btn">Logout</button>
+              <Link to="/inventory" className="nav-btn inventory-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Inventory
+              </Link>
+              <ProfileDropdown />
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-btn">Log In</Link>
-              <Link to="/register" className="nav-btn primary">Sign Up</Link>
+              <Link to="/auth" className="nav-btn">Log In</Link>
+              <Link to="/auth" className="nav-btn primary">Sign Up</Link>
             </>
           )}
         </div>
@@ -69,7 +100,11 @@ export default function Navbar() {
             {cat}
           </Link>
         ))}
-        <MoreDropdown />
+        {moreCategories.map((cat) => (
+          <Link key={cat} to={`/category/${cat.toLowerCase()}`} className="cat-link">
+            {cat}
+          </Link>
+        ))}
       </div>
     </>
   );

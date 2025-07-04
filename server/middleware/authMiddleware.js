@@ -57,3 +57,39 @@ export const authenticate = async (req, res, next) => {
     });
   }
 };
+
+// Middleware to check if user is admin (only jesust9140@gmail.com)
+export const requireAdmin = async (req, res, next) => {
+  try {
+    // First authenticate the user
+    await authenticate(req, res, async () => {
+      // Get the user from database to check role and email
+      const user = await User.findById(req.user.userId);
+      
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: "User not found.",
+        });
+      }
+
+      // Check if user is admin and has the specific admin email
+      if (user.role !== 'admin' || user.email.toLowerCase() !== 'jesust9140@gmail.com') {
+        return res.status(403).json({
+          success: false,
+          message: "Access denied. Admin privileges required.",
+        });
+      }
+
+      req.user.role = user.role;
+      req.user.email = user.email;
+      next();
+    });
+  } catch (error) {
+    console.error("Admin check error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error during admin verification.",
+    });
+  }
+};

@@ -5,6 +5,10 @@ import cors from "cors";
 import connectDB from "./config/db.js"; 
 import skinsRoutes from "./routes/skinRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import inventoryRoutes from "./routes/inventoryRoutes.js";
+import steamRoutes from "./routes/steamRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 import dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +43,10 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 // API routes
 app.use("/api/skins", skinsRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/inventory", inventoryRoutes);
+app.use("/api/steam", steamRoutes);
+app.use("/api/profile", profileRoutes);
 
 
 // Catch-all: send back React's index.html for any route not handled above

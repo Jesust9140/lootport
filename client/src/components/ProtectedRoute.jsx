@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 // Simple authentication check that works with both backend and demo mode
 const isUserAuthenticated = () => {
@@ -11,6 +11,35 @@ const isUserAuthenticated = () => {
   return !!(token && user) || isLoggedIn;
 };
 
-export default function ProtectedRoute({ children }) {
-  return isUserAuthenticated() ? children : <Navigate to="/login" replace />;
+// Check if user is admin
+const isUserAdmin = () => {
+  try {
+    const userStr = localStorage.getItem("user");
+    if (!userStr) return false;
+    
+    const user = JSON.parse(userStr);
+    return user.role === 'admin' && user.email.toLowerCase() === 'jesust9140@gmail.com';
+  } catch (error) {
+    console.error("Error checking admin status:", error);
+    return false;
+  }
+};
+
+export default function ProtectedRoute({ children, adminOnly = false }) {
+  const location = useLocation();
+  
+  // Check if user is authenticated
+  if (!isUserAuthenticated()) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  // If route requires admin access, check admin status
+  if (adminOnly || location.pathname === '/dashboard') {
+    if (!isUserAdmin()) {
+      // Redirect non-admin users to their profile page
+      return <Navigate to="/profile" replace />;
+    }
+  }
+  
+  return children;
 }

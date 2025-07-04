@@ -37,7 +37,7 @@ export default function DebugAuth() {
   return (
     <div style={{
       position: "fixed",
-      top: "10px",
+      top: "120px", 
       right: "10px",
       background: "rgba(0,0,0,0.8)",
       color: "white",

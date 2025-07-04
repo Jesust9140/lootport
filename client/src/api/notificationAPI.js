@@ -41,7 +41,7 @@ export const markNotificationAsRead = async (notificationId) => {
     }
 
     const response = await fetch(`${API_BASE_URL}/notifications/${notificationId}/read`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,

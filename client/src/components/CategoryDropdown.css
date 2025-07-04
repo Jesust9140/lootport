@@ -1,0 +1,135 @@
+/* Category Dropdown */
+.category-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.category-nav-item:hover .category-wrapper {
+  pointer-events: auto;
+}
+
+.category-hover-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  margin-top: 0.25rem;
+  animation: slideDown 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.category-nav-item:hover .category-hover-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.category-content {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  min-width: 280px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.category-title {
+  color: #38bdf8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.category-card {
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 6px;
+  padding: 0.5rem;
+  border: 1px solid rgba(56, 189, 248, 0.1);
+  transition: all 0.2s ease;
+}
+
+.category-card:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.item-name {
+  display: block;
+  color: #f8fafc;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-decoration: none;
+  margin-bottom: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.item-name:hover {
+  color: #38bdf8;
+}
+
+.item-variants {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.variant {
+  color: #94a3b8;
+  font-size: 0.7rem;
+  text-decoration: none;
+  padding: 0.125rem 0;
+  transition: color 0.2s ease;
+  padding-left: 0.25rem;
+  position: relative;
+}
+
+.variant::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #38bdf8;
+  opacity: 0.6;
+}
+
+.variant:hover {
+  color: #e2e8f0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .category-content {
+    min-width: 220px;
+    padding: 0.5rem;
+  }
+  
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -427,6 +427,57 @@
   100% { opacity: 1; transform: scale(1); }
 }
 
+/* Empty State Styles */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #64748b;
+  min-height: 200px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #94a3b8;
+}
+
+.empty-state span {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Responsive adjustments for empty states */
+@media (max-width: 768px) {
+  .empty-state {
+    padding: 2rem 1rem;
+    min-height: 150px;
+  }
+  
+  .empty-icon {
+    font-size: 2.5rem;
+  }
+  
+  .empty-state p {
+    font-size: 1rem;
+  }
+  
+  .empty-state span {
+    font-size: 0.8rem;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {

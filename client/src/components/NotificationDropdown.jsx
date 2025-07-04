@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { getMockNotifications } from "../api/notificationAPI";
+import { getUserNotifications, markNotificationAsRead, markAllNotificationsAsRead } from "../api/notificationAPI";
 import "./NotificationDropdown.css";
 
 export default function NotificationDropdown() {
@@ -18,11 +18,18 @@ export default function NotificationDropdown() {
   const loadNotifications = async () => {
     setLoading(true);
     try {
-      // Using mock data for now - replace with real API when backend is ready
-      const data = getMockNotifications();
-      setNotifications(data);
+      // Check if user is logged in
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        setNotifications([]);
+        return;
+      }
+
+      const data = await getUserNotifications();
+      setNotifications(data.notifications || []);
     } catch (error) {
       console.error("Failed to load notifications:", error);
+      setNotifications([]);
     } finally {
       setLoading(false);
     }
@@ -46,11 +53,11 @@ export default function NotificationDropdown() {
     try {
       // Update local state immediately for better UX
       setNotifications(notifications.map(notification =>
-        notification.id === id ? { ...notification, read: true } : notification
+        notification._id === id ? { ...notification, read: true } : notification
       ));
       
-      // Call API to mark as read (when backend is ready)
-      // await markNotificationAsRead(id);
+      // Call API to mark as read
+      await markNotificationAsRead(id);
     } catch (error) {
       console.error("Failed to mark notification as read:", error);
       // Revert local state if API call fails
@@ -63,8 +70,8 @@ export default function NotificationDropdown() {
       // Update local state immediately
       setNotifications(notifications.map(notification => ({ ...notification, read: true })));
       
-      // Call API to mark all as read (when backend is ready)
-      // await markAllNotificationsAsRead();
+      // Call API to mark all as read
+      await markAllNotificationsAsRead();
     } catch (error) {
       console.error("Failed to mark all notifications as read:", error);
       // Revert local state if API call fails

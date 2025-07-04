@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/authAPI";
 import "../components/Styles/Register.css";
 import "../components/Styles/Login.css"; // Import for shared button styles
 
@@ -22,13 +23,28 @@ export default function Register() {
     setError(null);
 
     try {
-      // TODO: Replace with your actual API call
       console.log("Registering with:", { username, email, password });
-      // On success, you might navigate the user to the login page
-      navigate("/login");
+      
+      // Call the backend API to register the user
+      const result = await registerUser(email, password, username);
+      
+      console.log("Registration successful:", result);
+      
+      // Store authentication data
+      localStorage.setItem("isLoggedIn", "true");
+      if (result.user) {
+        localStorage.setItem("userEmail", result.user.email);
+      }
+      
+      // Navigate based on role
+      if (result.user.role === 'admin') {
+        navigate("/dashboard");
+      } else {
+        navigate("/profile"); // Customer profile page
+      }
     } catch (err) {
-      setError("Failed to register. That username or email may already be taken.");
-      console.error(err);
+      setError(err.message || "Failed to register. That username or email may already be taken.");
+      console.error("Registration error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -54,6 +70,19 @@ export default function Register() {
               {isLoading ? "Registering..." : "Register"}
             </button>
           </form>
+          
+          <div className="auth-links">
+            <div className="login-section">
+              <p>Already have an account?</p>
+              <button 
+                type="button" 
+                className="login-button"
+                onClick={() => navigate("/login")}
+              >
+                Log In
+              </button>
+            </div>
+          </div>
         </div>
       </main>
     </div>

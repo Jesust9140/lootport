@@ -8,7 +8,7 @@ const generateToken = (userId) => {
   });
 };
 
-// @desc    Login user
+// @desc    Login user (admin and customers)
 // @route   POST /api/auth/login
 // @access  Public
 export const login = async (req, res) => {
@@ -24,7 +24,7 @@ export const login = async (req, res) => {
     }
 
     // Find user by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -41,6 +41,13 @@ export const login = async (req, res) => {
       });
     }
 
+    // Set role based on email (admin for jesust9140@gmail.com, customer for others)
+    const newRole = email.toLowerCase() === "jesust9140@gmail.com" ? 'admin' : 'customer';
+    if (user.role !== newRole) {
+      user.role = newRole;
+      await user.save();
+    }
+
     // Generate token
     const token = generateToken(user._id);
 
@@ -51,6 +58,7 @@ export const login = async (req, res) => {
         id: user._id,
         email: user.email,
         username: user.username,
+        role: user.role,
         joinDate: user.joinDate,
       },
       token,
@@ -64,15 +72,15 @@ export const login = async (req, res) => {
   }
 };
 
-// @desc    Register user (admin only for single user setup)
+// @desc    Register user (customers can register for notifications)
 // @route   POST /api/auth/register
-// @access  Public (but will check if user already exists)
+// @access  Public
 export const register = async (req, res) => {
   try {
     const { email, password, username } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
       return res.status(400).json({
         success: false,
@@ -80,24 +88,28 @@ export const register = async (req, res) => {
       });
     }
 
-    // For single user setup, only allow one user
-    const userCount = await User.countDocuments();
-    if (userCount >= 1) {
-      return res.status(403).json({
-        success: false,
-        message: "Registration is not allowed. Only one user is permitted.",
-      });
-    }
+    // Determine role based on email
+    const role = email.toLowerCase() === "jesust9140@gmail.com" ? 'admin' : 'customer';
 
     // Create user
     const user = await User.create({
-      email,
+      email: email.toLowerCase(),
       password,
       username,
+      role,
     });
 
     // Generate token
     const token = generateToken(user._id);
+
+    // Add welcome notification for customers
+    if (role === 'customer') {
+      await user.addNotification(
+        "Welcome to Lootdrop!",
+        "Thank you for joining Lootdrop! You'll receive notifications about skin sales and website updates here.",
+        "system"
+      );
+    }
 
     res.status(201).json({
       success: true,
@@ -106,6 +118,7 @@ export const register = async (req, res) => {
         id: user._id,
         email: user.email,
         username: user.username,
+        role: user.role,
         joinDate: user.joinDate,
       },
       token,
@@ -156,28 +169,30 @@ export const getProfile = async (req, res) => {
 // @access  Public
 export const setupAdmin = async (req, res) => {
   try {
-    // Check if any users exist
-    const userCount = await User.countDocuments();
-    if (userCount > 0) {
+    // Check if admin user already exists
+    const adminUser = await User.findOne({ email: "jesust9140@gmail.com" });
+    if (adminUser) {
       return res.status(400).json({
         success: false,
         message: "Admin user already exists",
       });
     }
 
-    // Create admin user with default credentials
-    const adminUser = await User.create({
-      email: "admin@lootdrop.com",
-      password: "admin123",
-      username: "Admin",
+    // Create admin user with your specific email
+    const newAdminUser = await User.create({
+      email: "jesust9140@gmail.com",
+      password: "admin123", // You should change this password after first login
+      username: "Jesus T",
+      role: "admin"
     });
 
     res.status(201).json({
       success: true,
       message: "Admin user created successfully",
       credentials: {
-        email: "admin@lootdrop.com",
+        email: "jesust9140@gmail.com",
         password: "admin123",
+        note: "Please change the password after first login"
       },
     });
   } catch (error) {
