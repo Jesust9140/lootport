@@ -1,5 +1,6 @@
 # Ignore build files
 client/build/
+docs/
 
 # Ignore node_modules
 node_modules/

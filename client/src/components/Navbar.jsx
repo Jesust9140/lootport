@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { isAuthenticated, logoutUser } from '../api/authAPI';
 import NotificationDropdown from './NotificationDropdown';
 import ProfileDropdown from './ProfileDropdown';
-import CategoryDropdown from './CategoryDropdown';
 import './Navbar.css';
-import MoreDropdown from './MoreDropdown';
 
 const categories = [
   'Knife', 'Gloves', 'Pistol', 'Rifle', 'SMG', 'Heavy', 'Agent', 'Charm', 'Sticker', 'Container', 'Key', 'Patch', 'Graffiti', 'Collectible', 'Pass', 'Music Kit'
@@ -15,7 +12,6 @@ const moreCategories = [];
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const checkAuthState = () => {
@@ -27,7 +23,6 @@ export default function Navbar() {
         try {
           const user = JSON.parse(userStr);
           setIsLoggedIn(true);
-          setUserRole(user.role);
         } catch (error) {
           console.error("Error parsing user data:", error);
           setIsLoggedIn(isLoggedInStorage);

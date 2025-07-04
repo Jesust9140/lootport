@@ -7,7 +7,13 @@ export default [
   js.configs.recommended,
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
-    ignores: ["client/build/**"],
+    ignores: [
+      "client/build/**", 
+      "docs/**", 
+      "**/build/**", 
+      "**/dist/**",
+      "**/node_modules/**"
+    ],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
