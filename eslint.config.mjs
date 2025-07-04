@@ -12,7 +12,10 @@ export default [
       "docs/**", 
       "**/build/**", 
       "**/dist/**",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/*.min.js",
+      "**/*.bundle.js",
+      "**/static/**"
     ],
     languageOptions: {
       ecmaVersion: "latest",

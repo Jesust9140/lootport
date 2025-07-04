@@ -21,7 +21,7 @@ export default function Navbar() {
       
       if (token && userStr) {
         try {
-          const user = JSON.parse(userStr);
+          JSON.parse(userStr); // Just validate the JSON is parseable
           setIsLoggedIn(true);
         } catch (error) {
           console.error("Error parsing user data:", error);
