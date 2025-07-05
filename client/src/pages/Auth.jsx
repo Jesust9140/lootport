@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { loginUser, registerUser } from "../api/authAPI";
 import "../components/Styles/Auth.css";
-
+ 
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -146,8 +146,16 @@ export default function Auth() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
+    <>
+      {/* Auth page navbar */}
+      <div className="auth-navbar">
+        <Link to="/" className="auth-brand-link">
+          <span className="auth-brand">Lootdrop</span>
+        </Link>
+      </div>
+      
+      <div className="auth-page">
+        <div className="auth-container">
         {/* Header with toggle */}
         <div className="auth-header">
           {/* <button 
@@ -303,6 +311,7 @@ export default function Auth() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

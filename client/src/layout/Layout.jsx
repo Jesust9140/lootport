@@ -6,8 +6,8 @@ import Footer from "../components/Footer";
 const Layout = () => {
   const location = useLocation();
 
-  // Check if the current page is login or register
-  const isStaticPage = location.pathname === "/login" || location.pathname === "/register";
+  // Check if the current page is login, register, or auth
+  const isStaticPage = location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/auth";
 
   // Add a class to the body for static pages
   if (isStaticPage) {

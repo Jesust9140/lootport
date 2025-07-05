@@ -1,0 +1,5 @@
+[33mf715cb91[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mnew-branch-for-work[m[33m, [m[1;31morigin/new-branch-for-work[m[33m)[m Refactor CSS background for improved readability (#1)
+[33mfd012051[m made some changes to the css background.I need to style it better, make it more friendly to the eye. I also added a github branch for people who wants to help me
+[33m4c1034bc[m small changes
+[33m10cd6ea0[m Fix issues with node, nav bar, and design
+[33m3a142fa0[m no changes for nav bar but created fluff for the website
