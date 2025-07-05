@@ -2,6 +2,18 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from 'url';
 import cors from "cors";
+import dotenv from "dotenv";
+
+// Configure environment variables FIRST
+dotenv.config({ path: './.env' });
+
+// Debug: Log the MONGO_URI to see if it's loaded
+console.log('Environment check:', {
+  MONGO_URI: process.env.MONGO_URI ? 'LOADED' : 'NOT LOADED',
+  NODE_ENV: process.env.NODE_ENV,
+  PORT: process.env.PORT
+});
+
 import connectDB from "./config/db.js"; 
 import skinsRoutes from "./routes/skinRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -9,13 +21,11 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import inventoryRoutes from "./routes/inventoryRoutes.js";
 import steamRoutes from "./routes/steamRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
-import dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-dotenv.config();
 
 // Connect to the database
 connectDB();

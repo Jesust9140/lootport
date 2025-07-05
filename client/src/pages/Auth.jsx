@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser, registerUser } from "../api/authAPI";
 import "../components/Styles/Auth.css";
 
+
 export default function Auth() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -149,13 +150,13 @@ export default function Auth() {
       <div className="auth-container">
         {/* Header with toggle */}
         <div className="auth-header">
-          <button 
+          {/* <button 
             className="back-button" 
             onClick={() => navigate("/")}
             aria-label="Back to home"
           >
-            ← Back to Lootdrop
-          </button>
+            ← LootDrop
+          </button> */}
           
           <div className="auth-toggle">
             <button 

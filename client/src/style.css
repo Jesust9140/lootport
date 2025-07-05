@@ -20,7 +20,6 @@
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Remove window slider.*/
 *,
 *::before,
 *::after {
@@ -194,11 +193,11 @@ form {
   transition: background 0.2s ease-in-out;
 }
 
-/* Register container styles */
+
 .register-container {
   text-align: center;
   padding: 2rem;
-  background-color: #2d3748; /* Match the app's card background */
+  background-color: #2d3748; 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: #e2e8f0;

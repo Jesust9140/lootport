@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
 }
 
 .App-logo {
@@ -34,5 +36,41 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Mobile viewport settings */
+@media (max-width: 768px) {
+  .App {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .home-container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  /* Ensure all text is readable on mobile */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Ensure proper touch targets for mobile */
+@media (max-width: 480px) {
+  button, 
+  .btn, 
+  .buy-button,
+  .toggle-btn {
+    min-height: 44px; /* iOS recommended touch target size */
+    min-width: 44px;
+  }
+  
+  /* Improve text readability on small screens */
+  body {
+    font-size: 16px; /* Prevent zoom on iOS */
   }
 }
