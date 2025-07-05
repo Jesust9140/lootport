@@ -9,9 +9,12 @@
     "start": "npm run start:client && npm run start:server",
     "start:client": "npm --prefix client start",
     "start:server": "npm --prefix server start",
+    "start:prod": "npm run build && npm run start:server",
+    "build": "npm --prefix client run build",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "npm --prefix client start",
     "dev:server": "npm --prefix server run dev",
+    "serve:static": "npm --prefix client run serve",
     "lint": "eslint ."
   },
   "devDependencies": {

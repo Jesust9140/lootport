@@ -252,7 +252,7 @@ export const mockSteamLogin = async () => {
   }
 };
 
-export default {
+const profileAPI = {
   getUserProfile,
   updateUserProfile,
   getUserTransactions,
@@ -263,3 +263,5 @@ export default {
   changePassword,
   deleteUserAccount
 };
+
+export default profileAPI;

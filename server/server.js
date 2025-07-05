@@ -51,16 +51,11 @@ app.use("/api/inventory", inventoryRoutes);
 app.use("/api/steam", steamRoutes);
 app.use("/api/profile", profileRoutes);
 
-
 // Catch-all: send back React's index.html for any route not handled above
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
-// });
-
-// 404 handler -- come back to this error for Idea to write it.
-// app.use((req, res, next) => {
-//   res.status(404).send("Route not found");
-// });
+// This enables client-side routing (React Router) to work properly
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
