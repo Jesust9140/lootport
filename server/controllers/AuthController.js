@@ -189,11 +189,12 @@ export const setupAdmin = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Admin user created successfully",
-      credentials: {
-        email: "jesust9140@gmail.com",
-        password: "admin123",
-        note: "Please change the password after first login"
-      },
+      user: {
+        id: newAdminUser._id,
+        email: newAdminUser.email,
+        username: newAdminUser.username,
+        role: newAdminUser.role
+      }
     });
   } catch (error) {
     console.error("Setup error:", error);

@@ -233,6 +233,9 @@ export const markItemSold = async (req, res) => {
     item.status = 'sold';
     item.soldPrice = soldPrice;
     item.soldAt = new Date();
+    if (buyerId) {
+      item.buyerId = buyerId;
+    }
     await item.save();
 
     // Send notification to seller

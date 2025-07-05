@@ -5,14 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // Configure environment variables FIRST
-dotenv.config({ path: './.env' });
-
-// Debug: Log the MONGO_URI to see if it's loaded
-console.log('Environment check:', {
-  MONGO_URI: process.env.MONGO_URI ? 'LOADED' : 'NOT LOADED',
-  NODE_ENV: process.env.NODE_ENV,
-  PORT: process.env.PORT
-});
+dotenv.config();
 
 import connectDB from "./config/db.js"; 
 import skinsRoutes from "./routes/skinRoutes.js";

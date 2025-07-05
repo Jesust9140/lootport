@@ -4,25 +4,29 @@ import globals from "globals";
 import react from "eslint-plugin-react";
 
 export default [
-  js.configs.recommended,
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
     ignores: [
-      "client/build/**", 
-      "docs/**", 
       "**/build/**", 
+      "**/docs/**", 
       "**/dist/**",
       "**/node_modules/**",
       "**/*.min.js",
       "**/*.bundle.js",
-      "**/static/**"
-    ],
+      "**/static/**",
+      "client/build/**",
+      "docs/**"
+    ]
+  },
+  js.configs.recommended,
+  {
+    files: ["**/*.{js,mjs,cjs,jsx}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.node,
+        Intl: "readonly",
       },
       parserOptions: {
         ecmaFeatures: {
@@ -35,6 +39,13 @@ export default [
     },
     rules: {
       "react/react-in-jsx-scope": "off",
+      "no-unused-vars": ["error", { 
+        "varsIgnorePattern": "^React$",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true 
+      }],
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error",
     },
   },
 ];

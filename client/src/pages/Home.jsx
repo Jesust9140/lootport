@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import ImageCarousel from "../components/ImageCarousel";
 import SkinList from "../components/SkinList";
-import { fetchSkins } from "../api/skinAPI";
 
 export default function Home() {
   const [skins, setSkins] = useState([]);

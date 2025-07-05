@@ -153,7 +153,7 @@ export default function UserProfile() {
       setError('');
       setSuccess('');
       
-      const result = await mockSteamLogin();
+      await mockSteamLogin();
       setSuccess('Steam account linked successfully!');
       loadUserProfile(); // Reload to get updated Steam data
     } catch (error) {

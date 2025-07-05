@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getUserNotifications, markNotificationAsRead, markAllNotificationsAsRead } from "../api/notificationAPI";
 import "./NotificationDropdown.css";
 
