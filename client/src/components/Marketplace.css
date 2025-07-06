@@ -98,6 +98,11 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+/* 
+ * MIGRATION NOTE: Replace form inputs and selectors with shared classes
+ * Use .form-input and .form-select from styles/forms.css
+ * These styles are kept temporarily for backwards compatibility
+ */
 .search-input,
 .filter-select,
 .price-input {
@@ -316,6 +321,13 @@
   gap: 0.75rem;
 }
 
+/* 
+ * MIGRATION NOTE: Use shared button classes from styles/buttons.css
+ * .purchase-btn -> .btn.btn-primary
+ * .inspect-btn -> .btn.btn-outline  
+ * .page-btn -> .btn.btn-secondary
+ * These styles are kept temporarily for backwards compatibility
+ */
 .purchase-btn {
   width: 100%;
   padding: 1rem;
@@ -397,6 +409,10 @@
   margin-top: 2rem;
 }
 
+/* 
+ * MIGRATION NOTE: Use .btn.btn-secondary from styles/buttons.css
+ * These styles are kept temporarily for backwards compatibility
+ */
 .page-btn {
   padding: 0.75rem 1.5rem;
   background: rgba(56, 189, 248, 0.1);

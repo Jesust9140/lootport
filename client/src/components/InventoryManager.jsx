@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  getUserInventory, 
   getAdvancedInventory, 
   listItemForSale, 
   unlistItem, 
@@ -9,6 +8,8 @@ import {
   formatRarity,
   formatWear
 } from '../api/inventoryAPI';
+import { useFilters, useAsyncOperation, useSelection } from '../hooks/useFilters';
+import { formatCurrency } from '../utils/apiUtils';
 import './InventoryManager.css';
 
 // Helper function for status colors
@@ -24,15 +25,11 @@ const getStatusColor = (status) => {
 
 const InventoryManager = () => {
   const [inventory, setInventory] = useState([]);
-  const [filteredInventory, setFilteredInventory] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [stats, setStats] = useState({});
   const [pagination, setPagination] = useState({});
   
-  // Filter states
-  const [filters, setFilters] = useState({
+  // Use shared hooks to eliminate duplicate logic
+  const { filters, handleFilterChange } = useFilters({
     rarity: '',
     wear: '',
     status: '',
@@ -40,103 +37,69 @@ const InventoryManager = () => {
     maxPrice: '',
     search: '',
     sortBy: 'createdAt',
-    sortOrder: 'desc',
-    page: 1,
-    limit: 20
+    sortOrder: 'desc'
   });
+  
+  const { loading, error, execute, clearError } = useAsyncOperation();
+  const { 
+    selectedItems, 
+    handleItemSelect, 
+    handleSelectAll, 
+    clearSelection,
+    isAllSelected
+  } = useSelection(inventory);
 
   // UI states
   const [showBulkActions, setShowBulkActions] = useState(false);
   const [bulkListingPrice, setBulkListingPrice] = useState('');
 
+  // Remove duplicate functions - now using hooks
+  const loadInventoryData = async () => {
+    const response = await getAdvancedInventory(filters);
+    setInventory(response.inventory);
+    setStats(response.stats);
+    setPagination(response.pagination);
+    return response;
+  };
+
+  const loadInventory = () => execute(() => loadInventoryData());
+
   useEffect(() => {
     loadInventory();
   }, [filters]);
 
-  const loadInventory = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const response = await getAdvancedInventory(filters);
-      
-      setInventory(response.inventory);
-      setFilteredInventory(response.inventory);
-      setStats(response.stats);
-      setPagination(response.pagination);
-    } catch (err) {
-      setError(err.message);
-      console.error('Error loading inventory:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleFilterChange = (filterName, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterName]: value,
-      page: 1 // Reset to first page when filtering
-    }));
-  };
-
-  const handleItemSelect = (itemId) => {
-    setSelectedItems(prev => {
-      if (prev.includes(itemId)) {
-        return prev.filter(id => id !== itemId);
-      } else {
-        return [...prev, itemId];
-      }
+  const handleListItem = async (itemId, price) => {
+    await execute(async () => {
+      await listItemForSale(itemId, parseFloat(price));
+      await loadInventoryData(); // Refresh inventory
     });
   };
 
-  const handleSelectAll = () => {
-    if (selectedItems.length === filteredInventory.length) {
-      setSelectedItems([]);
-    } else {
-      setSelectedItems(filteredInventory.map(item => item._id));
-    }
-  };
-
-  const handleListItem = async (itemId, price) => {
-    try {
-      await listItemForSale(itemId, parseFloat(price));
-      loadInventory(); // Refresh inventory
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
   const handleUnlistItem = async (itemId) => {
-    try {
+    await execute(async () => {
       await unlistItem(itemId);
-      loadInventory(); // Refresh inventory
-    } catch (err) {
-      setError(err.message);
-    }
+      await loadInventoryData(); // Refresh inventory
+    });
   };
 
   const handleBulkAction = async (action) => {
     if (selectedItems.length === 0) return;
 
-    try {
+    await execute(async () => {
       let data = {};
       if (action === 'list' || action === 'update_price') {
         if (!bulkListingPrice) {
-          setError('Please enter a listing price for bulk operations');
-          return;
+          throw new Error('Please enter a listing price for bulk operations');
         }
         data.listingPrice = parseFloat(bulkListingPrice);
       }
 
       await bulkUpdateInventory(selectedItems, action, data);
-      setSelectedItems([]);
+      clearSelection();
       setBulkListingPrice('');
       setShowBulkActions(false);
-      loadInventory(); // Refresh inventory
-    } catch (err) {
-      setError(err.message);
-    }
+      await loadInventoryData(); // Refresh inventory
+    });
   };
 
   if (loading) {
@@ -164,11 +127,11 @@ const InventoryManager = () => {
             <p>Listed</p>
           </div>
           <div className="stat-card">
-            <h3>{formatPrice(stats.totalValue || 0)}</h3>
+            <h3>{formatCurrency(stats.totalValue || 0)}</h3>
             <p>Total Value</p>
           </div>
           <div className="stat-card">
-            <h3>{formatPrice(stats.listedValue || 0)}</h3>
+            <h3>{formatCurrency(stats.listedValue || 0)}</h3>
             <p>Listed Value</p>
           </div>
         </div>
@@ -177,7 +140,7 @@ const InventoryManager = () => {
       {error && (
         <div className="error-message">
           <p>{error}</p>
-          <button onClick={() => setError(null)}>×</button>
+          <button onClick={clearError} className="btn btn-sm">×</button>
         </div>
       )}
 
@@ -292,15 +255,15 @@ const InventoryManager = () => {
                 placeholder="Listing price..."
                 value={bulkListingPrice}
                 onChange={(e) => setBulkListingPrice(e.target.value)}
-                className="bulk-price-input"
+                className="form-input"
               />
-              <button onClick={() => handleBulkAction('list')} className="bulk-btn list">
+              <button onClick={() => handleBulkAction('list')} className="btn btn-success btn-sm">
                 List All
               </button>
-              <button onClick={() => handleBulkAction('unlist')} className="bulk-btn unlist">
+              <button onClick={() => handleBulkAction('unlist')} className="btn btn-secondary btn-sm">
                 Unlist All
               </button>
-              <button onClick={() => handleBulkAction('update_price')} className="bulk-btn update">
+              <button onClick={() => handleBulkAction('update_price')} className="btn btn-primary btn-sm">
                 Update Prices
               </button>
             </div>
@@ -310,13 +273,13 @@ const InventoryManager = () => {
 
       {/* Inventory Grid */}
       <div className="inventory-controls">
-        <button onClick={handleSelectAll} className="select-all-btn">
-          {selectedItems.length === filteredInventory.length ? 'Deselect All' : 'Select All'}
+        <button onClick={handleSelectAll} className="btn btn-outline">
+          {isAllSelected ? 'Deselect All' : 'Select All'}
         </button>
       </div>
 
       <div className="inventory-grid">
-        {filteredInventory.map((item) => (
+        {inventory.map((item) => (
           <InventoryItem
             key={item._id}
             item={item}

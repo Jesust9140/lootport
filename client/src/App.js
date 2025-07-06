@@ -8,6 +8,10 @@ import Inventory from "./pages/Inventory";
 import CategoryPage from "./pages/CategoryPage";
 import Marketplace from "./components/Marketplace";
 import InventoryManager from "./components/InventoryManager";
+// Import shared styles globally
+import "./styles/variables.css";
+import "./styles/buttons.css";
+import "./styles/forms.css";
 import TransactionHistory from "./components/TransactionHistory";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DebugAuth from "./components/DebugAuth";

@@ -243,14 +243,16 @@
 /* Category bar */
 .categorybar {
   display: flex;
-  justify-content: space-evenly; /* Distribute links evenly across the bar */
-  align-items: center; /* Align the links vertically */
+  justify-content: space-evenly;
+  align-items: center;
   background-color: #1e293b;
   padding: 0.5rem 1rem;
-  gap: 1rem;
+  gap: 0.75rem;
   white-space: nowrap;
-  width: 100%; /* Ensure it spans the full width */
-  box-sizing: border-box; /* Include padding in width calculation */
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: visible;
 }
 
 .category-nav-item {
@@ -448,11 +450,7 @@
   background-color: #334155;
 }
 
-.cat-link::after {
-  content: " ▼";
-  font-size: 0.6rem;
-  color: #94a3b8;
-}
+/* Remove this duplicate arrow style - using the one in .category-item instead */
 .dropdown-menu::-webkit-scrollbar {
   width: 6px; }
 
@@ -474,6 +472,112 @@
 .dropdown-link:hover {
   background-color: #374151;
   border-radius: 4px;
+}
+
+/* Category Dropdown Styles */
+.category-item {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+.category-item .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  min-width: 220px;
+  max-width: 280px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  animation: dropdownFadeIn 0.2s ease-out;
+  transform-origin: top center;
+}
+
+/* Position dropdowns for right-side items to prevent cutoff */
+.category-item:nth-last-child(1) .dropdown-menu,
+.category-item:nth-last-child(2) .dropdown-menu,
+.category-item:nth-last-child(3) .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+/* Center dropdowns for middle items */
+.category-item:nth-child(n+4):nth-last-child(n+4) .dropdown-menu {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-item .dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.category-item .dropdown-item:hover {
+  background-color: #4a5568;
+  color: #38bdf8;
+}
+
+.category-item .dropdown-item.all-items {
+  font-weight: 600;
+  color: #38bdf8;
+  border-bottom: 1px solid #4a5568;
+  margin-bottom: 0.25rem;
+}
+
+.category-item .dropdown-separator {
+  height: 1px;
+  background-color: #4a5568;
+  margin: 0.25rem 0;
+}
+
+/* Remove arrow from category links since we'll add it with CSS */
+.category-item .cat-link::after {
+  content: " ▼";
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-left: 0.25rem;
+}
+
+/* Scroll styles for long dropdown lists */
+.category-item .dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.category-item .dropdown-menu::-webkit-scrollbar-track {
+  background: #2d3748;
+  border-radius: 3px;
+}
+
+.category-item .dropdown-menu::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 3px;
+}
+
+.category-item .dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #718096;
 }
 
 

@@ -1,0 +1,189 @@
+/* CSS Variables for Lootdrop - Standardized Design System */
+:root {
+  /* === COLORS === */
+  /* Primary Brand Colors */
+  --color-primary: #38bdf8;
+  --color-primary-hover: #0ea5e9;
+  --color-primary-active: #0284c7;
+  
+  /* Secondary Colors */
+  --color-secondary: #1e293b;
+  --color-secondary-hover: #334155;
+  --color-secondary-light: #475569;
+  
+  /* Background Colors */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  --color-bg-card: rgba(30, 41, 59, 0.8);
+  
+  /* Text Colors */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-text-disabled: #64748b;
+  
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-error: #ef4444;
+  --color-error-hover: #dc2626;
+  --color-warning: #f59e0b;
+  --color-warning-hover: #d97706;
+  --color-info: #3b82f6;
+  --color-info-hover: #2563eb;
+  
+  /* Border Colors */
+  --color-border: rgba(56, 189, 248, 0.2);
+  --color-border-hover: rgba(56, 189, 248, 0.4);
+  --color-border-focus: #38bdf8;
+  
+  /* Specialty Colors */
+  --color-inventory: #10b981;
+  --color-notification: #8b5cf6;
+  --color-admin: #4f46e5;
+  
+  /* === TYPOGRAPHY === */
+  --font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  
+  /* === SPACING === */
+  --spacing-0: 0;
+  --spacing-px: 1px;
+  --spacing-0-5: 0.125rem;  /* 2px */
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-1-5: 0.375rem;  /* 6px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-2-5: 0.625rem;  /* 10px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-3-5: 0.875rem;  /* 14px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-16: 4rem;       /* 64px */
+  --spacing-20: 5rem;       /* 80px */
+  
+  /* === BORDER RADIUS === */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-base: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;    /* 6px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Full circle */
+  
+  /* === SHADOWS === */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+  
+  /* === GRADIENTS === */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  --gradient-secondary: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-hover));
+  --gradient-success: linear-gradient(135deg, var(--color-success), var(--color-success-hover));
+  --gradient-error: linear-gradient(135deg, var(--color-error), var(--color-error-hover));
+  --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  
+  /* === TRANSITIONS === */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+  --transition-slower: 0.5s ease;
+  
+  /* === Z-INDEX === */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  
+  /* === BREAKPOINTS (for reference) === */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  
+  /* === RARITY COLORS === */
+  --rarity-consumer: #b0c3d9;
+  --rarity-industrial: #5e98d9;
+  --rarity-milspec: #4b69ff;
+  --rarity-restricted: #8847ff;
+  --rarity-classified: #d32ce6;
+  --rarity-covert: #eb4b4b;
+  --rarity-contraband: #e4ae39;
+}
+
+/* === COMPONENT-SPECIFIC VARIABLES === */
+:root {
+  /* Navbar */
+  --navbar-height: 70px;
+  --navbar-bg: var(--color-bg-primary);
+  --navbar-border: var(--color-border);
+  
+  /* Search Bar */
+  --search-bar-bg: linear-gradient(135deg, #1e293b, #2b3d57);
+  --search-bar-focus-bg: linear-gradient(135deg, #334155, #475569);
+  
+  /* Cards */
+  --card-bg: var(--color-bg-card);
+  --card-border: var(--color-border);
+  --card-shadow: var(--shadow-lg);
+  
+  /* Buttons */
+  --btn-height-sm: 2rem;
+  --btn-height-base: 2.5rem;
+  --btn-height-lg: 3rem;
+  
+  /* Forms */
+  --input-bg: rgba(15, 23, 42, 0.8);
+  --input-border: var(--color-border);
+  --input-focus-border: var(--color-border-focus);
+  --input-focus-shadow: var(--shadow-glow);
+}
+
+/* === DARK MODE SUPPORT === */
+/* Already optimized for dark mode - no additional variables needed */
+
+/* === REDUCED MOTION SUPPORT === */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+    --transition-base: 0s;
+    --transition-slow: 0s;
+    --transition-slower: 0s;
+  }
+}

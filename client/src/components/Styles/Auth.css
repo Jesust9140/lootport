@@ -244,7 +244,16 @@ flex-direction: column;
   cursor: not-allowed;
 }
 
-/* Submit button */
+/* 
+ * MIGRATION NOTE: Use shared button classes instead of these auth-specific styles
+ * Replace .submit-button with .btn.btn-primary
+ * Replace .steam-login-button with .btn.btn-secondary + custom Steam styling
+ * Replace .link-button with .btn.btn-text
+ * 
+ * These styles are kept temporarily for backward compatibility
+ */
+
+/* Submit button - TODO: Replace with .btn.btn-primary */
 .submit-button {
   width: 100%;
   padding: 1rem 1.5rem;
@@ -317,6 +326,7 @@ flex-direction: column;
   margin-top: -1.9rem;
 }
 
+/* Steam login button - TODO: Replace with .btn.btn-secondary + custom Steam icon */
 .steam-login-button {
   width: 100%;
   padding: 1rem 1.5rem;
@@ -364,6 +374,7 @@ flex-direction: column;
   border-top: 1px solid rgba(56, 189, 248, 0.1);
 }
 
+/* Link button - TODO: Replace with .btn.btn-text */
 .link-button {
   background: none;
   border: none;

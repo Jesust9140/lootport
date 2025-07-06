@@ -1,66 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   getUserTransactions, 
   completeTransaction, 
   cancelTransaction,
   formatPrice 
 } from '../api/inventoryAPI';
+import { useFilters, useAsyncOperation, useSelection } from '../hooks/useFilters';
+import { handleApiError, showSuccessMessage } from '../utils/apiUtils';
 import './TransactionHistory.css';
 
 const TransactionHistory = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [stats, setStats] = useState({});
-  const [pagination, setPagination] = useState({});
-  const [actionLoading, setActionLoading] = useState(null);
-  
-  // Filter states
-  const [filters, setFilters] = useState({
+  const {
+    filters,
+    setFilter,
+    resetFilters
+  } = useFilters({
     type: 'all', // all, purchases, sales
     page: 1,
     limit: 20
   });
 
-  useEffect(() => {
-    loadTransactions();
-  }, [filters]);
+  const {
+    data: transactionData,
+    loading,
+    error,
+    execute: loadTransactions,
+    clearError
+  } = useAsyncOperation(
+    () => getUserTransactions(filters),
+    [filters]
+  );
 
-  const loadTransactions = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const response = await getUserTransactions(filters);
-      
-      setTransactions(response.transactions || []);
-      setStats(response.stats || {});
-      setPagination(response.pagination || {});
-    } catch (err) {
-      setError(err.message);
-      console.error('Error loading transactions:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    selectedItems: actionLoading,
+    selectItem: setActionLoading,
+    clearSelection: clearActionLoading
+  } = useSelection();
 
-  const handleFilterChange = (filterName, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterName]: value,
-      page: 1 // Reset to first page when filtering
-    }));
-  };
+  const transactions = transactionData?.transactions || [];
+  const stats = transactionData?.stats || {};
+  const pagination = transactionData?.pagination || {};
 
   const handleCompleteTransaction = async (transactionId) => {
     try {
       setActionLoading(transactionId);
       await completeTransaction(transactionId);
+      showSuccessMessage('Transaction completed successfully');
       loadTransactions(); // Refresh transactions
     } catch (err) {
-      setError(err.message);
+      handleApiError(err, 'Failed to complete transaction');
     } finally {
-      setActionLoading(null);
+      clearActionLoading();
     }
   };
 
@@ -68,11 +58,12 @@ const TransactionHistory = () => {
     try {
       setActionLoading(transactionId);
       await cancelTransaction(transactionId, reason);
+      showSuccessMessage('Transaction cancelled successfully');
       loadTransactions(); // Refresh transactions
     } catch (err) {
-      setError(err.message);
+      handleApiError(err, 'Failed to cancel transaction');
     } finally {
-      setActionLoading(null);
+      clearActionLoading();
     }
   };
 
@@ -114,7 +105,7 @@ const TransactionHistory = () => {
       {error && (
         <div className="error-message">
           <p>{error}</p>
-          <button onClick={() => setError(null)}>×</button>
+          <button onClick={clearError} className="btn btn-icon">×</button>
         </div>
       )}
 
@@ -122,20 +113,20 @@ const TransactionHistory = () => {
       <div className="transaction-filters">
         <div className="filter-tabs">
           <button
-            className={filters.type === 'all' ? 'active' : ''}
-            onClick={() => handleFilterChange('type', 'all')}
+            className={`btn btn-secondary ${filters.type === 'all' ? 'active' : ''}`}
+            onClick={() => setFilter('type', 'all')}
           >
             All Transactions
           </button>
           <button
-            className={filters.type === 'purchases' ? 'active' : ''}
-            onClick={() => handleFilterChange('type', 'purchases')}
+            className={`btn btn-secondary ${filters.type === 'purchases' ? 'active' : ''}`}
+            onClick={() => setFilter('type', 'purchases')}
           >
             Purchases
           </button>
           <button
-            className={filters.type === 'sales' ? 'active' : ''}
-            onClick={() => handleFilterChange('type', 'sales')}
+            className={`btn btn-secondary ${filters.type === 'sales' ? 'active' : ''}`}
+            onClick={() => setFilter('type', 'sales')}
           >
             Sales
           </button>
@@ -156,7 +147,7 @@ const TransactionHistory = () => {
               transaction={transaction}
               onComplete={() => handleCompleteTransaction(transaction._id)}
               onCancel={(reason) => handleCancelTransaction(transaction._id, reason)}
-              loading={actionLoading === transaction._id}
+              loading={actionLoading.includes(transaction._id)}
             />
           ))}
         </div>
@@ -166,9 +157,9 @@ const TransactionHistory = () => {
       {pagination.total > 1 && (
         <div className="pagination">
           <button
-            onClick={() => handleFilterChange('page', pagination.current - 1)}
+            onClick={() => setFilter('page', pagination.current - 1)}
             disabled={pagination.current === 1}
-            className="page-btn"
+            className="btn btn-secondary"
           >
             Previous
           </button>
@@ -178,9 +169,9 @@ const TransactionHistory = () => {
           </span>
           
           <button
-            onClick={() => handleFilterChange('page', pagination.current + 1)}
+            onClick={() => setFilter('page', pagination.current + 1)}
             disabled={pagination.current === pagination.total}
-            className="page-btn"
+            className="btn btn-secondary"
           >
             Next
           </button>
@@ -296,7 +287,7 @@ const TransactionItem = ({ transaction, onComplete, onCancel, loading }) => {
                 <button
                   onClick={onComplete}
                   disabled={loading}
-                  className="action-btn complete"
+                  className="btn btn-primary"
                 >
                   {loading ? 'Processing...' : 'Complete'}
                 </button>
@@ -305,7 +296,7 @@ const TransactionItem = ({ transaction, onComplete, onCancel, loading }) => {
               {(isBuyer || isSeller || currentUser.role === 'admin') && (
                 <button
                   onClick={() => setShowCancelForm(!showCancelForm)}
-                  className="action-btn cancel"
+                  className="btn btn-danger"
                 >
                   Cancel
                 </button>
@@ -337,17 +328,17 @@ const TransactionItem = ({ transaction, onComplete, onCancel, loading }) => {
             placeholder="Reason for cancellation (optional)..."
             value={cancelReason}
             onChange={(e) => setCancelReason(e.target.value)}
-            className="cancel-reason-input"
+            className="form-input"
             rows="3"
           />
           <div className="cancel-actions">
-            <button type="submit" className="submit-cancel">
+            <button type="submit" className="btn btn-danger">
               Confirm Cancel
             </button>
             <button 
               type="button" 
               onClick={() => setShowCancelForm(false)}
-              className="cancel-cancel"
+              className="btn btn-secondary"
             >
               Nevermind
             </button>

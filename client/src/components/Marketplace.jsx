@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { 
   getMarketplaceItems, 
   createTransaction,
@@ -6,17 +6,16 @@ import {
   formatRarity,
   formatWear
 } from '../api/inventoryAPI';
+import { useFilters, useAsyncOperation, useSelection } from '../hooks/useFilters';
+import { handleApiError, showSuccessMessage } from '../utils/apiUtils';
 import './Marketplace.css';
 
 const Marketplace = () => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [purchasing, setPurchasing] = useState(null);
-  const [pagination, setPagination] = useState({});
-  
-  // Filter states
-  const [filters, setFilters] = useState({
+  const {
+    filters,
+    setFilter,
+    resetFilters
+  } = useFilters({
     rarity: '',
     wear: '',
     minPrice: '',
@@ -28,51 +27,39 @@ const Marketplace = () => {
     limit: 20
   });
 
-  useEffect(() => {
-    loadMarketplace();
-  }, [filters]);
+  const {
+    data: marketplaceData,
+    loading,
+    error,
+    execute: loadMarketplace,
+    clearError
+  } = useAsyncOperation(
+    () => getMarketplaceItems(filters),
+    [filters]
+  );
 
-  const loadMarketplace = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      const response = await getMarketplaceItems(filters);
-      
-      setItems(response.items || []);
-      setPagination(response.pagination || {});
-    } catch (err) {
-      setError(err.message);
-      console.error('Error loading marketplace:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    selectedItems: purchasing,
+    selectItem: setPurchasing,
+    clearSelection: clearPurchasing
+  } = useSelection();
 
-  const handleFilterChange = (filterName, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterName]: value,
-      page: 1 // Reset to first page when filtering
-    }));
-  };
+  const items = marketplaceData?.items || [];
+  const pagination = marketplaceData?.pagination || {};
 
   const handlePurchase = async (itemId) => {
     try {
       setPurchasing(itemId);
-      setError(null);
-      
       const response = await createTransaction(itemId);
       
-      // Show success message
-      alert(`Purchase initiated! Transaction ID: ${response.transaction.transactionId}`);
+      showSuccessMessage(`Purchase initiated! Transaction ID: ${response.transaction.transactionId}`);
       
       // Refresh marketplace to update item availability
       loadMarketplace();
     } catch (err) {
-      setError(err.message);
+      handleApiError(err, 'Failed to process purchase');
     } finally {
-      setPurchasing(null);
+      clearPurchasing();
     }
   };
 
@@ -97,7 +84,7 @@ const Marketplace = () => {
       {error && (
         <div className="error-message">
           <p>{error}</p>
-          <button onClick={() => setError(null)}>×</button>
+          <button onClick={clearError} className="btn btn-icon">×</button>
         </div>
       )}
 
@@ -108,14 +95,14 @@ const Marketplace = () => {
             type="text"
             placeholder="Search skins..."
             value={filters.search}
-            onChange={(e) => handleFilterChange('search', e.target.value)}
-            className="search-input"
+            onChange={(e) => setFilter('search', e.target.value)}
+            className="form-input"
           />
           
           <select
             value={filters.rarity}
-            onChange={(e) => handleFilterChange('rarity', e.target.value)}
-            className="filter-select"
+            onChange={(e) => setFilter('rarity', e.target.value)}
+            className="form-select"
           >
             <option value="">All Rarities</option>
             <option value="Consumer Grade">Consumer Grade</option>
@@ -129,8 +116,8 @@ const Marketplace = () => {
 
           <select
             value={filters.wear}
-            onChange={(e) => handleFilterChange('wear', e.target.value)}
-            className="filter-select"
+            onChange={(e) => setFilter('wear', e.target.value)}
+            className="form-select"
           >
             <option value="">All Conditions</option>
             <option value="Factory New">Factory New</option>
@@ -146,21 +133,21 @@ const Marketplace = () => {
             type="number"
             placeholder="Min Price"
             value={filters.minPrice}
-            onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-            className="price-input"
+            onChange={(e) => setFilter('minPrice', e.target.value)}
+            className="form-input"
           />
           <input
             type="number"
             placeholder="Max Price"
             value={filters.maxPrice}
-            onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-            className="price-input"
+            onChange={(e) => setFilter('maxPrice', e.target.value)}
+            className="form-input"
           />
           
           <select
             value={filters.sortBy}
-            onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-            className="filter-select"
+            onChange={(e) => setFilter('sortBy', e.target.value)}
+            className="form-select"
           >
             <option value="listedAt">Recently Listed</option>
             <option value="listingPrice">Price</option>
@@ -171,8 +158,8 @@ const Marketplace = () => {
 
           <select
             value={filters.sortOrder}
-            onChange={(e) => handleFilterChange('sortOrder', e.target.value)}
-            className="filter-select"
+            onChange={(e) => setFilter('sortOrder', e.target.value)}
+            className="form-select"
           >
             <option value="desc">Descending</option>
             <option value="asc">Ascending</option>
@@ -193,7 +180,7 @@ const Marketplace = () => {
               key={item._id}
               item={item}
               onPurchase={() => handlePurchase(item._id)}
-              purchasing={purchasing === item._id}
+              purchasing={purchasing.includes(item._id)}
             />
           ))}
         </div>
@@ -203,9 +190,9 @@ const Marketplace = () => {
       {pagination.total > 1 && (
         <div className="pagination">
           <button
-            onClick={() => handleFilterChange('page', pagination.current - 1)}
+            onClick={() => setFilter('page', pagination.current - 1)}
             disabled={pagination.current === 1}
-            className="page-btn"
+            className="btn btn-secondary"
           >
             Previous
           </button>
@@ -215,9 +202,9 @@ const Marketplace = () => {
           </span>
           
           <button
-            onClick={() => handleFilterChange('page', pagination.current + 1)}
+            onClick={() => setFilter('page', pagination.current + 1)}
             disabled={pagination.current === pagination.total}
-            className="page-btn"
+            className="btn btn-secondary"
           >
             Next
           </button>
@@ -311,7 +298,7 @@ const MarketplaceItem = ({ item, onPurchase, purchasing }) => {
         <button 
           onClick={onPurchase}
           disabled={purchasing}
-          className={`purchase-btn ${purchasing ? 'loading' : ''}`}
+          className={`btn btn-primary ${purchasing ? 'loading' : ''}`}
         >
           {purchasing ? (
             <>
@@ -331,7 +318,7 @@ const MarketplaceItem = ({ item, onPurchase, purchasing }) => {
             href={item.inspectLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inspect-btn"
+            className="btn btn-outline"
           >
             Inspect in Game
           </a>

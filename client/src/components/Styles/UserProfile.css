@@ -26,26 +26,7 @@
   background-clip: text;
 }
 
-.btn-back {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #38bdf8;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.btn-back:hover {
-  background: rgba(56, 189, 248, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
-}
+/* Remove duplicate - use shared .btn .btn-outline instead */
 
 /* Messages */
 .message {
@@ -176,40 +157,11 @@
   border: 2px solid transparent;
 }
 
-.btn-edit-profile {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  border: none;
-}
-
-.btn-edit-profile:hover {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-}
-
-.btn-steam-link {
-  background: linear-gradient(135deg, #1b2838, #2a475e);
-  color: #66c0f4;
-  border: 2px solid #66c0f4;
-}
-
-.btn-steam-link:hover {
-  background: linear-gradient(135deg, #2a475e, #1b2838);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 192, 244, 0.3);
-}
-
-.btn-steam-profile {
-  background: linear-gradient(135deg, #66c0f4, #4a90c2);
-  color: white;
-}
-
-.btn-steam-profile:hover {
-  background: linear-gradient(135deg, #4a90c2, #357abd);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 192, 244, 0.4);
-}
+/* Remove duplicates - use shared .btn classes:
+   - .btn-edit-profile -> .btn .btn-primary
+   - .btn-steam-link -> .btn .btn-outline (with steam colors)
+   - .btn-steam-profile -> .btn .btn-primary (with steam colors)
+*/
 
 /* Stats Grid */
 .stats-grid {
@@ -323,38 +275,10 @@
   gap: 1rem;
 }
 
-.btn-save {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-save:hover {
-  background: linear-gradient(135deg, #059669, #047857);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-}
-
-.btn-cancel {
-  background: rgba(239, 68, 68, 0.1);
-  border: 2px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-cancel:hover {
-  background: rgba(239, 68, 68, 0.2);
-  transform: translateY(-2px);
-}
+/* Remove duplicates - use shared .btn classes:
+   - .btn-save -> .btn .btn-success
+   - .btn-cancel -> .btn .btn-outline (danger variant)
+*/
 
 /* Tabs */
 .profile-tabs {

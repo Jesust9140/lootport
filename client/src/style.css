@@ -1,3 +1,13 @@
+/* 
+ * This file contains legacy styles - most styling has been moved to shared files:
+ * - /styles/variables.css for CSS variables
+ * - /styles/buttons.css for button styles  
+ * - /styles/forms.css for form styles
+ * 
+ * TODO: Gradually migrate remaining styles to component-specific CSS files
+ */
+
+/* Legacy variables - these are duplicated in /styles/variables.css */
 :root {
   --color-primary: #1fb3c7;
   --color-primary-hover: #06b6d4;
@@ -43,163 +53,17 @@ html, body {
   font-family: var(--font-family);
 }
 
-
-/* Utility class */
-
-text.center {
-  text-align: center;
-}
- .flex {
-  display: flex;}
-
-.flex.column {
-  flex-direction: column;}
-
-  .flex-center {
-    justify-content: center;
-    align-items: center;
-  }
-
-  .mt-medium {
-    margin-top: var(--spacing-medium);
-  }
-
-  .mb-medium {
-  margin-bottom: var(--spacing-medium);
-}
-
-.p-medium {
-  padding: var(--spacing-medium);
-}
-
-.rounded {
-  border-radius: var(--border-radius);
-}
-
-.shadow {
-  box-shadow: var(--box-shadow);
-}
-
-/* Form Containers for Log in and Create Account*/
-
-.form-container {
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-  max-width: 400px;
-  width: 100%;
-  margin: auto;
-  padding: var(--spacing-large);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-}
-
-.form-container h2 {
-color: var(--color-primary);  
-margin-bottom: var(--spacing-medium);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form input {
-    width: 100%;
-    max-width: 300px;
-    padding: var(--spacing-small);
-    font-size: 1rem;
-    border: none;
-    border-radius: var(--border-radius);
-    background-color: var(--color-secondary-hover);
-    color: var(--color-text);
-}
-.form input:focus {
-  outline: none;
-  background-color: var(--color-primary-hover);
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5);
-}
-
-.form button {
-  padding: var(--spacing-small);
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: var(--border-radius);
-  color: #111827;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
-}
-
-.form button:hover {
-  background-color: var(--color-primary-hover);
-}
-/* Login container*/
-/* Ensure the login container matches the app's theme */
-.login-container {
-    position: relative;
-  text-align: center;
-  padding: 2rem;
-  background-color: #2d3748; /* Match the app's card background */
-  border-radius: 8px;
+/* 
+ * TODO: Remove these duplicate styles - they exist in /styles/forms.css and /styles/buttons.css
+ * Keeping temporarily for backward compatibility
+ */ 
+  /* border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: #e2e8f0;
   max-width: 400px;
   width: 100%;
   margin: auto;
-  
-}
-
-/* Register form styling */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-  
-}
-
-.login-form input {
-  
-    width: 100%; 
-  max-width: 300px; 
-  margin: 0 auto;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #3b4452;
-  color: #f9fafb;
-}
-
-.login-form input:focus {
-  outline: none;
-  background-color: #4b5563;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5); /* Add a focus effect */
-}
-
-.login-form button {
-  padding: 0.75rem;
-  background-color: #e5ecf3;
-  border: none;
-  border-radius: 6px;
-  color: #141414;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
-}
-
-
-.register-container {
-  text-align: center;
-  padding: 2rem;
-  background-color: #2d3748; 
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: #e2e8f0;
-  max-width: 400px;
-  width: 100%;
-  margin: auto;
-}
+} */
 .register-form button:hover {
   background-color: #5a6163;
 }
@@ -277,11 +141,12 @@ nav {
 }
 .categorybar {
   display: flex;
-  overflow-x: auto;
+  overflow: visible;
   background-color: #1e293b;
   padding: 0.5rem 1rem;
   gap: 1rem;
   white-space: nowrap;
+  position: relative;
 }
 /* Left section (logo and brand) */
 .logo-image {
@@ -614,11 +479,13 @@ img {
 
 .categorybar {
   display: flex;
-  overflow-x: auto;
+  overflow: visible;
   background-color: #1e293b;
   padding: 0.5rem 1rem;
   gap: 1rem;
   white-space: nowrap;
+  position: relative;
+  justify-content: space-evenly;
 }
 
 
