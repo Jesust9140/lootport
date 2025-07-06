@@ -13,8 +13,7 @@ import './Marketplace.css';
 const Marketplace = () => {
   const {
     filters,
-    setFilter,
-    resetFilters
+    setFilter
   } = useFilters({
     rarity: '',
     wear: '',

@@ -1,0 +1,231 @@
+.steam-id-input {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #1e293b, #334155);
+  border-radius: 16px;
+  border: 1px solid #475569;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.steam-id-input__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.steam-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #66a3ff, #0066cc);
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  color: white;
+  box-shadow: 0 8px 25px rgba(102, 163, 255, 0.3);
+}
+
+.steam-id-input__header h3 {
+  margin: 0 0 0.5rem 0;
+  color: #f1f5f9;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.steam-id-input__header p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.steam-id-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  color: #e2e8f0;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.input-group input {
+  padding: 0.875rem 1rem;
+  background: #0f172a;
+  border: 2px solid #334155;
+  border-radius: 8px;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #66a3ff;
+  box-shadow: 0 0 0 3px rgba(102, 163, 255, 0.1);
+}
+
+.input-group input.error {
+  border-color: #ef4444;
+}
+
+.input-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input-help {
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.input-help ul {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1rem;
+}
+
+.input-help li {
+  margin: 0.25rem 0;
+}
+
+.input-help code {
+  background: #0f172a;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8rem;
+  color: #66a3ff;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+}
+
+.error-icon {
+  font-size: 1rem;
+}
+
+.steam-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #66a3ff, #0066cc);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(102, 163, 255, 0.3);
+}
+
+.steam-auth-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5294ff, #0052a3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(102, 163, 255, 0.4);
+}
+
+.steam-auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.steam-icon {
+  font-size: 1.1rem;
+}
+
+.steam-help {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #374151;
+}
+
+.steam-help details {
+  color: #94a3b8;
+}
+
+.steam-help summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.steam-help summary:hover {
+  color: #66a3ff;
+}
+
+.steam-help ol {
+  margin: 0.5rem 0 0 0;
+  padding-left: 1.5rem;
+  line-height: 1.5;
+}
+
+.steam-help li {
+  margin: 0.375rem 0;
+  font-size: 0.9rem;
+}
+
+.steam-help code {
+  background: #0f172a;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8rem;
+  color: #66a3ff;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .steam-id-input {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .steam-id-input__header h3 {
+    font-size: 1.25rem;
+  }
+  
+  .steam-auth-btn {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}

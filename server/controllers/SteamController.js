@@ -2,10 +2,10 @@ import SteamAccount from "../models/SteamAccount.js";
 import InventoryItem from "../models/InventoryItem.js";
 import User from "../models/User.js";
 import crypto from "crypto";
+import { steamAPI, CS2_RARITIES, CS2_CONDITIONS } from "../utils/steamAPI.js";
 
 // Steam API configuration
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
-const STEAM_API_BASE = "https://api.steampowered.com";
 
 // @desc    Connect Steam account to user
 // @route   POST /api/steam/connect
@@ -66,7 +66,7 @@ export const connectSteamAccount = async (req, res) => {
   }
 };
 
-// @desc    Get Steam profile info
+// @desc    Get Steam profile info with enhanced data
 // @route   GET /api/steam/profile
 // @access  Private
 export const getSteamProfile = async (req, res) => {
@@ -80,27 +80,41 @@ export const getSteamProfile = async (req, res) => {
       });
     }
 
-    // Fetch additional info from Steam API if available
-    let steamData = null;
+    // Fetch comprehensive Steam data
+    let enhancedSteamData = null;
     if (STEAM_API_KEY && steamAccount.steamId64) {
       try {
-        const response = await fetch(
-          `${STEAM_API_BASE}/ISteamUser/GetPlayerSummaries/v0002/?key=${STEAM_API_KEY}&steamids=${steamAccount.steamId64}`
-        );
-        const data = await response.json();
-        steamData = data.response?.players?.[0] || null;
+        console.log('🔍 Fetching enhanced Steam data for:', steamAccount.steamId64);
+        
+        // Get multiple Steam data points in parallel
+        const [playerSummaries, playerBans, steamLevel, recentGames] = await Promise.allSettled([
+          steamAPI.getPlayerSummaries(steamAccount.steamId64),
+          steamAPI.getPlayerBans(steamAccount.steamId64),
+          steamAPI.getSteamLevel(steamAccount.steamId64),
+          steamAPI.getRecentlyPlayedGames(steamAccount.steamId64)
+        ]);
+
+        enhancedSteamData = {
+          profile: playerSummaries.status === 'fulfilled' ? playerSummaries.value[0] : null,
+          bans: playerBans.status === 'fulfilled' ? playerBans.value[0] : null,
+          level: steamLevel.status === 'fulfilled' ? steamLevel.value : 0,
+          recentGames: recentGames.status === 'fulfilled' ? recentGames.value : [],
+          lastUpdated: new Date()
+        };
+
+        console.log('✅ Enhanced Steam data fetched successfully');
       } catch (apiError) {
-        console.warn("Steam API error:", apiError);
+        console.warn("⚠️ Steam API error:", apiError.message);
       }
     }
 
     res.status(200).json({
       success: true,
       steamAccount,
-      steamData
+      enhancedData: enhancedSteamData
     });
   } catch (error) {
-    console.error("Get Steam profile error:", error);
+    console.error("❌ Get Steam profile error:", error);
     res.status(500).json({
       success: false,
       message: "Server error fetching Steam profile",

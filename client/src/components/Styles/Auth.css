@@ -308,54 +308,67 @@ flex-direction: column;
 .steam-login-container {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(56, 189, 248, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* OR divider */
+.or-divider {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
 }
 
-.steam-login-container::before {
-  content: "OR";
-  position: absolute;
-  background: rgba(30, 41, 59, 0.95);
-  color: #94a3b8;
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #374151, transparent);
+}
+
+.or-divider span {
   padding: 0 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-top: -1.9rem;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(30, 41, 59, 0.95);
 }
 
-/* Steam login button - TODO: Replace with .btn.btn-secondary + custom Steam icon */
+/* Steam login button */
 .steam-login-button {
   width: 100%;
-  padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #171a21, #1b2838);
-  border: 2px solid #66c0f4;
-  color: #66c0f4;
-  font-weight: 600;
+  padding: 0.875rem 1rem;
+  background: linear-gradient(135deg, #66a3ff, #0066cc);
+  color: white;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
-  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-}
-
-.steam-login-button::before {
-  content: "🎮";
-  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(102, 163, 255, 0.3);
+  margin-bottom: 1rem;
 }
 
 .steam-login-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #1b2838, #2a475e);
-  border-color: #7dd3fc;
+  background: linear-gradient(135deg, #5294ff, #0052a3);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 192, 244, 0.3);
+  box-shadow: 0 6px 20px rgba(102, 163, 255, 0.4);
 }
 
 .steam-login-button:disabled {
@@ -374,36 +387,96 @@ flex-direction: column;
   border-top: 1px solid rgba(56, 189, 248, 0.1);
 }
 
-/* Link button - TODO: Replace with .btn.btn-text */
+/* Link button styling to match page design */
 .link-button {
-  background: none;
-  border: none;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   color: #38bdf8;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
   font-weight: 500;
-}
-
-.link-button:hover {
-  color: #0ea5e9;
-}
-
-/* Admin note */
-.admin-note {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  text-decoration: none;
+  flex: 1;
   text-align: center;
 }
 
-.admin-note p {
-  color: #64748b;
-  font-size: 0.8rem;
+.link-button:hover:not(:disabled) {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #0ea5e9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2);
+}
+
+.link-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Steam full container - completely separate section */
+.steam-full-container {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid #334155;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideInFromBottom 0.4s ease-out;
+  min-height: 60vh; /* Ensure enough height to trigger scrolling */
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.steam-full-container .steam-manual-auth {
   margin: 0;
-  font-style: italic;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  max-height: none;
+  overflow: visible;
+}
+
+.steam-full-container .steam-notice {
+  background: rgba(66, 165, 255, 0.1);
+  border: 1px solid #66a3ff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Steam section header */
+.steam-section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #334155;
+}
+
+.steam-section-header h3 {
+  margin: 0 0 0.5rem 0;
+  color: #66a3ff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.steam-section-header p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
 }
 
 /* Responsive design */

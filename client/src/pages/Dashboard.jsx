@@ -6,7 +6,7 @@ import "../components/Styles/AdminDashboard.css";
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [stats, setStats] = useState({
+  const [stats] = useState({
     totalUsers: 1247,
     totalTransactions: 5896,
     totalRevenue: 89420.50,

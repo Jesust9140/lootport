@@ -11,7 +11,9 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: function() {
+      return this.authMethod !== 'steam';
+    },
     minlength: 6
   },
   username: {
@@ -25,11 +27,22 @@ const userSchema = new mongoose.Schema({
   },
   steamId: {
     type: String,
-    default: null
+    default: null,
+    sparse: true,
+    unique: true
   },
   steamProfileUrl: {
     type: String,
     default: null
+  },
+  authMethod: {
+    type: String,
+    enum: ['local', 'steam', 'hybrid'],
+    default: 'local'
+  },
+  steamLinked: {
+    type: Boolean,
+    default: false
   },
   bio: {
     type: String,

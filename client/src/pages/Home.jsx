@@ -120,7 +120,7 @@ export default function Home() {
   <div className="HomePage-title">Rated Excellent</div>
   <div className="Trustpilot HomePage-trustpilot">
     <div className="Trustpilot-logo">
-      <a href="#" title="Trustpilot" target="_blank" rel="noreferrer">
+      <a href="https://trustpilot.com" title="Trustpilot" target="_blank" rel="noreferrer">
         Trustpilot
       </a>
     </div>
@@ -138,7 +138,7 @@ export default function Home() {
   
   <div className="HomePage-title">Latest News</div>
   <div className="BlogFeed HomePage-blog">
-    <a className="BlogFeed-post" href="#">
+    <a className="BlogFeed-post" href="/blog/cs2-trading-guide">
       <div className="BlogFeed-image">
         <img src="https://via.placeholder.com/250x100" alt="CS2 Trading Guide" />
       </div>
@@ -146,7 +146,7 @@ export default function Home() {
       <div className="BlogFeed-title">Complete CS2 Trading Guide</div>
     </a>
     
-    <a className="BlogFeed-post" href="#">
+    <a className="BlogFeed-post" href="/blog/best-skins-2025">
       <div className="BlogFeed-image">
         <img src="https://via.placeholder.com/250x100" alt="Best Skins 2025" />
       </div>
@@ -154,7 +154,7 @@ export default function Home() {
       <div className="BlogFeed-title">Top 10 CS2 Skins to Buy in 2025</div>
     </a>
     
-    <a className="BlogFeed-post" href="#">
+    <a className="BlogFeed-post" href="/blog/market-analysis">
       <div className="BlogFeed-image">
         <img src="https://via.placeholder.com/250x100" alt="Market Analysis" />
       </div>

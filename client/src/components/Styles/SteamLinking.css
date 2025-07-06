@@ -1,0 +1,327 @@
+/* Steam Linking Styles */
+.steam-linking-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.steam-linking-card {
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 24px;
+  padding: 3rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.steam-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.steam-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.steam-header h2 {
+  color: #f8fafc;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.steam-header p {
+  color: #94a3b8;
+  margin: 0 0 1rem 0;
+}
+
+.steam-profile-preview {
+  background: rgba(15, 23, 42, 0.8);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  margin-top: 1rem;
+}
+
+.steam-display-name {
+  color: #38bdf8;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Mode Selector */
+.mode-selector {
+  display: flex;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 12px;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: white;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+}
+
+.mode-btn:not(.active):hover {
+  color: #cbd5e1;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.mode-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form Styles */
+.steam-form {
+  margin-bottom: 2rem;
+}
+
+.register-mode h3,
+.link-mode h3 {
+  color: #f8fafc;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.register-mode p,
+.link-mode p {
+  color: #94a3b8;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: #cbd5e1;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid rgba(56, 189, 248, 0.2);
+  border-radius: 12px;
+  color: #f8fafc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
+
+.form-input::placeholder {
+  color: #64748b;
+}
+
+/* Button Styles */
+.btn-steam {
+  background: linear-gradient(135deg, #1b74e4, #0f5bb3);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-steam:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0f5bb3, #0d4d99);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(27, 116, 228, 0.4);
+}
+
+.btn-steam:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-left: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Messages */
+.message {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.message.success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+}
+
+.message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.success-icon,
+.error-icon {
+  font-size: 1.2rem;
+}
+
+/* Footer */
+.steam-footer {
+  border-top: 1px solid rgba(56, 189, 248, 0.1);
+  padding-top: 2rem;
+}
+
+.footer-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.steam-info {
+  text-align: center;
+}
+
+.steam-info p {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.info-icon {
+  font-size: 1rem;
+  color: #38bdf8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .steam-linking-container {
+    padding: 1rem;
+  }
+
+  .steam-linking-card {
+    padding: 2rem;
+    max-width: 100%;
+  }
+
+  .steam-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .mode-selector {
+    flex-direction: column;
+  }
+
+  .mode-btn {
+    margin-bottom: 0.5rem;
+  }
+
+  .mode-btn:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Auth Success Styles */
+.auth-success-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.auth-success-content {
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.auth-success-content h2 {
+  color: #f8fafc;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.auth-success-content p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: block;
+}

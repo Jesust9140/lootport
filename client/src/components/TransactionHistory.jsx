@@ -12,8 +12,7 @@ import './TransactionHistory.css';
 const TransactionHistory = () => {
   const {
     filters,
-    setFilter,
-    resetFilters
+    setFilter
   } = useFilters({
     type: 'all', // all, purchases, sales
     page: 1,

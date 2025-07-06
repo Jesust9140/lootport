@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   getAdvancedInventory, 
   listItemForSale, 
@@ -62,11 +62,13 @@ const InventoryManager = () => {
     return response;
   };
 
-  const loadInventory = () => execute(() => loadInventoryData());
+  const loadInventory = useCallback(() => {
+    execute(() => loadInventoryData());
+  }, [execute, loadInventoryData]);
 
   useEffect(() => {
     loadInventory();
-  }, [filters]);
+  }, [filters, loadInventory]);
 
   const handleListItem = async (itemId, price) => {
     await execute(async () => {
