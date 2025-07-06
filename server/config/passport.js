@@ -4,15 +4,12 @@ import User from '../models/User.js';
 import SteamAccount from '../models/SteamAccount.js';
 import dotenv from 'dotenv';
 
-// Ensure environment variables are loaded
 dotenv.config();
 
-// Re-check environment variables (in case of ES6 module import timing)
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const STEAM_RETURN_URL = process.env.STEAM_RETURN_URL || 'http://localhost:5000/api/auth/steam/return';
 const STEAM_REALM = process.env.STEAM_REALM || 'http://localhost:5000/';
 
-// Log Steam configuration status
 console.log('🎮 Steam Configuration:');
 console.log('   API Key:', STEAM_API_KEY ? `✅ Set (${STEAM_API_KEY.substring(0, 8)}...)` : '❌ Missing');
 console.log('   Return URL:', STEAM_RETURN_URL);
@@ -25,15 +22,12 @@ if (!STEAM_API_KEY) {
   console.log('✅ Steam API Key configured successfully');
 }
 
-// Steam Strategy
 passport.use(new SteamStrategy({
   returnURL: STEAM_RETURN_URL,
   realm: STEAM_REALM,
   apiKey: STEAM_API_KEY,
   profile: true,
-  // Add custom options to help with Steam OpenID compatibility
   stateless: false,
-  // Pass custom headers
   headers: {
     'User-Agent': 'LootDrop Steam Integration v1.0'
   }
@@ -69,18 +63,15 @@ passport.use(new SteamStrategy({
       avatar: profileData.avatar ? '✅' : '❌'
     });
 
-    // Check if Steam account already exists
     let steamAccount = await SteamAccount.findOne({ steamId64 });
     
     if (steamAccount) {
       console.log('👤 Existing Steam account found, updating data...');
       
-      // Update existing Steam account data
       Object.assign(steamAccount, profileData);
       steamAccount.lastLogin = new Date();
       await steamAccount.save();
       
-      // Return the associated user
       const user = await User.findById(steamAccount.user);
       if (user) {
         console.log('✅ Steam user authenticated successfully:', user.username);
@@ -93,7 +84,6 @@ passport.use(new SteamStrategy({
 
     console.log('🆕 New Steam user, preparing for account creation/linking...');
     
-    // For new Steam users, return profile data for handling in routes
     return done(null, { steamProfile: profileData, isNewUser: true });
     
   } catch (error) {
@@ -102,7 +92,6 @@ passport.use(new SteamStrategy({
   }
 }));
 
-// Serialize user for session
 passport.serializeUser((data, done) => {
   if (data.user) {
     done(null, { userId: data.user._id, type: 'user' });
@@ -111,7 +100,6 @@ passport.serializeUser((data, done) => {
   }
 });
 
-// Deserialize user from session
 passport.deserializeUser(async (data, done) => {
   try {
     if (data.type === 'user') {

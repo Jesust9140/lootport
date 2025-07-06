@@ -1,4 +1,5 @@
-// Notification API functions for frontend
+// TODO: add websocket support for real-time notifications
+// also need push notifications for mobile users
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 // Get user notifications
@@ -24,6 +25,7 @@ export const getUserNotifications = async () => {
       throw new Error(data.message || "Failed to fetch notifications");
     }
 
+    // should add pagination here, notifications can get overwhelming
     return data;
   } catch (error) {
     console.error("Notifications fetch error:", error);

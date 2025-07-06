@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+// only use this in development, should remove in production build
+// helps me debug auth issues without opening devtools constantly
 export default function DebugAuth() {
   const [debugInfo, setDebugInfo] = useState({});
 
@@ -20,7 +22,7 @@ export default function DebugAuth() {
 
     checkAuth();
     
-    // Check every 2 seconds
+    // Check every 2 seconds - might be overkill but helps catch auth issues
     const interval = setInterval(checkAuth, 2000);
     
     return () => clearInterval(interval);

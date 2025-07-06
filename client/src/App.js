@@ -10,7 +10,6 @@ import Inventory from "./pages/Inventory";
 import CategoryPage from "./pages/CategoryPage";
 import Marketplace from "./components/Marketplace";
 import InventoryManager from "./components/InventoryManager";
-// Import shared styles globally
 import "./styles/variables.css";
 import "./styles/buttons.css";
 import "./styles/forms.css";
@@ -18,9 +17,12 @@ import TransactionHistory from "./components/TransactionHistory";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DebugAuth from "./components/DebugAuth";
 
+// TODO: add error boundary component to catch React errors
+// also need to implement lazy loading for better performance
 function App() {
   return (
     <Router>
+      {/* remove debug component in production */}
       <DebugAuth />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -28,6 +30,7 @@ function App() {
           <Route path="auth" element={<Auth />} />
           <Route path="auth-success" element={<AuthSuccess />} />
           <Route path="steam-linking" element={<SteamLinking />} />
+          {/* these redirect routes are confusing, should clean up */}
           <Route path="login" element={<Auth />} />
           <Route path="register" element={<Auth />} />
           <Route path="marketplace" element={<Marketplace />} />

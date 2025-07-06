@@ -4,6 +4,8 @@ import { getUserProfile, updateUserProfile, getUserTransactions, mockSteamLogin,
 import { getUserInventory } from "../api/inventoryAPI";
 import "../components/Styles/UserProfile.css";
 
+// this component is way too big, need to break it into smaller components
+// like ProfileOverview, ProfileSettings, InventoryTab, TransactionsTab etc
 export default function UserProfile() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,6 +15,7 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
   const [editMode, setEditMode] = useState(false);
+  // TODO: use a proper form library like react-hook-form to handle all this state
   const [editForm, setEditForm] = useState({
     username: '',
     bio: '',

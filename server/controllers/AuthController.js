@@ -1,22 +1,19 @@
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
-// Generate JWT Token
+// TODO: should probably add refresh tokens at some point for better security
+// also need rate limiting on login attempts to prevent brute force
 const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET || "your-secret-key", {
     expiresIn: "7d",
   });
 };
 
-// @desc    Login user (admin and customers)
-// @route   POST /api/auth/login
-// @access  Public
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     console.log("🔍 Login attempt:", { email, passwordLength: password?.length });
 
-    // Check if email and password are provided
     if (!email || !password) {
       console.log("❌ Missing email or password");
       return res.status(400).json({
@@ -25,7 +22,7 @@ export const login = async (req, res) => {
       });
     }
 
-    // Find user by email
+    // should add email validation here, maybe use validator library
     const user = await User.findOne({ email: email.toLowerCase() });
     console.log("👤 User found:", !!user, user?.email);
     if (!user) {
@@ -36,7 +33,6 @@ export const login = async (req, res) => {
       });
     }
 
-    // Check password
     const isPasswordValid = await user.comparePassword(password);
     console.log("🔐 Password valid:", isPasswordValid);
     if (!isPasswordValid) {
@@ -47,14 +43,13 @@ export const login = async (req, res) => {
       });
     }
 
-    // Set role based on email (admin for jesust9140@gmail.com, customer for others)
+    // hardcoded admin check is temporary, need proper role management system
     const newRole = email.toLowerCase() === "jesust9140@gmail.com" ? 'admin' : 'customer';
     if (user.role !== newRole) {
       user.role = newRole;
       await user.save();
     }
 
-    // Generate token
     const token = generateToken(user._id);
     console.log("✅ Login successful for:", user.email);
 

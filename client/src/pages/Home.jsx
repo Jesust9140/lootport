@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import ImageCarousel from "../components/ImageCarousel";
 import SkinList from "../components/SkinList";
@@ -8,8 +7,9 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if device is mobile
   useEffect(() => {
+    // I should debounce this resize handler for better performance
+    // might also want to use a custom hook for this mobile detection logic
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -20,8 +20,9 @@ export default function Home() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Load skins from backend
   useEffect(() => {
+    // TODO: replace this mock data with real API call when backend is ready
+    // I'm using setTimeout to simulate loading state for now
     setIsLoading(true);
     setTimeout(() => {
       setSkins([
@@ -86,13 +87,10 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      {/* Spacer added between navbar and carousel */}
       <div style={{ marginTop: isMobile ? "70px" : "60px" }}></div>
 
-      {/* Image Carousel - Hide on mobile */}
       {!isMobile && <ImageCarousel />}
 
-      {/* Promo Section */}
       <section className="promo-section" style={{ 
         padding: isMobile ? "1.5rem 1rem" : "2rem", 
         textAlign: "center" 
@@ -110,7 +108,7 @@ export default function Home() {
           margin: "0 auto"
         }}>
           Lootdrop is your trusted space to buy, sell, and explore premium Counter-Strike 2 skins.
-          Built with gamers in mind, our platform puts speed, security, and great prices first — without the noise.
+          Built with gamers in mind, my platform puts speed, security, and great prices first — without the noise.
         </p>
       </section>
 
@@ -165,7 +163,6 @@ export default function Home() {
 </div>
 
 
-      {/* Main Content */}
       <main style={{ 
         textAlign: "center", 
         padding: isMobile ? "1rem" : "2rem" 
@@ -197,7 +194,6 @@ export default function Home() {
         )}
       </main>
 
-      {/* Sticky Item Box - Hide on mobile or show simplified version */}
       {!isMobile && (
         <div className="sticky-item-box">
           {skins.slice(0, 2).map((skin) => (

@@ -1,3 +1,5 @@
+/* TODO: implement masonry layout for better space usage */
+/* also need skeleton loading states for better UX */
 .skin-list {
   display: flex;
   flex-wrap: wrap;
@@ -6,6 +8,7 @@
   padding: 0 1rem;
 }
 
+/* card design is pretty good but might need dark/light theme variants */
 .skin-card {
   border: 1px solid #334155;
   border-radius: 12px;
@@ -21,7 +24,7 @@
 .skin-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2);
-  border-color: #38bdf8;
+  border-color: #38bdf8; /* might add subtle glow effect here later */
 }
 
 .skin-card img {
@@ -30,7 +33,7 @@
   border-radius: 8px;
   margin-bottom: 0.75rem;
   background: #0f172a;
-  padding: 0.5rem;
+  padding: 0.5rem; /* padding prevents images from touching borders */
 }
 
 .skin-card h3 {

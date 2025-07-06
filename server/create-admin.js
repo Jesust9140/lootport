@@ -15,17 +15,14 @@ async function createAdmin() {
     const username = "admin";
     const role = "admin";
 
-    // Check if admin already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       console.log("❌ Admin user already exists!");
       process.exit(0);
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create admin user
     const adminUser = new User({
       username,
       email,

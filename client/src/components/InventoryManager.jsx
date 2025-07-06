@@ -12,7 +12,7 @@ import { useFilters, useAsyncOperation, useSelection } from '../hooks/useFilters
 import { formatCurrency } from '../utils/apiUtils';
 import './InventoryManager.css';
 
-// Helper function for status colors
+// i should move this to a utils file, being used in multiple places
 const getStatusColor = (status) => {
   const colors = {
     'in_inventory': '#64748b',
@@ -23,12 +23,13 @@ const getStatusColor = (status) => {
   return colors[status] || '#64748b';
 };
 
+// this component is getting huge, need to break it down into smaller pieces
+// maybe separate filtering, bulk actions, and item display components
 const InventoryManager = () => {
   const [inventory, setInventory] = useState([]);
   const [stats, setStats] = useState({});
   const [pagination, setPagination] = useState({});
   
-  // Use shared hooks to eliminate duplicate logic
   const { filters, handleFilterChange } = useFilters({
     rarity: '',
     wear: '',
@@ -49,11 +50,9 @@ const InventoryManager = () => {
     isAllSelected
   } = useSelection(inventory);
 
-  // UI states
   const [showBulkActions, setShowBulkActions] = useState(false);
   const [bulkListingPrice, setBulkListingPrice] = useState('');
 
-  // Remove duplicate functions - now using hooks
   const loadInventoryData = useCallback(async () => {
     const response = await getAdvancedInventory(filters);
     setInventory(response.inventory);
@@ -73,14 +72,14 @@ const InventoryManager = () => {
   const handleListItem = async (itemId, price) => {
     await execute(async () => {
       await listItemForSale(itemId, parseFloat(price));
-      await loadInventoryData(); // Refresh inventory
+      await loadInventoryData();
     });
   };
 
   const handleUnlistItem = async (itemId) => {
     await execute(async () => {
       await unlistItem(itemId);
-      await loadInventoryData(); // Refresh inventory
+      await loadInventoryData();
     });
   };
 
@@ -100,7 +99,7 @@ const InventoryManager = () => {
       clearSelection();
       setBulkListingPrice('');
       setShowBulkActions(false);
-      await loadInventoryData(); // Refresh inventory
+      await loadInventoryData();
     });
   };
 
@@ -146,7 +145,6 @@ const InventoryManager = () => {
         </div>
       )}
 
-      {/* Filters */}
       <div className="inventory-filters">
         <div className="filter-row">
           <input
@@ -237,7 +235,6 @@ const InventoryManager = () => {
         </div>
       </div>
 
-      {/* Bulk Actions */}
       {selectedItems.length > 0 && (
         <div className="bulk-actions">
           <div className="bulk-header">
@@ -273,7 +270,6 @@ const InventoryManager = () => {
         </div>
       )}
 
-      {/* Inventory Grid */}
       <div className="inventory-controls">
         <button onClick={handleSelectAll} className="btn btn-outline">
           {isAllSelected ? 'Deselect All' : 'Select All'}
@@ -293,7 +289,6 @@ const InventoryManager = () => {
         ))}
       </div>
 
-      {/* Pagination */}
       {pagination.total > 1 && (
         <div className="pagination">
           <button
@@ -321,7 +316,6 @@ const InventoryManager = () => {
   );
 };
 
-// Individual inventory item component
 const InventoryItem = ({ item, selected, onSelect, onList, onUnlist }) => {
   const [showActions, setShowActions] = useState(false);
   const [listingPrice, setListingPrice] = useState(item.listingPrice || '');

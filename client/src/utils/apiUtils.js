@@ -1,31 +1,26 @@
-/**
- * Shared API utilities to eliminate duplicate error handling and token management
- */
-
-// Standard error handler for API responses
+// TODO: should add retry logic for failed requests, maybe exponential backoff
+// also need proper toast notifications instead of alerts
 export const handleApiError = (error) => {
   console.error('API Error:', error);
   
   if (error.response) {
-    // Server responded with error status
     const message = error.response.data?.message || error.response.statusText || 'Server error';
     throw new Error(message);
   } else if (error.request) {
-    // Network error
+    // Network error - happens a lot with slow connections
     throw new Error('Network error - please check your connection');
   } else {
-    // Other error
     throw new Error(error.message || 'An unexpected error occurred');
   }
 };
 
-// Get auth headers with token
+// TODO: should check token expiry and refresh automatically
 export const getAuthHeaders = () => {
   const token = localStorage.getItem("authToken");
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
-// Standard API request wrapper
+// could probably replace this with react-query or swr for better caching
 export const apiRequest = async (requestFunction) => {
   try {
     const response = await requestFunction();
@@ -69,7 +64,8 @@ export const formatDate = (date) => {
   }).format(new Date(date));
 };
 
-// Show success message (could be enhanced with a toast library later)
+// need to add better toast library, maybe react-hot-toast
+// alerts are really annoying for users
 export const showSuccessMessage = (message) => {
   // For now, use alert - could be replaced with a proper toast notification
   alert(message);

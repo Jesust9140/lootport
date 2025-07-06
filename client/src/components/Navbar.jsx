@@ -4,6 +4,8 @@ import NotificationDropdown from './NotificationDropdown';
 import ProfileDropdown from './ProfileDropdown';
 import './Navbar.css';
 
+// TODO: I should move this data to a seperate config file or fetch from API
+// might be better to get categories from backend when we have more dynamic content
 const categoryData = {
   'Knife': ['Kukri Knife', 'Butterfly Knife', 'Karambit', 'Huntsman Knife', 'Bayonet', 'Talon Knife', 'M9 Bayonet', 'Bowie Knife', 'Falchion Knife', 'Gut Knife', 'Stiletto Knife', 'Shadow Daggers'],
   'Gloves': ['Sport Gloves', 'Driver Gloves', 'Hand Wraps', 'Moto Gloves', 'Specialist Gloves', 'Bloodhound Gloves', 'Hydra Gloves', 'Broken Fang Gloves'],
@@ -50,6 +52,7 @@ export default function Navbar() {
     checkAuthState();
 
     // Listen for auth changes from other components or tabs
+    // this is kinda hacky but works for now, might implement proper context later
     const handleStorageChange = (e) => {
       if (e.key === 'authToken' || e.key === 'user' || e.key === 'isLoggedIn') {
         checkAuthState();

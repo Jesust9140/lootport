@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// TODO: need to add payment method tracking, dispute resolution
+// also should track transaction fees more granularly for accounting
 const transactionSchema = new mongoose.Schema({
   buyer: {
     type: mongoose.Schema.Types.ObjectId,
@@ -32,7 +34,7 @@ const transactionSchema = new mongoose.Schema({
   platformFee: {
     type: Number,
     required: true,
-    default: 0
+    default: 0 // currently 0% but will need to implement fee structure
   },
   sellerReceives: {
     type: Number,

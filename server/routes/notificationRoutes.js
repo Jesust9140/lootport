@@ -10,15 +10,16 @@ import { authenticate } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// All notification routes require authentication
+// all notifications need auth, no public access
 router.use(authenticate);
 
-// Customer routes
+// basic user notification operations
 router.get("/", getNotifications);
 router.put("/:id/read", markNotificationRead);
 router.put("/read-all", markAllNotificationsRead);
 
-// Admin only routes
+// TODO: add admin middleware to these routes
+// also need pagination for notifications
 router.post("/broadcast", broadcastNotification);
 router.post("/skin-sold", notifySkinSold);
 

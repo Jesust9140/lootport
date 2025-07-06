@@ -1,11 +1,15 @@
 import "./SkinList.css";
 
+// TODO: need to add proper grid/masonry layout for better mobile experience
+// maybe use react-window for virtualization when we have thousands of skins
 const SkinList = ({ skins }) => {
+  // I really need to connect this to the actual payment system eventually
+  // thinking stripe or paypal integration, also need inventory management
   const handleBuyClick = (skin) => {
-    // For now, just show an alert - you can replace this with actual buy functionality
     alert(`Buy ${skin.name} for $${skin.price}? (Feature coming soon!)`);
   };
 
+  // empty state could be prettier, maybe add some loading skeletons too
   if (skins.length === 0) {
     return (
       <div style={{ 
@@ -27,11 +31,13 @@ const SkinList = ({ skins }) => {
     <div className="skin-list">
       {skins.map((skin) => (
         <div key={skin._id} className="skin-card">
+          {/* need lazy loading for images, especially on mobile */}
           <img src={skin.imageUrl} alt={skin.name} />
           <h3>{skin.name}</h3>
           <div className="wear">{skin.wear}</div>
           <div className="rarity">★ {skin.rarity}</div>
           <div className="price">${skin.price.toFixed(2)}</div>
+          {/* sugested price is kinda useless, might remove or make it market value */}
           {skin.suggestedPrice && (
             <div style={{ 
               fontSize: "0.75rem", 
@@ -42,6 +48,7 @@ const SkinList = ({ skins }) => {
               ${skin.suggestedPrice.toFixed(2)}
             </div>
           )}
+          {/* need to disable button when user cant afford it or already owns */}
           <button 
             className="buy-button"
             onClick={() => handleBuyClick(skin)}

@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import InventoryItem from "../models/InventoryItem.js";
 import User from "../models/User.js";
 
+// TODO: implement Steam inventory syncing instead of manual adding
+// also need to add inventory caching to reduce database calls
+
 // @desc    Get user's inventory
 // @route   GET /api/inventory
 // @access  Private
@@ -10,6 +13,7 @@ export const getUserInventory = async (req, res) => {
     const inventory = await InventoryItem.find({ owner: req.user.userId })
       .sort({ createdAt: -1 });
 
+    // should probably paginate this for users with large inventories
     const stats = {
       total: inventory.length,
       listed: inventory.filter(item => item.status === 'listed').length,
@@ -31,6 +35,7 @@ export const getUserInventory = async (req, res) => {
   }
 };
 
+// this is mainly for testing, real items should come from Steam API
 // @desc    Add item to inventory manually (for testing)
 // @route   POST /api/inventory
 // @access  Private

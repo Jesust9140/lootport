@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// TODO: need to add password reset tokens, email verification, 2FA
+// also should add user preferences for notifications and privacy settings
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -29,7 +31,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
     sparse: true,
-    unique: true
+    unique: true // need to handle duplicate steam accounts better
   },
   steamProfileUrl: {
     type: String,
@@ -46,7 +48,7 @@ const userSchema = new mongoose.Schema({
   },
   bio: {
     type: String,
-    maxlength: 500,
+    maxlength: 500, // might increase this later, 500 chars is pretty short
     default: ''
   },
   location: {
@@ -66,6 +68,8 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  // notifications array is getting unwieldy, should move to separate collection
+  // for better performance and querying
   notifications: [{
     title: {
       type: String,
@@ -93,7 +97,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Hash password before saving
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   
@@ -106,17 +109,14 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-// Compare password method
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Check if user is admin
 userSchema.methods.isAdmin = function() {
   return this.role === 'admin';
 };
 
-// Add notification method
 userSchema.methods.addNotification = function(title, message, type = 'system') {
   this.notifications.push({
     title,
@@ -128,7 +128,6 @@ userSchema.methods.addNotification = function(title, message, type = 'system') {
   return this.save();
 };
 
-// Mark notification as read
 userSchema.methods.markNotificationRead = function(notificationId) {
   const notification = this.notifications.id(notificationId);
   if (notification) {

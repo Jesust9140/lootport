@@ -1,7 +1,5 @@
-// Profile API functions for frontend
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
-// Get user profile
 export const getUserProfile = async () => {
   try {
     const token = localStorage.getItem("authToken");

@@ -3,13 +3,14 @@ import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+// simple layout component, might add breadcrumbs and loading states later
 const Layout = () => {
   const location = useLocation();
 
-  // Check if the current page is login, register, or auth
+  // this logic is kinda hacky, should use route config instead
   const isStaticPage = location.pathname === "/login" || location.pathname === "/register" || location.pathname === "/auth";
 
-  // Add a class to the body for static pages
+  // directly manipulating body class is not ideal, should use CSS-in-JS or context
   if (isStaticPage) {
     document.body.classList.add("static-page");
   } else {
@@ -18,12 +19,11 @@ const Layout = () => {
 
   return (
     <div>
-      {/* Render Navbar only if not on login or register pages */}
+      {/* conditional rendering works but maybe use a route wrapper instead */}
       {!isStaticPage && <Navbar />}
       <main>
         <Outlet />
       </main>
-      {/* Render Footer only if not on login or register pages */}
       {!isStaticPage && <Footer />}
     </div>
   );

@@ -1,3 +1,6 @@
+/* TODO: add dropdown search suggestions and recent searches */
+/* also need to optimize for mobile - search bar takes too much space */
+
 /* Left section (logo and brand) */
 .left {
   display: flex;
@@ -12,6 +15,7 @@
   gap: 0.5rem;
 }
 
+/* logo shadow effect looks nice but might be too much on smaller screens */
 .logo {
   width: 45px;
   height: 45px;
@@ -19,6 +23,7 @@
   box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
 }
 
+/* gradient text effect works well but fallback needed for older browsers */
 .brand {
   font-weight: 800;
   font-size: 1.5rem;
@@ -30,7 +35,7 @@
   letter-spacing: -0.02em;
 }
 
-/* Search bar */
+/* search bar design is solid but needs autocomplete functionality */
 .search-bar {
   display: flex;
   align-items: center;
@@ -41,7 +46,7 @@
   padding: 1 20px 0 45px;
   position: relative;
   transition: all 0.3s ease;
-  width: 40%;
+  width: 40%; /* should be responsive */
   max-width: 700px;
   background: var(--search-bar-bg);
   color: #e2e8f0;

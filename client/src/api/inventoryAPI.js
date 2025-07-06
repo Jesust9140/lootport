@@ -1,9 +1,7 @@
-// Inventory API functions for frontend
+// TODO: should use axios instead of fetch for better error handling and interceptors
+// also need to implement request caching to reduce API calls
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
-// ==================== INVENTORY API ====================
-
-// Get user's inventory
 export const getUserInventory = async () => {
   try {
     const token = localStorage.getItem("authToken");
@@ -26,6 +24,7 @@ export const getUserInventory = async () => {
       throw new Error(data.message || "Failed to fetch inventory");
     }
 
+    // should add pagination support here for large inventories
     return data;
   } catch (error) {
     console.error("Inventory fetch error:", error);
@@ -33,7 +32,7 @@ export const getUserInventory = async () => {
   }
 };
 
-// Add item to inventory
+// this function is mostly for testing, real inventory comes from Steam
 export const addInventoryItem = async (itemData) => {
   try {
     const token = localStorage.getItem("authToken");

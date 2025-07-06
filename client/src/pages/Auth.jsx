@@ -21,7 +21,6 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Set initial mode based on URL
   useEffect(() => {
     if (location.pathname === '/register') {
       setIsLogin(false);
@@ -29,16 +28,13 @@ export default function Auth() {
       setIsLogin(true);
     }
 
-    // Handle Steam login redirect
     const steamLogin = searchParams.get('steam_login');
     const steamId = searchParams.get('steam_id');
     const authError = searchParams.get('error');
 
     if (steamLogin === 'pending' && steamId) {
-      // Redirect to Steam linking page
       navigate(`/steam-linking?steam_id=${steamId}`);
     } else if (authError) {
-      // Handle authentication errors
       switch (authError) {
         case 'steam_failed':
           setError('Steam authentication failed. Please try again.');
@@ -63,7 +59,7 @@ export default function Auth() {
       ...formData,
       [e.target.name]: e.target.value
     });
-    if (error) setError(""); // Clear error when user starts typing
+    if (error) setError("");
   };
 
   const handleSubmit = async (e) => {
@@ -73,25 +69,20 @@ export default function Auth() {
 
     try {
       if (isLogin) {
-        // Login
         const result = await loginUser(formData.email, formData.password);
 
-        // Store auth data
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
 
-        // Trigger auth state change event for navbar
         window.dispatchEvent(new Event('authStateChanged'));
 
-        // Redirect based on role
         if (result.user.role === 'admin') {
           navigate("/dashboard");
         } else {
           navigate("/profile");
         }
       } else {
-        // Register
         if (formData.password !== formData.confirmPassword) {
           setError("Passwords do not match.");
           return;
@@ -99,15 +90,12 @@ export default function Auth() {
 
         const result = await registerUser(formData.email, formData.password, formData.username);
 
-        // Store auth data
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
 
-        // Trigger auth state change event for navbar
         window.dispatchEvent(new Event('authStateChanged'));
 
-        // Redirect based on role
         if (result.user.role === 'admin') {
           navigate("/dashboard");
         } else {
@@ -134,7 +122,6 @@ export default function Auth() {
       setError("Steam login failed. Please try again or use the manual Steam ID option below.");
       setShowSteamInput(true);
       
-      // Scroll to the Steam input section specifically
       setTimeout(() => {
         const steamSection = document.querySelector('.steam-full-container');
         if (steamSection) {
@@ -157,18 +144,14 @@ export default function Auth() {
       const result = await authenticateWithSteamId(steamId64);
 
       if (result.isNewUser) {
-        // New Steam user - redirect to linking/registration
         navigate(`/steam-linking?steam_id=${result.steamProfile.steamId64}&display_name=${encodeURIComponent(result.steamProfile.displayName)}`);
       } else {
-        // Existing user - complete authentication
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
 
-        // Trigger auth state change event for navbar
         window.dispatchEvent(new Event('authStateChanged'));
 
-        // Redirect based on role
         if (result.user.role === 'admin') {
           navigate("/dashboard");
         } else {

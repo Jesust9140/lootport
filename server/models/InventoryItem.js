@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// this schema is getting complex, might need to normalize stickers/tags into separate collections
+// also need to add pattern info (case hardened patterns, fade percentages etc)
 const inventoryItemSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -31,14 +33,14 @@ const inventoryItemSchema = new mongoose.Schema({
   floatValue: {
     type: Number,
     min: 0,
-    max: 1
+    max: 1 // float value determines exact wear appearance
   },
   imageUrl: {
     type: String,
     required: true
   },
   steamMarketPrice: {
-    type: Number, // Current Steam market price
+    type: Number, // need to update this regularly via Steam API
     default: 0
   },
   listingPrice: {
@@ -69,6 +71,7 @@ const inventoryItemSchema = new mongoose.Schema({
   inspectLink: {
     type: String // CS2 inspect link
   },
+  // stickers add a lot of value, need to track wear and position
   stickers: [{
     name: String,
     imageUrl: String,
@@ -82,7 +85,7 @@ const inventoryItemSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for efficient queries
+// these indexes are crucial for performance with large inventories
 inventoryItemSchema.index({ owner: 1, status: 1 });
 inventoryItemSchema.index({ steamId: 1 });
 inventoryItemSchema.index({ status: 1, listedAt: -1 });

@@ -12,15 +12,13 @@ async function resetAdmin() {
     const email = "jesust9140@gmail.com";
     const password = "Mz203319140!";
     
-    // Delete existing user
     await User.deleteOne({ email: email.toLowerCase() });
     console.log("🗑️ Deleted existing admin user");
     
-    // Create new user (let the pre-save hook handle hashing)
     const newUser = await User.create({
       username: "admin",
       email: email.toLowerCase(),
-      password: password, // Don't hash manually - let the model do it
+      password: password,
       role: "admin",
       isEmailVerified: true
     });
@@ -30,7 +28,6 @@ async function resetAdmin() {
     console.log(`🔑 Password: ${password}`);
     console.log(`👑 Role: ${newUser.role}`);
     
-    // Test the password immediately
     const testUser = await User.findOne({ email: email.toLowerCase() });
     const isPasswordValid = await testUser.comparePassword(password);
     console.log(`🧪 Password test: ${isPasswordValid ? '✅ VALID' : '❌ INVALID'}`);

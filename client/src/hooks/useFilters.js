@@ -1,8 +1,11 @@
 import { useState, useCallback } from 'react';
 
+// these hooks save a ton of duplicate code, might add more utility hooks later
+// could probably publish these as a separate package
+
 /**
  * Custom hook for managing filter and pagination state
- * Eliminates duplicate logic across Marketplace, InventoryManager, and TransactionHistory
+ * TODO: add URL persistence so filters survive page refresh
  */
 export const useFilters = (initialFilters = {}) => {
   const [filters, setFilters] = useState({
@@ -17,7 +20,7 @@ export const useFilters = (initialFilters = {}) => {
     setFilters(prev => ({
       ...prev,
       [filterName]: value,
-      page: 1 // Reset to first page when filtering
+      page: 1 // always reset page when filtering, prevents confusion
     }));
   }, []);
 
@@ -46,7 +49,7 @@ export const useFilters = (initialFilters = {}) => {
 
 /**
  * Custom hook for managing loading states and error handling
- * Common pattern across all data-fetching components
+ * works really well, might add retry logic and cache support
  */
 export const useAsyncOperation = () => {
   const [loading, setLoading] = useState(false);
@@ -80,7 +83,7 @@ export const useAsyncOperation = () => {
 
 /**
  * Custom hook for managing selection state (checkboxes, bulk operations)
- * Used in InventoryManager and potentially other components
+ * super useful for inventory management and bulk actions
  */
 export const useSelection = (items = []) => {
   const [selectedItems, setSelectedItems] = useState([]);

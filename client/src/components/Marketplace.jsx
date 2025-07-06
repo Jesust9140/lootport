@@ -10,6 +10,8 @@ import { useFilters, useAsyncOperation, useSelection } from '../hooks/useFilters
 import { handleApiError, showSuccessMessage } from '../utils/apiUtils';
 import './Marketplace.css';
 
+// TODO: add categories/tabs like rifles, pistols, knives etc
+// also need to implement wishlist functionality for users
 const Marketplace = () => {
   const {
     filters,

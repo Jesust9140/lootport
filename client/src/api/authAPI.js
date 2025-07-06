@@ -1,7 +1,7 @@
-// Authentication API functions for frontend
+// I should probably add a retry mechanism for failed requests
+// and maybe implement proper error types instead of just strings
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
-// Login function
 export const loginUser = async (email, password) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -18,7 +18,8 @@ export const loginUser = async (email, password) => {
       throw new Error(data.message || "Login failed");
     }
 
-    // Store token in localStorage
+    // TODO: I should implement proper token refresh logic here
+    // maybe store refresh token seperately too
     if (data.token) {
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
@@ -31,7 +32,6 @@ export const loginUser = async (email, password) => {
   }
 };
 
-// Register function
 export const registerUser = async (email, password, username) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -48,7 +48,6 @@ export const registerUser = async (email, password, username) => {
       throw new Error(data.message || "Registration failed");
     }
 
-    // Store token in localStorage
     if (data.token) {
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
@@ -61,7 +60,6 @@ export const registerUser = async (email, password, username) => {
   }
 };
 
-// Get user profile
 export const getUserProfile = async () => {
   try {
     const token = localStorage.getItem("authToken");
@@ -82,7 +80,6 @@ export const getUserProfile = async () => {
 
     if (!response.ok) {
       if (response.status === 401) {
-        // Token expired or invalid, clear localStorage
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");
         throw new Error("Session expired");
@@ -97,7 +94,6 @@ export const getUserProfile = async () => {
   }
 };
 
-// Setup initial admin user
 export const setupAdmin = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/setup`, {
@@ -120,21 +116,18 @@ export const setupAdmin = async () => {
   }
 };
 
-// Logout function
 export const logoutUser = () => {
   localStorage.removeItem("authToken");
   localStorage.removeItem("user");
   localStorage.removeItem("isLoggedIn");
 };
 
-// Check if user is authenticated
 export const isAuthenticated = () => {
   const token = localStorage.getItem("authToken");
   const user = localStorage.getItem("user");
   return !!(token && user);
 };
 
-// Get stored user data
 export const getStoredUser = () => {
   const userData = localStorage.getItem("user");
   return userData ? JSON.parse(userData) : null;

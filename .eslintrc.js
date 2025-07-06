@@ -1,3 +1,5 @@
+// basic eslint config, should probably add prettier integration
+// also need to configure for TypeScript if we migrate later
 module.exports = {
   env: {
     browser: true,
@@ -10,9 +12,9 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "no-unused-vars": "warn", // Warn for unused variables
-    "no-undef": "error", // Error for undefined variables
-    "no-empty": "warn", // Warn for empty blocks
-    "no-prototype-builtins": "off", // Disable prototype built-in rule
+    "no-unused-vars": "warn", // helps catch dead code
+    "no-undef": "error", // catches typos in variable names
+    "no-empty": "warn", // empty blocks are usually mistakes
+    "no-prototype-builtins": "off", // this rule is annoying for my use cases
   },
 };

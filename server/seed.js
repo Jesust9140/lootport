@@ -1,4 +1,3 @@
-// seedSkins.js
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Skin from "./models/Skin.js";

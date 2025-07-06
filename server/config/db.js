@@ -3,27 +3,32 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// TODO: I should probably add Redis caching later for better performance
+// Maybe implement connection pooling metrics too
 const connectDB = async () => {
   try {
-    // Log the connection attempt
     console.log("Attempting to connect to MongoDB...");
     console.log("MongoDB URI:", process.env.MONGO_URI ? "***configured***" : "***NOT SET***");
     
+    // I might need to ajust these settings for production scaling
+    // Current timeout is 5s but maybe need longer for Atlas sometimes
     const conn = await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
-      maxPoolSize: 10 // Maintain up to 10 socket connections
+      serverSelectionTimeoutMS: 5000, // might bump this to 10000 later
+      maxPoolSize: 10 // probably need more connections when we get more users
     });
     
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
     console.log(`📊 Database: ${conn.connection.name}`);
     
-    // Handle connection events
+    // I should add connection health monitoring here eventually
+    // Maybe log when connections drop/reconnect for debugging
     mongoose.connection.on('error', (err) => {
       console.error('❌ MongoDB connection error:', err);
     });
     
     mongoose.connection.on('disconnected', () => {
       console.warn('⚠️ MongoDB disconnected');
+      // TODO: implement auto-reconnect logic or alert system
     });
     
     mongoose.connection.on('reconnected', () => {
@@ -33,7 +38,8 @@ const connectDB = async () => {
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
     
-    // Provide helpful error messages
+    // I added these specific error handeling cases because I kept running into them
+    // when setting up Atlas - might help future me debug faster
     if (error.message.includes('ENOTFOUND')) {
       console.error('🔍 DNS lookup failed. Check your internet connection and MongoDB URI.');
     } else if (error.message.includes('authentication failed')) {
@@ -44,6 +50,8 @@ const connectDB = async () => {
       console.error('⏰ Connection timeout. MongoDB cluster might be paused or unreachable.');
     }
     
+    // These troubleshooting tips saved me so much time during development
+    // keeping them here incase I need to debug connection issues later
     console.error('💡 Troubleshooting tips:');
     console.error('   1. Check MongoDB Atlas cluster status');
     console.error('   2. Verify IP whitelist in Network Access');

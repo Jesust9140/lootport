@@ -7,9 +7,10 @@ const router = express.Router();
 // Public routes
 router.post("/login", login);
 router.post("/register", register);
-router.post("/setup", setupAdmin);
+router.post("/setup", setupAdmin); // should remove this in production
 
-// Protected routes
+// Protected routes  
+// TODO: add password reset, email verification, change password routes
 router.get("/profile", authenticate, getProfile);
 
 export default router;
