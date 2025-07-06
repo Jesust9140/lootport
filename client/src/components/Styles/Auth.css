@@ -1,7 +1,7 @@
 /* Auth.css - Unified authentication styling */
 
-/* * {
-  background-color: #0284c7;
+/* main {
+  
 } */
 
 /* Auth page navbar */
@@ -9,17 +9,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%); */
-  /* padding: 0.75rem 2rem; */
-  /* color: white; */
-  /* border-bottom: 2px solid #38bdf8; */
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); */
-  /* width: 100%; */
-  /* box-sizing: border-box; */
-  /* position: sticky; */
+  background: transparent;
+  padding: 1rem 2rem;
+  position: absolute;
   top: 0;
-  
-  /* z-index: 1000; */
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .auth-brand-link {
@@ -39,7 +36,7 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   letter-spacing: -0.02em;
   transition: all 0.3s ease;
-   ;
+   
 }
 
 .auth-brand-link:hover .auth-brand {
@@ -50,25 +47,39 @@
   transform: translateY(-1px);
 }
 
-.auth-page {
-  min-height: calc(100vh - 70px); /* Subtract navbar height */
+/* .auth-page { 
+  min-height: calc(100vh - 70px); 
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  font-family: 'Montserrat', sans-serif; 
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}; */
+.auth-page {
+  min-height: 90vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
   font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  overflow-y: auto;
   /* border: 1px solid rgba(56, 189, 248, 0.2); */
 }
-
 .auth-container {
   background: rgba(30, 41, 59, 0.95);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: none;
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   /* width: 100%;
   height: 100%; */
-  max-width: 380px;
+  max-width: 500px;
   min-height: 650px;
   overflow: hidden;
   position: relative;

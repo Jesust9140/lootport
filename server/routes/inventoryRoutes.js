@@ -6,7 +6,10 @@ import {
   updateListingPrice,
   unlistItem,
   markItemSold,
-  getMarketplace
+  getMarketplace,
+  getAdvancedInventory,
+  bulkUpdateInventory,
+  getInventoryAnalytics
 } from "../controllers/InventoryController.js";
 import { authenticate } from "../middleware/authMiddleware.js";
 
@@ -20,7 +23,10 @@ router.use(authenticate);
 
 // User inventory routes
 router.get("/", getUserInventory);
+router.get("/advanced", getAdvancedInventory);
+router.get("/analytics", getInventoryAnalytics);
 router.post("/", addInventoryItem);
+router.put("/bulk", bulkUpdateInventory);
 router.put("/:id/list", listItemForSale);
 router.put("/:id", updateListingPrice);
 router.delete("/:id/unlist", unlistItem);

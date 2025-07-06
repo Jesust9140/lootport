@@ -53,16 +53,17 @@
   display: flex;
   align-items: center;
   border: 2px solid transparent;
-  border-radius: 12px;
+  border-radius: 13px;
   cursor: text;
   height: 48px;
   padding: 0 20px 0 45px;
   position: relative;
   transition: all 0.3s ease;
   width: 40%;
-  max-width: 500px;
+  max-width: 600px;
   background: linear-gradient(135deg, #1e293b, #334155);
   color: #e2e8f0;
+  left: 90px;
   font-size: 14px;
   font-family: Montserrat, sans-serif;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -95,23 +96,6 @@
   font-weight: 400;
 }
 
-.search-bar input:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.search-bar::before {
-  content: "🔍";
-  position: absolute;
-  left: 15px;
-  color: #94a3b8;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.search-bar:focus-within::before {
-  color: #38bdf8;
-}
 
 /* Right section (buttons) */
 .right {

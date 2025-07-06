@@ -107,13 +107,20 @@ export default function ProfileDropdown() {
                 Admin Dashboard
               </Link>
             ) : (
-              <Link to="/inventory" className="dropdown-item" onClick={handleMenuClick}>
+              <Link to="/my-inventory" className="dropdown-item" onClick={handleMenuClick}>
                 <svg viewBox="0 0 20 20" fill="currentColor" className="item-icon">
                   <path fillRule="evenodd" d="M10 2L3 7v11a1 1 0 001 1h12a1 1 0 001-1V7l-7-5zM9 9a1 1 0 012 0v4a1 1 0 11-2 0V9z" clipRule="evenodd" />
                 </svg>
                 My Inventory
               </Link>
             )}
+
+            <Link to="/transactions" className="dropdown-item" onClick={handleMenuClick}>
+              <svg viewBox="0 0 20 20" fill="currentColor" className="item-icon">
+                <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm8 5a1 1 0 10-2 0v1H9a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z"/>
+              </svg>
+              Transactions
+            </Link>
 
             <Link to="/profile?tab=settings" className="dropdown-item" onClick={handleMenuClick}>
               <svg viewBox="0 0 20 20" fill="currentColor" className="item-icon">

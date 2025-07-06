@@ -14,6 +14,7 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import inventoryRoutes from "./routes/inventoryRoutes.js";
 import steamRoutes from "./routes/steamRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,6 +51,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/inventory", inventoryRoutes);
 app.use("/api/steam", steamRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 // Catch-all: send back React's index.html for any route not handled above
 // This enables client-side routing (React Router) to work properly
