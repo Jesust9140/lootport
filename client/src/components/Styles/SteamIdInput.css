@@ -19,7 +19,7 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #66a3ff, #0066cc);
+  background: var(--gradient-steam);
   border-radius: 16px;
   margin-bottom: 1rem;
   color: white;
@@ -128,7 +128,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #66a3ff, #0066cc);
+  background: var(--gradient-steam);
   color: white;
   border: none;
   border-radius: 8px;
@@ -140,7 +140,7 @@
 }
 
 .steam-auth-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #5294ff, #0052a3);
+  background: var(--gradient-steam-hover);
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(102, 163, 255, 0.4);
 }

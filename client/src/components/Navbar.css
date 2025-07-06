@@ -22,7 +22,7 @@
 .brand {
   font-weight: 800;
   font-size: 1.5rem;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -43,7 +43,7 @@
   transition: all 0.3s ease;
   width: 40%;
   max-width: 700px;
-  background: linear-gradient(135deg, #1e293b, #2b3d57);
+  background: var(--search-bar-bg);
   color: #e2e8f0;
   font-size: 14px;
   font-family: Montserrat, sans-serif;
@@ -52,7 +52,7 @@
 
 .search-bar:focus-within {
   border-color: #38bdf8;
-  background: linear-gradient(135deg, #334155, #475569);
+  background: var(--search-bar-focus-bg);
   box-shadow: 0 4px 20px rgba(56, 189, 248, 0.3);
   transform: translateY(-1px);
 }
@@ -140,46 +140,46 @@
 }
 
 .nav-btn.primary {
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  background: var(--gradient-primary);
   color: white;
   font-weight: 700;
 }
 
 .nav-btn.primary:hover {
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  background: var(--gradient-primary-hover);
   box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
 }
 
 .nav-btn.dashboard {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  background: var(--gradient-dashboard);
   color: white;
   position: relative;
 }
 
 .nav-btn.dashboard:hover {
-  background: linear-gradient(135deg, #4338ca, #6d28d9);
+  background: var(--gradient-dashboard-hover);
   box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
 }
 
 .nav-btn.inventory {
-  background: linear-gradient(135deg, #059669, #10b981);
+  background: var(--gradient-inventory);
   color: white;
   position: relative;
 }
 
 .nav-btn.inventory:hover {
-  background: linear-gradient(135deg, #047857, #059669);
+  background: var(--gradient-inventory-hover);
   box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
 }
 
 .nav-btn.logout {
-  background: linear-gradient(135deg, #dc2626, #ef4444);
+  background: var(--gradient-logout);
   color: white;
   position: relative;
 }
 
 .nav-btn.logout:hover {
-  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  background: var(--gradient-logout-hover);
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
 }
 
@@ -188,7 +188,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  background: var(--gradient-primary);
   border-radius: 25px;
   padding: 0.5rem 1rem;
   transition: all 0.3s ease;
@@ -198,7 +198,7 @@
 }
 
 .nav-btn.profile-icon:hover {
-  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  background: var(--gradient-primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4);
 }
@@ -216,7 +216,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: var(--gradient-success);
   color: white;
   border-radius: 25px;
   padding: 0.5rem 1rem;
@@ -227,7 +227,7 @@
 }
 
 .nav-btn.inventory-btn:hover {
-  background: linear-gradient(135deg, #059669, #047857);
+  background: linear-gradient(135deg, var(--color-success-hover), #047857);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
 }

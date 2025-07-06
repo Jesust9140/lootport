@@ -108,43 +108,40 @@
   --shadow-glow: 0 0 0 3px rgba(56, 189, 248, 0.1);
   
   /* === GRADIENTS === */
-  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
-  --gradient-secondary: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-hover));
-  --gradient-success: linear-gradient(135deg, var(--color-success), var(--color-success-hover));
-  --gradient-error: linear-gradient(135deg, var(--color-error), var(--color-error-hover));
-  --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  /* Primary Gradients */
+  --gradient-primary: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  --gradient-primary-hover: linear-gradient(135deg, #0ea5e9, #0284c7);
+  --gradient-secondary: linear-gradient(135deg, #1e293b, #334155);
+  --gradient-success: linear-gradient(135deg, #10b981, #059669);
+  --gradient-error: linear-gradient(135deg, #ef4444, #dc2626);
+  --gradient-warning: linear-gradient(135deg, #f59e0b, #d97706);
+  --gradient-info: linear-gradient(135deg, #3b82f6, #2563eb);
   
-  /* === TRANSITIONS === */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.2s ease;
-  --transition-slow: 0.3s ease;
-  --transition-slower: 0.5s ease;
+  /* Steam Gradients */
+  --gradient-steam: linear-gradient(135deg, #66a3ff, #0066cc);
+  --gradient-steam-hover: linear-gradient(135deg, #5294ff, #0052a3);
   
-  /* === Z-INDEX === */
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-  --z-fixed: 1030;
-  --z-modal-backdrop: 1040;
-  --z-modal: 1050;
-  --z-popover: 1060;
-  --z-tooltip: 1070;
-  --z-toast: 1080;
+  /* Dashboard Gradients */
+  --gradient-dashboard: linear-gradient(135deg, #4f46e5, #7c3aed);
+  --gradient-dashboard-hover: linear-gradient(135deg, #4338ca, #6d28d9);
   
-  /* === BREAKPOINTS (for reference) === */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  /* Inventory Gradients */
+  --gradient-inventory: linear-gradient(135deg, #059669, #10b981);
+  --gradient-inventory-hover: linear-gradient(135deg, #047857, #059669);
   
-  /* === RARITY COLORS === */
-  --rarity-consumer: #b0c3d9;
-  --rarity-industrial: #5e98d9;
-  --rarity-milspec: #4b69ff;
-  --rarity-restricted: #8847ff;
-  --rarity-classified: #d32ce6;
-  --rarity-covert: #eb4b4b;
-  --rarity-contraband: #e4ae39;
+  /* Logout Gradients */
+  --gradient-logout: linear-gradient(135deg, #dc2626, #ef4444);
+  --gradient-logout-hover: linear-gradient(135deg, #b91c1c, #dc2626);
+
+  /* Background Gradients */
+  --gradient-bg-page: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --gradient-bg-card: linear-gradient(145deg, #1e293b, #334155);
+  
+  /* Light gradients for buttons and UI elements */
+  --gradient-light: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  --gradient-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+
+  /* Border Colors */
 }
 
 /* === COMPONENT-SPECIFIC VARIABLES === */

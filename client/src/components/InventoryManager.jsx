@@ -54,13 +54,13 @@ const InventoryManager = () => {
   const [bulkListingPrice, setBulkListingPrice] = useState('');
 
   // Remove duplicate functions - now using hooks
-  const loadInventoryData = async () => {
+  const loadInventoryData = useCallback(async () => {
     const response = await getAdvancedInventory(filters);
     setInventory(response.inventory);
     setStats(response.stats);
     setPagination(response.pagination);
     return response;
-  };
+  }, [filters]);
 
   const loadInventory = useCallback(() => {
     execute(() => loadInventoryData());
