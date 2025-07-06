@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 // TODO: need to add payment method tracking, dispute resolution
+// after researching skinport, need escrow system, verification, fraud detection
 // also should track transaction fees more granularly for accounting
 const transactionSchema = new mongoose.Schema({
   buyer: {
@@ -54,6 +55,7 @@ const transactionSchema = new mongoose.Schema({
   },
   status: {
     type: String,
+    // need to add 'escrow_pending', 'verification_required' like skinport
     enum: ['pending', 'completed', 'cancelled', 'failed', 'refunded'],
     default: 'pending'
   },
@@ -80,10 +82,16 @@ const transactionSchema = new mongoose.Schema({
     type: String
   },
   metadata: {
-    ipAddress: String,
+    ipAddress: String, // track for fraud detection like skinport
     userAgent: String,
     paymentProvider: String,
     paymentId: String
+    // TODO: add fraud score, geolocation, device fingerprint
+    // also need affiliate tracking for marketing attribution
+    // geoLocation: String, - for regional pricing
+    // deviceFingerprint: String, - security
+    // affiliateId: String, - revenue sharing
+    // fraudScore: Number, - risk assessment
   },
   notes: {
     type: String,
@@ -97,10 +105,11 @@ const transactionSchema = new mongoose.Schema({
 // Generate unique transaction ID
 transactionSchema.pre('save', function(next) {
   if (!this.transactionId) {
+    // format similar to skinport for consistency
     this.transactionId = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   }
   
-  // Calculate platform fee and seller receives amount
+  // Calculate platform fee like skinport (5%) - this is our main revenue stream
   if (this.salePrice && !this.platformFee) {
     this.platformFee = Math.round(this.salePrice * 0.05 * 100) / 100; // 5% platform fee
     this.sellerReceives = this.salePrice - this.platformFee;
@@ -109,7 +118,7 @@ transactionSchema.pre('save', function(next) {
   next();
 });
 
-// Index for better query performance
+// these indexes are crucial for performance as we scale like skinport did
 transactionSchema.index({ buyer: 1, transactionDate: -1 });
 transactionSchema.index({ seller: 1, transactionDate: -1 });
 transactionSchema.index({ status: 1 });
