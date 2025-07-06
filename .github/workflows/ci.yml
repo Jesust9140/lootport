@@ -1,9 +1,9 @@
 name: CI
-on: 
+on:
   push:
-    branches: [ master, main ]
+    branches: [master, main]
   pull_request:
-    branches: [ master, main ]
+    branches: [master, main]
 
 jobs:
   # Separate job for testing and linting (runs on PRs)
@@ -66,6 +66,9 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     steps:
       # Checkout the repository
       - uses: actions/checkout@v4
@@ -96,6 +99,10 @@ jobs:
       # Build the React app for production
       - name: Build React App
         run: npm run build
+
+      # Setup Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       # Upload Pages artifact
       - name: Upload Pages artifact
