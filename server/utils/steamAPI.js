@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const STEAM_API_BASE = 'https://api.steampowered.com';
-const CS2_APP_ID = '730'; // Counter-Strike 2 App ID
 
 // Steam Web API helper functions
 export const steamAPI = {

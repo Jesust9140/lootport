@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import InventoryItem from "../models/InventoryItem.js";
 import User from "../models/User.js";
 

@@ -2,10 +2,11 @@ import SteamAccount from "../models/SteamAccount.js";
 import InventoryItem from "../models/InventoryItem.js";
 import User from "../models/User.js";
 import crypto from "crypto";
-import { steamAPI, CS2_RARITIES, CS2_CONDITIONS } from "../utils/steamAPI.js";
+import { steamAPI } from "../utils/steamAPI.js";
 
 // Steam API configuration
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
+const STEAM_API_BASE = "https://api.steampowered.com";
 
 // @desc    Connect Steam account to user
 // @route   POST /api/steam/connect
