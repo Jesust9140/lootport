@@ -5,6 +5,10 @@ on:
   pull_request:
     branches: [master, main]
 
+# Add security at the workflow level
+permissions:
+  contents: read
+
 jobs:
   # Separate job for testing and linting (runs on PRs)
   test:
@@ -14,33 +18,42 @@ jobs:
     steps:
       # Checkout the repository
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: 'https://registry.npmjs.org'
 
       # Cache Node.js modules
       - name: Cache Node.js modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Install dependencies with audit
+      # Install dependencies with audit and security checks
       - name: Install Dependencies
         run: |
           npm ci --audit
           npm audit --audit-level=high
 
-      # Install client dependencies with audit
+      # Install client dependencies with audit and security checks
       - name: Install Client Dependencies
         run: |
           npm ci --prefix client --audit
           npm audit --prefix client --audit-level=high
+
+      # Security: Check for known vulnerabilities
+      - name: Security Audit
+        run: |
+          npm audit --prefix client --audit-level=critical
+          npm audit --audit-level=critical
 
       # Run linting
       - name: Run Lint
@@ -72,16 +85,19 @@ jobs:
     steps:
       # Checkout the repository
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: 'https://registry.npmjs.org'
 
       # Cache Node.js modules
       - name: Cache Node.js modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
