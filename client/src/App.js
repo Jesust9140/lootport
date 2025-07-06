@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/UserProfile";
 import Inventory from "./pages/Inventory";
+import CategoryPage from "./pages/CategoryPage";
 import Marketplace from "./components/Marketplace";
 import InventoryManager from "./components/InventoryManager";
 import TransactionHistory from "./components/TransactionHistory";
@@ -48,7 +49,8 @@ function App() {
               <Dashboard />
             </ProtectedRoute>
           } />
-          <Route path="*" element={<NotFound />} />
+          <Route path="category/:category" element={<CategoryPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </Router>

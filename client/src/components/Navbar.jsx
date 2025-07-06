@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import NotificationDropdown from './NotificationDropdown';
 import ProfileDropdown from './ProfileDropdown';
@@ -21,7 +21,7 @@ export default function Navbar() {
       
       if (token && userStr) {
         try {
-          JSON.parse(userStr); // Just validate the JSON is parseable
+          JSON.parse(userStr);
           setIsLoggedIn(true);
         } catch (error) {
           console.error("Error parsing user data:", error);
@@ -32,17 +32,16 @@ export default function Navbar() {
       }
     };
 
-    // Check auth state on mount
+    // I need to check auth state when component mounts
     checkAuthState();
 
-    // Listen for storage changes (when user logs in from another tab or component)
+    // Listen for auth changes from other components or tabs
     const handleStorageChange = (e) => {
       if (e.key === 'authToken' || e.key === 'user' || e.key === 'isLoggedIn') {
         checkAuthState();
       }
     };
 
-    // Listen for custom auth events
     const handleAuthChange = () => {
       checkAuthState();
     };
@@ -62,27 +61,16 @@ export default function Navbar() {
       <div className="topbar">
         <div className="left">
           <Link to="/" className="brand-link">
-            {/* <img src={logo} alt="Lootdrop Logo" className="logo" /> */}
             <span className="brand">Lootdrop</span>
           </Link>
         </div>
 
-{/* 
-<div className="gameSelection">
-  <Link to="/game/cs2" className="game-link">
-    <button className="game-btn">CS2
-    </button>
-  </Link>
-  <Link to="/game/rust" className="game-link">
-    <button className="game-btn">Rust</button>
-  </Link>
-</div> */}
-
-      <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
+        <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
 
         <div className="right">
           {isLoggedIn ? (
             <>
+              <ProfileDropdown />
               <NotificationDropdown />
               <Link to="/my-inventory" className="nav-btn inventory-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -90,7 +78,6 @@ export default function Navbar() {
                 </svg>
                 My Inventory
               </Link>
-              <ProfileDropdown />
             </>
           ) : (
             <>

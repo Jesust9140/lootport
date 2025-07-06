@@ -14,9 +14,11 @@ const generateToken = (userId) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("🔍 Login attempt:", { email, passwordLength: password?.length });
 
     // Check if email and password are provided
     if (!email || !password) {
+      console.log("❌ Missing email or password");
       return res.status(400).json({
         success: false,
         message: "Please provide email and password",
@@ -25,7 +27,9 @@ export const login = async (req, res) => {
 
     // Find user by email
     const user = await User.findOne({ email: email.toLowerCase() });
+    console.log("👤 User found:", !!user, user?.email);
     if (!user) {
+      console.log("❌ User not found");
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
@@ -34,7 +38,9 @@ export const login = async (req, res) => {
 
     // Check password
     const isPasswordValid = await user.comparePassword(password);
+    console.log("🔐 Password valid:", isPasswordValid);
     if (!isPasswordValid) {
+      console.log("❌ Invalid password");
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
@@ -50,6 +56,7 @@ export const login = async (req, res) => {
 
     // Generate token
     const token = generateToken(user._id);
+    console.log("✅ Login successful for:", user.email);
 
     res.status(200).json({
       success: true,

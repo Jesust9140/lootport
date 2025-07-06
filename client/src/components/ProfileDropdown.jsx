@@ -9,7 +9,7 @@ export default function ProfileDropdown() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load user data
+    // Load user data from localStorage
     const userData = localStorage.getItem('user');
     if (userData) {
       try {
@@ -40,7 +40,7 @@ export default function ProfileDropdown() {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("steamUser");
     
-    // Trigger auth state change event
+    // Tell other components that auth state changed
     window.dispatchEvent(new Event('authStateChanged'));
     
     setIsOpen(false);
@@ -51,13 +51,23 @@ export default function ProfileDropdown() {
     setIsOpen(false);
   };
 
-  if (!user) return null;
+  console.log('ProfileDropdown render - isOpen:', isOpen, 'user exists:', !!user);
+
+  if (!user) {
+    console.log('No user found, returning null');
+    return null;
+  }
 
   return (
     <div className="profile-dropdown" ref={dropdownRef}>
       <button 
         className="profile-trigger"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Profile trigger clicked! Current isOpen:', isOpen, 'Setting to:', !isOpen);
+          setIsOpen(!isOpen);
+        }}
         aria-label="Profile menu"
       >
         <img 
@@ -77,19 +87,12 @@ export default function ProfileDropdown() {
       {isOpen && (
         <div className="dropdown-menu">
           <div className="dropdown-header">
-            <img 
-              src={user.profilePicture || 'https://via.placeholder.com/50?text=User'} 
-              alt="Profile"
-              className="dropdown-avatar"
-            />
             <div className="user-info">
-              <div className="username">{user.username}</div>
-              <div className="user-email">{user.email}</div>
-              <div className="user-role">{user.role === 'admin' ? 'Administrator' : 'Customer'}</div>
+              <div className="username">{user?.username || 'TEST USER'}</div>
+              <div className="user-email">{user?.email || 'test@test.com'}</div>
+              <div className="user-role">{user?.role === 'admin' ? 'Administrator' : 'Customer'}</div>
             </div>
           </div>
-
-          <div className="dropdown-divider" />
 
           <div className="dropdown-section">
             <Link to="/profile" className="dropdown-item" onClick={handleMenuClick}>
@@ -129,8 +132,6 @@ export default function ProfileDropdown() {
               Settings
             </Link>
           </div>
-
-          <div className="dropdown-divider" />
 
           <div className="dropdown-section">
             <button className="dropdown-item help-item" onClick={() => {
