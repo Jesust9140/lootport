@@ -5,7 +5,7 @@
   --color-secondary: #2d3748;
   --color-secondary-hover: #374151;
   /* Color background for the whole body besides nav color*/
-  --color-background: rgb(0, 0, 0);
+  --color-background: #202836;
   --color-text: #e2e8f0;
   --color-border: #374151;
   --color-error: #f87171;
@@ -273,13 +273,14 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(15, 23, 42, 0.9); /* Darker background */
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
   padding: 0.75rem 2rem;
   color: white;
   position: sticky;
   top: 0;
   z-index: 1000;
   border-bottom: 1px solid #1e293b;
+  height: 63px;
 }
 .categorybar {
   display: flex;

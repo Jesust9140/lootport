@@ -18,7 +18,6 @@ import transactionRoutes from "./routes/transactionRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const app = express();
 
 // Connect to the database
@@ -43,6 +42,10 @@ app.use((req, res, next) => {
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "../client/build")));
+
+// Serve static files from the 'public' directory
+app.use("/lootport", express.static("public"));
+
 
 // API routes
 app.use("/api/skins", skinsRoutes);

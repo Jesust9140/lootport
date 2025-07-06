@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import NotificationDropdown from './NotificationDropdown';
 import ProfileDropdown from './ProfileDropdown';
@@ -56,6 +56,7 @@ export default function Navbar() {
     };
   }, []);
 
+
   return (
     <>
       <div className="topbar">
@@ -66,7 +67,18 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
+{/* 
+<div className="gameSelection">
+  <Link to="/game/cs2" className="game-link">
+    <button className="game-btn">CS2
+    </button>
+  </Link>
+  <Link to="/game/rust" className="game-link">
+    <button className="game-btn">Rust</button>
+  </Link>
+</div> */}
+
+      <input type="text" placeholder="Search for Counter-Strike 2 items" className="search-bar" />
 
         <div className="right">
           {isLoggedIn ? (
@@ -107,3 +119,4 @@ export default function Navbar() {
     </>
   );
 }
+

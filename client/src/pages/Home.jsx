@@ -114,6 +114,57 @@ export default function Home() {
         </p>
       </section>
 
+
+
+<div className="HomePage-feed">
+  <div className="HomePage-title">Rated Excellent</div>
+  <div className="Trustpilot HomePage-trustpilot">
+    <div className="Trustpilot-logo">
+      <a href="#" title="Trustpilot" target="_blank" rel="noreferrer">
+        Trustpilot
+      </a>
+    </div>
+    <div className="Trustpilot-stars">
+      <span className="trustpilot-star">★</span>
+      <span className="trustpilot-star">★</span>
+      <span className="trustpilot-star">★</span>
+      <span className="trustpilot-star">★</span>
+      <span className="trustpilot-star">★</span>
+    </div>
+    <div className="Trustpilot-text">
+      Lootdrop is rated <span>4.9</span> out of 5 with over <span>15,000</span> reviews.
+    </div>
+  </div>
+  
+  <div className="HomePage-title">Latest News</div>
+  <div className="BlogFeed HomePage-blog">
+    <a className="BlogFeed-post" href="#">
+      <div className="BlogFeed-image">
+        <img src="https://via.placeholder.com/250x100" alt="CS2 Trading Guide" />
+      </div>
+      <div className="BlogFeed-publishedAt">Jul 5, 2025</div>
+      <div className="BlogFeed-title">Complete CS2 Trading Guide</div>
+    </a>
+    
+    <a className="BlogFeed-post" href="#">
+      <div className="BlogFeed-image">
+        <img src="https://via.placeholder.com/250x100" alt="Best Skins 2025" />
+      </div>
+      <div className="BlogFeed-publishedAt">Jul 4, 2025</div>
+      <div className="BlogFeed-title">Top 10 CS2 Skins to Buy in 2025</div>
+    </a>
+    
+    <a className="BlogFeed-post" href="#">
+      <div className="BlogFeed-image">
+        <img src="https://via.placeholder.com/250x100" alt="Market Analysis" />
+      </div>
+      <div className="BlogFeed-publishedAt">Jul 3, 2025</div>
+      <div className="BlogFeed-title">CS2 Market Analysis & Trends</div>
+    </a>
+  </div>
+</div>
+
+
       {/* Main Content */}
       <main style={{ 
         textAlign: "center", 
