@@ -12,16 +12,23 @@
   gap: 0.5rem;
   background: linear-gradient(135deg, #38bdf8, #0ea5e9);
   border: none;
-  border-radius: 25px;
-  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  padding: 0 1rem; 
   cursor: pointer;
   transition: all 0.3s ease;
   color: white;
-  height: auto;
+  height: 44px; 
+  min-height: 44px;
+  max-height: 44px; 
   box-sizing: border-box;
   font-weight: 600;
   font-size: 0.9rem;
   box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+  /* Force perfect alignment with search bar */
+  line-height: 1;
+  vertical-align: top;
+  margin: 0;
+  position: relative;
 }
 
 .profile-trigger:hover {

@@ -383,10 +383,7 @@ img {
   margin: 0 auto;
 }
 
-.right {
-  display: flex;
-  gap: 0.75rem;
-}
+/* Removed .right duplicate - using Navbar.css version for proper alignment */
 
 .left {
   display: flex;

@@ -43,6 +43,8 @@
   background: #dc2626;
   color: white;
   border: none;
+  height: 44px;
+  min-height: 44px;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
