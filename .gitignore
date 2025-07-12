@@ -15,6 +15,7 @@ env/
 
 # Frontend stuff
 node_modules/
+lootdrop/node_modules/
 client/node_modules/
 client/build/
 client/.pnp
